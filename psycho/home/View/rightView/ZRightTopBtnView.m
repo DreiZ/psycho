@@ -33,12 +33,13 @@
     _topBtnArr = @[].mutableCopy;
     _bottomBtnArr = @[].mutableCopy;
     
+    CGFloat maxScreenWidth = screenWidth < screenHeight ?  screenWidth:screenHeight;
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
     topView.backgroundColor = kBack6Color;
     [self addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self);
-        make.height.mas_equalTo(CGFloatIn1536(80));
+        make.height.mas_equalTo(80.0f/1536 * maxScreenWidth);
     }];
     
     NSArray *topTitleArr = @[@"清空所有",@"第＃124-100筒 开２",@"查看总账"];
@@ -88,7 +89,7 @@
     }];
     
     [_bottomBtnArr mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn1536(62));
+        make.height.mas_equalTo(62.0f/1536 * maxScreenWidth);
     }];
 }
 

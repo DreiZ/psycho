@@ -39,33 +39,34 @@
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
+    CGFloat maxScreenWidth = screenWidth < screenHeight ?  screenWidth:screenHeight;
     _textField = [UITextField new];
     [self addSubview:self.backView];
     [_backView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).offset(20);
         make.right.equalTo(self);
         make.left.equalTo(self.mas_left).offset(5);
-        make.height.mas_equalTo(CGFloatIn1536(1368));
+        make.height.mas_equalTo(1368.0f/1536 * maxScreenWidth);
     }];
     
     [self.backView addSubview:self.topBtnView];
     [_topBtnView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self.backView);
-        make.height.mas_equalTo(CGFloatIn1536(166));
+        make.height.mas_equalTo(166.0f/1536 * maxScreenWidth);
     }];
     
     [self.backView addSubview:self.openView];
     [_openView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.backView);
         make.top.equalTo(self.topBtnView.mas_bottom);
-        make.height.mas_equalTo(CGFloatIn1536(198));
+        make.height.mas_equalTo(198.0f/1536 * maxScreenWidth);
     }];
     
     [self.backView addSubview:self.bottomBtnView];
     [_bottomBtnView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.backView);
         make.bottom.equalTo(self.backView.mas_bottom);
-        make.height.mas_equalTo(CGFloatIn1536(78));
+        make.height.mas_equalTo(78.0f/1536 * maxScreenWidth);
     }];
     
     [self.backView addSubview:self.keyboardView];

@@ -95,18 +95,19 @@
 }
 
 - (void)setupKeyBoard {
-    self.frame =CGRectMake(0, screenHeight, screenHeight, CGFloatIn1536(922));
+    CGFloat maxScreenWidth = screenWidth < screenHeight ?  screenWidth:screenHeight;
+    self.frame = CGRectMake(0, screenHeight, screenHeight, 922.0f/1536 * maxScreenWidth);
     [self addSubview:self.topView];
     //顶部输入提示
     [_topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self);
-        make.height.mas_equalTo(CGFloatIn1536(130));
+        make.height.mas_equalTo(130.0f/1536 * maxScreenWidth);
     }];
     
     [self.topView addSubview:self.titleLabel];
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(4);
-        make.width.mas_equalTo(CGFloatIn1536(266));
+        make.width.mas_equalTo(266.0f/1536 * maxScreenWidth);
         make.centerY.equalTo(self.topView.mas_centerY);
     }];
     
@@ -115,7 +116,7 @@
         make.right.equalTo(self.mas_right).offset(-30);
         make.left.equalTo(self.titleLabel.mas_right).offset(4);
         make.centerY.equalTo(self.topView.mas_centerY);
-        make.height.mas_equalTo(CGFloatIn1536(80));
+        make.height.mas_equalTo(80.0f/1536 * maxScreenWidth);
     }];
     
     
@@ -126,9 +127,9 @@
         make.top.equalTo(self.topView.mas_bottom);
     }];
     
-    CGFloat maxScreenWidth = screenWidth < screenHeight ?  screenWidth:screenHeight;
+    
     NSInteger leftSpace = 24.0f/1536 * maxScreenWidth;
-    NSInteger topSpace = 14.0f/1536 * maxScreenWidth;
+    NSInteger topSpace = 16.0f/1536 * maxScreenWidth;
     
     CGFloat numBtnHeiht = 113.0f/1536 * maxScreenWidth;
     CGFloat numBtnWidth = 174.0f/1536 * maxScreenWidth;
