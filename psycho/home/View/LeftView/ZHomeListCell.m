@@ -124,6 +124,7 @@
     if (!_nameInputTF) {
         _nameInputTF = [[ZHomeTextFieldView alloc] init];
         _nameInputTF.max = 10;
+        [_nameInputTF setIsCustomKeyboardType:NO];
         _nameInputTF.formatterType = HNFormatterTypeAny;
         _nameInputTF.valueChange = ^(NSString *value) {
             

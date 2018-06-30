@@ -8,6 +8,9 @@
 
 #import "ZHomeTextFieldView.h"
 #import "ZRightCustomKeyBoardView.h"
+#import "ZRightCustomKeyBoardView.h"
+#import "IQKeyboardManager.h"
+
 @interface ZHomeTextFieldView ()<UITextFieldDelegate>
 
 @end
@@ -36,7 +39,7 @@
     }];
 //    ZRightCustomKeyBoardView *keyboard = [[ZRightCustomKeyBoardView alloc]initWithTextField:self.inputTF];
 //    keyboard.delegate = self;
-    self.inputTF.inputView = [UIView new];
+//    self.inputTF.inputView = [UIView new];
 }
 
 - (UITextField *)inputTF {
@@ -47,9 +50,10 @@
         [_inputTF setBackgroundColor:[UIColor clearColor]];
         [_inputTF setPlaceholder:@"0"];
         _inputTF.textAlignment = NSTextAlignmentCenter;
-        _inputTF.clearButtonMode = UITextFieldViewModeWhileEditing;
+//        _inputTF.clearButtonMode = UITextFieldViewModeWhileEditing;
         _inputTF.delegate = self;
         [_inputTF addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+        _inputTF.inputView = [[ZRightCustomKeyBoardView alloc] initWithTextField:_inputTF];
     }
     return _inputTF;
 }
@@ -151,6 +155,36 @@
         _inputTF.keyboardType = UIKeyboardTypeDecimalPad;
     }else {
         _inputTF.keyboardType = UIKeyboardTypeDefault ;
+    }
+}
+
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    NSLog(@"zzz begin -02");
+    if (_isCustomKeyboard) {
+        [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
+    }else{
+        [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
+    }
+    if (_beginChange) {
+        _beginChange(textField);
+    }
+}
+
+
+- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason {
+    NSLog(@"zzz end -04");
+    if (_endChange) {
+        _endChange(textField);
+    }
+}
+
+- (void)setIsCustomKeyboardType:(BOOL)isCustomKeyboard {
+    _isCustomKeyboard = isCustomKeyboard;
+    if (isCustomKeyboard) {
+        _inputTF.inputView = [UIView new];
+    }else {
+        _inputTF.inputView = nil;
     }
 }
 @end

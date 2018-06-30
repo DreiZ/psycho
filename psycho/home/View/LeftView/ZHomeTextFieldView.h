@@ -16,8 +16,10 @@
 @property (strong, nonatomic) NSString *inputTypeStr;
 //长度限制 默认8
 @property (assign, nonatomic) NSInteger max;
-
+@property (assign, nonatomic) BOOL isCustomKeyboard;
 @property (strong, nonatomic) void (^valueChange)(NSString *value);
+@property (strong, nonatomic) void (^beginChange)(UITextField *textField);
+@property (strong, nonatomic) void (^endChange)(UITextField *textField);
 
-
+- (void)setIsCustomKeyboardType:(BOOL)isCustomKeyboard;
 @end

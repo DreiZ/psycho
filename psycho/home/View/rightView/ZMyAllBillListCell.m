@@ -7,7 +7,7 @@
 //
 
 #import "ZMyAllBillListCell.h"
-#import "ZHomeTextFieldView.h"
+
 
 @interface ZMyAllBillListCell ()
 @property (nonatomic,strong) UILabel *leftLabel;

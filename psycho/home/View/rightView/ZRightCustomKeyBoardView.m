@@ -19,9 +19,11 @@
 - (instancetype)initWithTextField:(UITextField *)textField {
     if (self = [super init]) {
         self.textField = textField;
-        self.verify = false;
+        self.verify = YES;
         self.backgroundColor = [UIColor greenColor];
-        self.frame = CGRectMake(0, screenHeight - CGFloatIn1536(922), screenHeight, CGFloatIn1536(922));
+        CGFloat maxScreenWidth = screenWidth < screenHeight ?  screenWidth:screenHeight;
+
+        self.frame = CGRectMake(0, screenHeight - CGFloatIn1536(922), screenHeight, 922.0f/1536 * maxScreenWidth);
         [self setupKeyBoard];
         [textField reloadInputViews];
     }
@@ -33,7 +35,9 @@
         self.textView = textView;
         self.verify = false;
         self.backgroundColor = [UIColor greenColor];
-        self.frame = CGRectMake(0, screenHeight - CGFloatIn1536(922), screenHeight, CGFloatIn1536(922));
+        CGFloat maxScreenWidth = screenWidth < screenHeight ?  screenWidth:screenHeight;
+
+        self.frame = CGRectMake(0, screenHeight - CGFloatIn1536(922), screenHeight, 922.0f/1536 * maxScreenWidth);
         [self setupKeyBoard];
         [textView reloadInputViews];
     }
@@ -43,6 +47,7 @@
 - (void)setup {
     if ([_delegate respondsToSelector:@selector(editChanage:)]) {
         if (self.textField) {
+            NSLog(@"textField chang %@",self.textField.text);
             [_delegate editChanage:self.textField];
         }else if(self.textView) {
             [_delegate editChanage:self.textView];
@@ -347,7 +352,6 @@
         if (location != str.length) {
             self.textField.selectedTextRange = [self.textField textRangeFromPosition:end toPosition:end];
         }
-        self.inputLabel.text = self.textField.text;
     }else if (self.textView) {
         NSString *string = [self.textView.text substringToIndex:location];
         if (([string isEqualToString:@"-0"] || [string isEqualToString:@"0"]) && self.verify) {
@@ -407,7 +411,6 @@
         if (location != str.length) {
             self.textField.selectedTextRange = [self.textField textRangeFromPosition:end toPosition:end];
         }
-        self.inputLabel.text = self.textField.text;
     }else if (self.textView) {
         self.textView.text = muStr;
         if (location != str.length) {
@@ -499,15 +502,15 @@
     NSString *str = [self.textField.text substringToIndex:location];
     if (!self.verify) {
         if (self.textField) {
-            self.textField.text = [NSString stringWithFormat:@"%@/",self.textField.text];
+            self.textField.text = [NSString stringWithFormat:@"%@%@",self.textField.text,@"/"];
         }else if (self.textView) {
-            self.textView.text = [NSString stringWithFormat:@"%@/",self.textView.text];
+            self.textView.text = [NSString stringWithFormat:@"%@%@",self.textView.text,@"/"];
         }
         [self setup];
         return;
     }
     if (self.textField) {
-        if ([str isEqualToString:@""] || [str isEqualToString:@"-"]) {
+        if ([str isEqualToString:@""] || [str isEqualToString:@"/"]) {
             return;
         }
         //判断当前时候存在一个点
@@ -531,10 +534,10 @@
         location = [self.textView offsetFromPosition:beginning toPosition:selectionStart];
         length = [self.textView offsetFromPosition:selectionStart toPosition:selectionEnd];
         str = [self.textView.text substringToIndex:location];
-        if ([str isEqualToString:@""] || [str isEqualToString:@"-"]) {
+        if ([str isEqualToString:@""] || [str isEqualToString:@"/"]) {
             return;
         }
-        //判断当前时候存在一个/
+        //判断当前时候存在一个点
         if ([self.textView.text rangeOfString:@"/"].location == NSNotFound) {
             //输入中没有点
             NSMutableString *mutableString = [[NSMutableString alloc]initWithString:self.textView.text];
@@ -568,4 +571,8 @@
     }
 }
 
+- (void)setTopTitle:(NSString *)title value:(NSString *)value {
+    _titleLabel.text = title;
+    _inputLabel.text = value;
+}
 @end

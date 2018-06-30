@@ -49,9 +49,18 @@
 - (ZHomeTextFieldView *)inputView {
     if (!_inputView) {
         _inputView = [[ZHomeTextFieldView alloc] init];
-        _inputView.max = 20;
+        _inputView.max = 30;
+        [_inputView setIsCustomKeyboardType:YES];
         _inputView.formatterType = HNFormatterTypeAny;
         _inputView.valueChange = ^(NSString *value) {
+            
+        };
+        
+        _inputView.beginChange = ^(UITextField *textField) {
+            
+        };
+        
+        _inputView.endChange = ^(UITextField *textField) {
             
         };
     }

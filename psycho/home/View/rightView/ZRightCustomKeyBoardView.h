@@ -48,6 +48,7 @@
 - (instancetype)initWithTextField:(UITextField *)textField;
 - (instancetype)initWithTextView:(UITextView *)textView;
 
+- (void)setTopTitle:(NSString *)title value:(NSString *)value;
 /**
  切换系统输入法
  */
