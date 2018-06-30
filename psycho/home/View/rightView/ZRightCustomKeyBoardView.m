@@ -95,6 +95,7 @@
 }
 
 - (void)setupKeyBoard {
+    
     CGFloat maxScreenWidth = screenWidth < screenHeight ?  screenWidth:screenHeight;
     self.frame = CGRectMake(0, screenHeight, screenHeight, 922.0f/1536 * maxScreenWidth);
     [self addSubview:self.topView];
