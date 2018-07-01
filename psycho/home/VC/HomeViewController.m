@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import "DataWorkManager.h"
 #import "AppDelegate.h"
 
 #import "ZHomeTitleCell.h"
@@ -18,6 +19,14 @@
 #import "ZRightHistorySelectView.h"
 
 #import "ZInningModel.h"
+
+@implementation ZSearchItem
+
+@end
+
+@implementation ZSearchList
+
+@end
 
 @interface HomeViewController ()<UITextFieldDelegate>
 @property (nonatomic,strong) ZInningModel *inningModel;
@@ -32,6 +41,8 @@
 
 
 @property (nonatomic,strong) ZInningListModel *seletListModel;
+
+@property (nonatomic,strong) ZSearchList *searchList;
 
 @end
 
@@ -52,6 +63,17 @@
         listModel.listSort = [NSString stringWithFormat:@"%ld",(long)i+1];
         [_inningModel.inninglist addObject:listModel];
     }
+}
+
+- (void)getHistory {
+    self.searchList = [[DataWorkManager shareInstance] getDBModelData:[ZSearchList class]];
+    if (!self.searchList) {
+        self.searchList = [ZSearchList new];
+    }
+}
+
+- (void)updateHistory {
+    [[DataWorkManager shareInstance] addOrUpdateModel:self.searchList];
 }
 
 - (void)setupMainView {

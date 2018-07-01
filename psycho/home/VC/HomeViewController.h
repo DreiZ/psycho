@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "ZBaseViewController.h"
+#import "ZBaseModel.h"
+#import "ZInningModel.h"
+
+@interface ZSearchItem : ZBaseModel
+@property(nonatomic, strong) ZInningModel *itemStr;
+@end
+
+@interface ZSearchList : ZBaseModel
+@property(nonatomic, strong) NSArray <ZSearchItem *> *lists;
+@end
 
 @interface HomeViewController : ZBaseViewController
 
