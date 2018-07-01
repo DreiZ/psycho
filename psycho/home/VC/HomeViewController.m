@@ -13,7 +13,9 @@
 #import "ZHomeRightView.h"
 #import "ZHomeLeftView.h"
 #import "ZSeletedNumView.h"
+#import "ZRightOpenSelectView.h"
 #import "ZMyAllBillView.h"
+#import "ZRightHistorySelectView.h"
 
 #import "ZInningModel.h"
 
@@ -25,6 +27,9 @@
 
 @property (nonatomic,strong) ZSeletedNumView *seletedNumView;
 @property (nonatomic,strong) ZMyAllBillView *myAllbillView;
+@property (nonatomic,strong) ZRightOpenSelectView *seletedOpenNumView;
+@property (nonatomic,strong) ZRightHistorySelectView *historySelectView;
+
 
 @property (nonatomic,strong) ZInningListModel *seletListModel;
 
@@ -104,10 +109,10 @@
         
         _rightView.addBlock = ^{
             [AppDelegate App].isAddRefresh = YES;
-            [weakSelf.leftView refreshData];         
+            [weakSelf.leftView refreshData];
         };
         _rightView.openBlock = ^{
-            
+            [weakSelf.view addSubview:weakSelf.seletedOpenNumView];
         };
         
         _rightView.bottomBlock = ^(NSInteger index) {
@@ -158,6 +163,30 @@
     return _seletedNumView;
 }
 
+-(ZRightOpenSelectView *)seletedOpenNumView {
+    if (!_seletedOpenNumView) {
+        _seletedOpenNumView = [[ZRightOpenSelectView alloc] init];
+        _seletedOpenNumView.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+        _seletedOpenNumView.numSeletBlock = ^(NSInteger index) {
+            
+        };
+    }
+    
+    return _seletedOpenNumView;
+}
+
+-(ZRightHistorySelectView *)historySelectView {
+    if (!_historySelectView) {
+        _historySelectView = [[ZRightHistorySelectView alloc] init];
+        _historySelectView.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+        _historySelectView.numSeletBlock = ^(NSInteger index) {
+            
+        };
+    }
+    
+    return _historySelectView;
+}
+
 -(ZMyAllBillView *)myAllbillView {
     if (!_myAllbillView) {
         _myAllbillView = [[ZMyAllBillView alloc] init];
@@ -176,11 +205,12 @@
     switch (index) {
         case 100:
             //清空所有
-            
+             [self.view addSubview:self.seletedNumView];
             break;
         case 101:
             //第几场
-            [self.view addSubview:self.seletedNumView];
+           
+            [self.view addSubview:self.historySelectView];
             break;
         case 102:
             //查看总账

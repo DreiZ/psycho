@@ -65,7 +65,6 @@ static ZPublicManager *sharePublicClassManager = NULL;
         [self updateUser:userInfo];
         self.isLogin = YES;
         [self checkLogin];
-        [[ZPublicManager shareInstance] updateDevictToken];
         //        [self panduan];
         
     }else{
