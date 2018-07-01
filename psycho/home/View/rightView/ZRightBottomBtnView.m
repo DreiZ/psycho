@@ -75,9 +75,9 @@
 }
 
 - (void)tempBtnClick:(UIButton *)sender {
-    //    if (_enteryBlock) {
-    //        _enteryBlock(sender.tag);
-    //    }
+        if (_bottomBlock) {
+            _bottomBlock(sender.tag);
+        }
 }
 @end
 

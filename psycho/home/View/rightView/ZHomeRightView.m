@@ -106,7 +106,13 @@
 
 - (ZRightOpenView *)openView {
     if (!_openView) {
+        __weak typeof(self)weakSelf = self;
         _openView = [[ZRightOpenView alloc] init];
+        _openView.openBlock = ^{
+            if (weakSelf.openBlock) {
+                weakSelf.openBlock();
+            }
+        };
     }
     
     return _openView;
@@ -114,7 +120,13 @@
 
 - (ZRightBottomBtnView *)bottomBtnView {
     if (!_bottomBtnView) {
+        __weak typeof(self)weakSelf = self;
         _bottomBtnView = [[ZRightBottomBtnView alloc] init];
+        _bottomBtnView.bottomBlock = ^(NSInteger index) {
+            if (weakSelf.bottomBlock) {
+                weakSelf.bottomBlock(index);
+            }
+        };
     }
     
     return _bottomBtnView;

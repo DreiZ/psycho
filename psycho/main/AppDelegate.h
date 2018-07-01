@@ -11,9 +11,10 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic,strong) UINavigationController *tb;
-
-
+@property (strong, nonatomic) UINavigationController *tb;
+@property (assign, nonatomic) BOOL isAddRefresh;
+@property (assign, nonatomic) NSInteger firstIndex;//addtf第几行
+@property (assign, nonatomic) NSInteger listIndex;//第几行
 + (AppDelegate *)App;
 - (void)pushLogingVC;
 @end

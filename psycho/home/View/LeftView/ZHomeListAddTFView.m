@@ -8,6 +8,7 @@
 
 #import "ZHomeListAddTFView.h"
 #import "ZHomeListAddTFCell.h"
+#import "AppDelegate.h"
 
 @interface ZHomeListAddTFView ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -68,13 +69,13 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _inputList.count;
+    return _listModel.listInput.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     __weak typeof(self) weakSelf = self;
     ZHomeListAddTFCell *cell = [ZHomeListAddTFCell cellWithTableView:tableView];
-    cell.inputView.inputTF.text = _inputList[indexPath.row];
+    cell.inputView.inputTF.text = _listModel.listInput[indexPath.row];
     cell.valueChange = ^(NSString *value) {
         if (weakSelf.valueChange) {
             weakSelf.valueChange(value);
@@ -82,16 +83,33 @@
     };
     
     cell.beginChange = ^(UITextField *textField) {
+        [AppDelegate App].listIndex = [self.listModel.listSort integerValue];
+        [AppDelegate App].firstIndex = indexPath.row;
         if (weakSelf.beginChange) {
             weakSelf.beginChange(textField);
         }
+//        NSLog(@"zzz .begin %@",textField);
     };
     
     cell.endChange = ^(UITextField *textField) {
         if (weakSelf.endChange) {
             weakSelf.endChange(textField);
         }
+//        NSLog(@"zzz .end %@",textField);
     };
+    
+    if ([AppDelegate App].isAddRefresh ) {
+//        NSLog(@"zzz %ld %ld",[AppDelegate App].listIndex, [_listModel.listSort integerValue]);
+        if ([AppDelegate App].listIndex == [_listModel.listSort integerValue] && indexPath.row == _listModel.listInput.count-1) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+//                NSLog(@"zzz .inputView.inputTF %@",cell.inputView.inputTF);
+                [cell.inputView.inputTF becomeFirstResponder];
+                [AppDelegate App].isAddRefresh = NO;
+            });
+            
+        }
+        
+    }
 
     return cell;
 }
@@ -114,9 +132,8 @@
 }
 
 #pragma mark set
-- (void)setInputList:(NSMutableArray *)inputList {
-    _inputList = inputList;
-    
+- (void)setListModel:(ZInningListModel *)listModel {
+    _listModel = listModel;
     [_iTableView reloadData];
 }
 @end

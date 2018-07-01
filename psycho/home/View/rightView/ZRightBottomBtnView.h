@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ZRightBottomBtnView : UIView
-
+@property (nonatomic,strong) void (^bottomBlock)(NSInteger);
 @end

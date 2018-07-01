@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZInningModel.h"
 
 @interface ZHomeListAddTFView : UIView
-@property (nonatomic,strong) NSMutableArray *inputList;
-
+@property (nonatomic,strong) ZInningListModel *listModel;
 @property (assign, nonatomic) BOOL isCustomKeyboard;
 @property (strong, nonatomic) void (^valueChange)(NSString *value);
 @property (strong, nonatomic) void (^beginChange)(UITextField *textField);

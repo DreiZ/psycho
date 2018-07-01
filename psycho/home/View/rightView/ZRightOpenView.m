@@ -68,6 +68,9 @@
 }
 
 - (void)openOnclick:(id)sender {
+    if (_openBlock) {
+        _openBlock();
+    }
     NSString *result =  @"本筒开３";
     NSString *title =  @"３";
     NSMutableAttributedString *introText = [[NSMutableAttributedString alloc] initWithString:result];

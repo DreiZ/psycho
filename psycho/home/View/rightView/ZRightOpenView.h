@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ZRightOpenView : UIView
-
+//开筒
+@property (nonatomic,strong) void (^openBlock)(void);
 @end

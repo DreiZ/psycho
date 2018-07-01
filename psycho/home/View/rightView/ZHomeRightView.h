@@ -15,6 +15,10 @@
 @property (nonatomic,strong) ZInningListModel *inningListModel;
 //最顶部按钮
 @property (nonatomic,strong) void (^topBlock)(NSInteger);
+//最底部按钮
+@property (nonatomic,strong) void (^bottomBlock)(NSInteger);
+//开筒
+@property (nonatomic,strong) void (^openBlock)(void);
 //加注
 @property (nonatomic,strong) void (^addBlock)(void);
 

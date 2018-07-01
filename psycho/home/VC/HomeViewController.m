@@ -43,7 +43,7 @@
     _inningModel = [[ZInningModel alloc] init];
     for (int i = 0; i < 40; i++) {
         ZInningListModel *listModel = [[ZInningListModel alloc] init];
-        listModel.listSort = [NSString stringWithFormat:@"%ld",(long)i];
+        listModel.listSort = [NSString stringWithFormat:@"%ld",(long)i+1];
         [_inningModel.inninglist addObject:listModel];
     }
 }
@@ -101,8 +101,17 @@
         _rightView.topBlock = ^(NSInteger index) {
             [weakSelf handleTopBlock:index];
         };
+        
         _rightView.addBlock = ^{
-            [weakSelf.leftView refreshData];
+            [AppDelegate App].isAddRefresh = YES;
+            [weakSelf.leftView refreshData];         
+        };
+        _rightView.openBlock = ^{
+            
+        };
+        
+        _rightView.bottomBlock = ^(NSInteger index) {
+            [weakSelf handleBottomBlock:index];
         };
     }
     
@@ -193,6 +202,43 @@
             [self cutPicture];
             break;
             
+        default:
+            break;
+    }
+}
+
+- (void)handleBottomBlock:(NSInteger)index {
+    switch (index) {
+        case 0:
+            //上移一行
+        {
+            if ([AppDelegate App].listIndex > 1) {
+                [AppDelegate App].isAddRefresh = YES;
+                [AppDelegate App].listIndex -= 1;
+                [AppDelegate App].firstIndex = 0;
+                [_leftView refreshData];
+            }
+            
+        }
+            break;
+        case 1:
+            //修改本筒
+        {
+            
+        }
+            break;
+        case 2:
+            //下一行
+            {
+                if ([AppDelegate App].listIndex < _inningModel.inninglist.count) {
+                    [AppDelegate App].isAddRefresh = YES;
+                    [AppDelegate App].listIndex += 1;
+                    [AppDelegate App].firstIndex = 0;
+                    [_leftView refreshData];
+                }
+            }
+            break;
+        
         default:
             break;
     }

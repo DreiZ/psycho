@@ -132,6 +132,13 @@
                 weakSelf.nameValueChange(value);
             }
         };
+        _nameInputTF.beginChange = ^(UITextField *textField) {
+            [weakSelf setIsFirst:YES];
+        };
+        
+        _nameInputTF.endChange = ^(UITextField *textField) {
+            [weakSelf setIsFirst:NO];
+        };
         
         [_backView addSubview:_nameInputTF];
     }
@@ -150,12 +157,14 @@
         };
         
         _addTFView.beginChange = ^(UITextField *textField) {
+            [weakSelf setIsFirst:YES];
             if (weakSelf.beginChange) {
                 weakSelf.beginChange(textField);
             }
         };
         
         _addTFView.endChange = ^(UITextField *textField) {
+            [weakSelf setIsFirst:NO];
             if (weakSelf.endChange) {
                 weakSelf.endChange(textField);
             }
@@ -172,7 +181,7 @@
         if (i == 1) {
             _nameInputTF.inputTF.text = [NSString stringWithFormat:@"%@",listModel.listName];
         }else if (i == 2){
-            _addTFView.inputList = listModel.listInput;
+            _addTFView.listModel = listModel;
         }else{
             if ([_labelArr[i] isKindOfClass:[UILabel class]]) {
                 UILabel *tempLabel = _labelArr[i];
@@ -198,6 +207,15 @@
             }
         }
     }
+}
+
+- (void)setIsFirst:(BOOL)isFirst {
+    _lineColor = isFirst ? [UIColor colorWithHexString:@"d00000"]:kBack6Color;
+    
+    _backView.backgroundColor = _lineColor;
+    _backView.layer.masksToBounds = YES;
+    _backView.layer.borderWidth = isFirst ?1:0.5;
+    _backView.layer.borderColor = _lineColor.CGColor;
 }
 
 + (CGFloat)getCellHeight:(id)sender {
