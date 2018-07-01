@@ -42,9 +42,8 @@
     if (self) {
         self.contentView.backgroundColor = [UIColor whiteColor];
         _lineColor = kBack6Color;
-        _addNum = 1;
-        _sort = 1;
-        _titleArr = @[@"1", @"", @"", @"", @"",@"",@""];
+
+        _titleArr = @[@"0", @"", @"", @"", @"",@"",@""];
         _widthArr = @[@(140.0f/1024),
                       @(137.0f/1024),
                       @(145.0f/1024),
@@ -122,12 +121,16 @@
 
 - (ZHomeTextFieldView *)nameInputTF {
     if (!_nameInputTF) {
+        __weak typeof(self) weakSelf = self;
         _nameInputTF = [[ZHomeTextFieldView alloc] init];
         _nameInputTF.max = 10;
+        _nameInputTF.isCustomKeyboard = NO;
         [_nameInputTF setIsCustomKeyboardType:NO];
         _nameInputTF.formatterType = HNFormatterTypeAny;
         _nameInputTF.valueChange = ^(NSString *value) {
-            
+            if (weakSelf.nameValueChange) {
+                weakSelf.nameValueChange(value);
+            }
         };
         
         [_backView addSubview:_nameInputTF];
@@ -137,15 +140,71 @@
 
 - (ZHomeListAddTFView *)addTFView {
     if (!_addTFView) {
+        __weak typeof(self) weakSelf = self;
         _addTFView = [[ZHomeListAddTFView alloc] init];
+        _addTFView.isCustomKeyboard = YES;
+        _addTFView.valueChange = ^(NSString *value) {
+            if (weakSelf.valueChange) {
+                weakSelf.valueChange(value);
+            }
+        };
         
+        _addTFView.beginChange = ^(UITextField *textField) {
+            if (weakSelf.beginChange) {
+                weakSelf.beginChange(textField);
+            }
+        };
+        
+        _addTFView.endChange = ^(UITextField *textField) {
+            if (weakSelf.endChange) {
+                weakSelf.endChange(textField);
+            }
+        };
         [_backView addSubview:_addTFView];
     }
     
     return _addTFView;
 }
 
+- (void)setListModel:(ZInningListModel *)listModel {
+    _listModel = listModel;
+    for (int i = 0; i < _labelArr.count; i++) {
+        if (i == 1) {
+            _nameInputTF.inputTF.text = [NSString stringWithFormat:@"%@",listModel.listName];
+        }else if (i == 2){
+            _addTFView.inputList = listModel.listInput;
+        }else{
+            if ([_labelArr[i] isKindOfClass:[UILabel class]]) {
+                UILabel *tempLabel = _labelArr[i];
+                switch (i) {
+                    case 0:
+                        tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listSort];
+                        break;
+                    case 3:
+                        tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listOpenResult];
+                        break;
+                    case 4:
+                        tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listThisResult];
+                        break;
+                    case 5:
+                        tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listLastResult];
+                        break;
+                    case 6:
+                        tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listAllResult];
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+}
+
 + (CGFloat)getCellHeight:(id)sender {
+    NSArray *tempArr = sender;
+    if (tempArr && tempArr.count > 1) {
+        return 40 * tempArr.count;
+    }
     return 40;
 }
 @end

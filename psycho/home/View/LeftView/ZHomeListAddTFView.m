@@ -30,13 +30,13 @@
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
-    _addNum = 1;
     
     [self addSubview:self.iTableView];
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
 }
+
 #pragma mark lazy loading...
 -(UITableView *)iTableView {
     if (!_iTableView) {
@@ -68,12 +68,30 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _addNum;
+    return _inputList.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    __weak typeof(self) weakSelf = self;
     ZHomeListAddTFCell *cell = [ZHomeListAddTFCell cellWithTableView:tableView];
+    cell.inputView.inputTF.text = _inputList[indexPath.row];
+    cell.valueChange = ^(NSString *value) {
+        if (weakSelf.valueChange) {
+            weakSelf.valueChange(value);
+        }
+    };
     
+    cell.beginChange = ^(UITextField *textField) {
+        if (weakSelf.beginChange) {
+            weakSelf.beginChange(textField);
+        }
+    };
+    
+    cell.endChange = ^(UITextField *textField) {
+        if (weakSelf.endChange) {
+            weakSelf.endChange(textField);
+        }
+    };
     return cell;
 }
 
@@ -95,8 +113,9 @@
 }
 
 #pragma mark set
-- (void)setAddNum:(NSInteger)addNum {
-    _addNum = addNum;
+- (void)setInputList:(NSMutableArray *)inputList {
+    _inputList = inputList;
+    
     [_iTableView reloadData];
 }
 @end

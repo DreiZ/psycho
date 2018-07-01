@@ -10,8 +10,7 @@
 #define keyboardColor(r,g,b) [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:1.0f]
 
 @interface ZRightCustomKeyBoardView ()
-@property (nonatomic, weak) UITextField *textField;
-@property (nonatomic, weak) UITextView *textView;
+
 @end
 
 @implementation ZRightCustomKeyBoardView
@@ -574,5 +573,9 @@
 - (void)setTopTitle:(NSString *)title value:(NSString *)value {
     _titleLabel.text = title;
     _inputLabel.text = value;
+}
+
+- (void)setTextField:(UITextField *)textField {
+    _textField = textField;
 }
 @end

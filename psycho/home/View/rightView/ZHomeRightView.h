@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZInningModel.h"
 
 @interface ZHomeRightView : UIView
+@property (nonatomic,strong) ZInningModel *inningModel;
+@property (nonatomic,strong) UITextField *inputTextField;
+
 @property (nonatomic,strong) void (^topBlock)(NSInteger);
+
+- (void)setTopTitle:(NSString *)title value:(NSString *)value;
 @end

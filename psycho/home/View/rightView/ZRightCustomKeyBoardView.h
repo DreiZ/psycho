@@ -15,6 +15,8 @@
 
 @interface ZRightCustomKeyBoardView : UIView
 @property (nonatomic, strong) id<PGNumberKeyboardDelegate> delegate;
+@property (nonatomic, weak) UITextField *textField;
+@property (nonatomic, weak) UITextView *textView;
 
 /**
  此属性默认为true

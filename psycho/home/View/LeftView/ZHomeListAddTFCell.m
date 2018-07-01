@@ -7,10 +7,9 @@
 //
 
 #import "ZHomeListAddTFCell.h"
-#import "ZHomeTextFieldView.h"
 
 @interface ZHomeListAddTFCell ()
-@property (nonatomic,strong) ZHomeTextFieldView *inputView;
+
 
 @end
 
@@ -48,20 +47,27 @@
 
 - (ZHomeTextFieldView *)inputView {
     if (!_inputView) {
+        __weak typeof(self) weakSelf = self;
         _inputView = [[ZHomeTextFieldView alloc] init];
         _inputView.max = 30;
         [_inputView setIsCustomKeyboardType:YES];
         _inputView.formatterType = HNFormatterTypeAny;
         _inputView.valueChange = ^(NSString *value) {
-            
+            if (weakSelf.valueChange) {
+                weakSelf.valueChange(value);
+            }
         };
         
         _inputView.beginChange = ^(UITextField *textField) {
-            
+            if (weakSelf.beginChange) {
+                weakSelf.beginChange(textField);
+            }
         };
         
         _inputView.endChange = ^(UITextField *textField) {
-            
+            if (weakSelf.endChange) {
+                weakSelf.endChange(textField);
+            }
         };
     }
     return _inputView;

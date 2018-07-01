@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface ZHomeListAddTFView : UIView
-@property (nonatomic,assign) NSInteger addNum;
-@property (nonatomic,assign) NSInteger sort;
+@property (nonatomic,strong) NSMutableArray *inputList;
+
+@property (assign, nonatomic) BOOL isCustomKeyboard;
+@property (strong, nonatomic) void (^valueChange)(NSString *value);
+@property (strong, nonatomic) void (^beginChange)(UITextField *textField);
+@property (strong, nonatomic) void (^endChange)(UITextField *textField);
 @end

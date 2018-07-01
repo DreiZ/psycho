@@ -7,8 +7,6 @@
 //
 
 #import "ZHomeTextFieldView.h"
-#import "ZRightCustomKeyBoardView.h"
-#import "ZRightCustomKeyBoardView.h"
 #import "IQKeyboardManager.h"
 
 @interface ZHomeTextFieldView ()<UITextFieldDelegate>
@@ -37,9 +35,6 @@
         make.left.equalTo(self.mas_left).offset(4);
         make.right.equalTo(self.mas_right).offset(-4);
     }];
-//    ZRightCustomKeyBoardView *keyboard = [[ZRightCustomKeyBoardView alloc]initWithTextField:self.inputTF];
-//    keyboard.delegate = self;
-//    self.inputTF.inputView = [UIView new];
 }
 
 - (UITextField *)inputTF {
@@ -48,12 +43,11 @@
         [_inputTF setFont:[UIFont systemFontOfSize:18]];
         [_inputTF setBorderStyle:UITextBorderStyleNone];
         [_inputTF setBackgroundColor:[UIColor clearColor]];
-        [_inputTF setPlaceholder:@"0"];
+        [_inputTF setPlaceholder:@""];
         _inputTF.textAlignment = NSTextAlignmentCenter;
 //        _inputTF.clearButtonMode = UITextFieldViewModeWhileEditing;
         _inputTF.delegate = self;
         [_inputTF addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-        _inputTF.inputView = [[ZRightCustomKeyBoardView alloc] initWithTextField:_inputTF];
     }
     return _inputTF;
 }

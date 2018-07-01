@@ -19,7 +19,6 @@
 @property (nonatomic,strong) ZRightBottomBtnView *bottomBtnView;
 @property (nonatomic,strong) ZRightCustomKeyBoardView *keyboardView;
 
-@property (nonatomic,strong) UITextField *textField;
 @end
 
 @implementation ZHomeRightView
@@ -40,7 +39,7 @@
     self.layer.masksToBounds = YES;
     
     CGFloat maxScreenWidth = screenWidth < screenHeight ?  screenWidth:screenHeight;
-    _textField = [UITextField new];
+    _inputTextField = [UITextField new];
     [self addSubview:self.backView];
     [_backView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).offset(20);
@@ -123,10 +122,19 @@
 
 - (ZRightCustomKeyBoardView *)keyboardView {
     if (!_keyboardView) {
-        _keyboardView = [[ZRightCustomKeyBoardView alloc] initWithTextField:self.textField];
+        _keyboardView = [[ZRightCustomKeyBoardView alloc] initWithTextField:self.inputTextField];
     }
     return _keyboardView;
 }
 
+
+- (void)setInputTextField:(UITextField *)inputTextField {
+    _inputTextField = inputTextField;
+    _keyboardView.textField = inputTextField;
+}
+
+- (void)setTopTitle:(NSString *)title value:(NSString *)value {
+    [_keyboardView setTopTitle:title value:value];
+}
 @end
 

@@ -63,7 +63,6 @@
     return _topView;
 }
 
-
 -(UITableView *)iTableView {
     if (!_iTableView) {
         _iTableView = [[UITableView alloc]initWithFrame:self.bounds style:UITableViewStylePlain];
@@ -97,17 +96,43 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 40;
+    return _inningModel.inninglist.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    __weak typeof(self) weakSelf = self;
     ZHomeListCell *cell = [ZHomeListCell cellWithTableView:tableView];
+    cell.nameValueChange = ^(NSString *value) {
+        if (weakSelf.nameValueChange) {
+            weakSelf.nameValueChange(value, weakSelf.inningModel.inninglist[indexPath.row]);
+        }
+    };
+    
+    cell.valueChange = ^(NSString *value) {
+        if (weakSelf.valueChange) {
+            weakSelf.valueChange(value, weakSelf.inningModel.inninglist[indexPath.row]);
+        }
+    };
+    
+    cell.beginChange = ^(UITextField *textField) {
+        if (weakSelf.beginChange) {
+            weakSelf.beginChange(textField, weakSelf.inningModel.inninglist[indexPath.row]);
+        }
+    };
+    
+    cell.endChange = ^(UITextField *textField) {
+        if (weakSelf.endChange) {
+            weakSelf.endChange(textField, weakSelf.inningModel.inninglist[indexPath.row]);
+        }
+    };
+    cell.listModel = _inningModel.inninglist[indexPath.row];
     return cell;
 }
 
 #pragma mark tableView ------delegate-----
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [ZHomeListCell getCellHeight:nil];
+    ZInningListModel *model = (ZInningListModel *)_inningModel.inninglist[indexPath.row];
+    return [ZHomeListCell getCellHeight:model.listInput];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -122,4 +147,9 @@
     
 }
 
+#pragma mark refresh data
+
+- (void)refreshData {
+    [_iTableView reloadData];
+}
 @end

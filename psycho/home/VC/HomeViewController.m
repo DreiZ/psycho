@@ -15,16 +15,10 @@
 #import "ZSeletedNumView.h"
 #import "ZMyAllBillView.h"
 
+#import "ZInningModel.h"
+
 @interface HomeViewController ()<UITextFieldDelegate>
-
-
-@property (nonatomic,strong) UITextField *testTF;
-@property (nonatomic,assign) HNFormatterType formatterType;
-//自定义类型
-@property (strong, nonatomic) NSString *inputTypeStr;
-//长度限制 默认8
-@property (assign, nonatomic) NSInteger max;
-
+@property (nonatomic,strong) ZInningModel *inningModel;
 
 @property (nonatomic,strong) ZHomeRightView *rightView;
 @property (nonatomic,strong) ZHomeLeftView *leftView;
@@ -39,15 +33,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    _max = 100;
-   
-    [self.view addSubview:self.testTF];
-    [_testTF mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view.mas_right);
-        make.top.equalTo(self.view.mas_bottom).offset(-20);
-        make.height.mas_equalTo(90);
-        make.width.mas_equalTo(290);
-    }];
+    [self setMainData];
+    [self setupMainView];
+}
+
+- (void)setMainData {
+    _inningModel = [[ZInningModel alloc] init];
+    for (int i = 0; i < 40; i++) {
+        ZInningListModel *listModel = [[ZInningListModel alloc] init];
+        listModel.listSort = [NSString stringWithFormat:@"%ld",(long)i];
+        [_inningModel.inninglist addObject:listModel];
+    }
+}
+
+- (void)setupMainView {
     
     UIButton *lognBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [lognBtn addTarget:self action:@selector(lognBtnOnclick:) forControlEvents:UIControlEventTouchUpInside];
@@ -87,6 +86,9 @@
         make.right.equalTo(self.rightView.mas_left);
         make.top.equalTo(statusBar.mas_bottom);
     }];
+    
+    self.leftView.inningModel = _inningModel;
+    self.rightView.inningModel = _inningModel;
 }
 
 #pragma mark lazy loading...
@@ -105,6 +107,25 @@
 -(ZHomeLeftView *)leftView {
     if (!_leftView) {
         _leftView = [[ZHomeLeftView alloc] init];
+ 
+        __weak typeof(self) weakSelf = self;
+        _leftView.nameValueChange = ^(NSString *value, ZInningListModel *listModel) {
+            
+        };
+        
+        _leftView.valueChange = ^(NSString *value, ZInningListModel *listModel) {
+            
+        };
+        
+        _leftView.beginChange = ^(UITextField *textField, ZInningListModel *listModel) {
+           weakSelf.rightView.inputTextField = textField;
+            [weakSelf.rightView setTopTitle:listModel.listName value:textField.text];
+        };
+        
+        _leftView.endChange = ^(UITextField *textField, ZInningListModel *listModel) {
+            weakSelf.rightView.inputTextField = nil;
+            [weakSelf.rightView setTopTitle:@"" value:@""];
+        };
     }
     
     return _leftView;
@@ -159,102 +180,7 @@
     }
 }
 
-- (UITextField *)testTF {
-    if (!_testTF ) {
-        _testTF  = [[UITextField alloc] init];
-        [_testTF  setFont:[UIFont systemFontOfSize:24]];
-        UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-        leftView.backgroundColor = [UIColor grayColor];
-        _testTF.leftView = leftView;
-        _testTF.leftViewMode = UITextFieldViewModeAlways;
-        [_testTF  setBorderStyle:UITextBorderStyleNone];
-        [_testTF  setBackgroundColor:[UIColor grayColor]];
-        [_testTF  setReturnKeyType:UIReturnKeySearch];
-        [_testTF  setPlaceholder:@"cesi"];
-        _testTF .delegate = self;
-        [_testTF  addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-    }
-    return _testTF;
-}
 
-
-- (void)textFieldDidChange:(UITextField*)textField {
-    if (_formatterType == HNFormatterTypeDecimal) {
-        if ([textField.text  doubleValue] - pow(10, _max) - 0.01  > 0.000001) {
-            [self showErrorWithMsg:@"输入内容超出限制"];
-            NSString *str = [textField.text substringToIndex:textField.text.length - 1];
-            textField.text = str;
-        }
-        
-        return;
-        
-    }
-    if (textField.text.length > _max) {
-        [self showErrorWithMsg:@"输入内容超出限制"];
-        
-        NSString *str = textField.text;
-        NSInteger length = _max;
-        if (str.length <= length) {
-            length = str.length - 1;
-        }
-        str = [str substringToIndex:length];
-        textField.text = str;
-    }
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    
-    NSString *regexString;
-    switch (_formatterType) {
-        case HNFormatterTypeAny:
-        {
-            return YES;
-        }
-        case HNFormatterTypePhoneNumber:
-        {
-            regexString = @"^\\d{0,11}$";
-            break;
-        }
-        case HNFormatterTypeNumber:
-        {
-            regexString = @"^\\d*$";
-            break;
-        }
-        case HNFormatterTypeDecimal:
-        {
-            regexString = [NSString stringWithFormat:@"^(\\d+)\\.?(\\d{0,%lu})$", (unsigned long)2];
-            break;
-        }
-        case HNFormatterTypeAlphabet:
-        {
-            regexString = @"^[a-zA-Z]*$";
-            break;
-        }
-        case HNFormatterTypeNumberAndAlphabet:
-        {
-            regexString = @"^[a-zA-Z0-9]*$";
-            break;
-        }
-        case HNFormatterTypeIDCard:
-        {
-            regexString = @"^\\d{1,17}[0-9Xx]?$";
-            break;
-        }
-        case HNFormatterTypeCustom:
-        {
-            regexString = [NSString stringWithFormat:@"^[%@]{0,%lu}$", _inputTypeStr, (long)_max];
-            break;
-        }
-        default:
-            break;
-    }
-    NSString *currentText = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    
-    NSPredicate *regexTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regexString];
-    
-    return [regexTest evaluateWithObject:currentText] || currentText.length == 0;
-}
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     // 此处编写弹出日期选择器的代码。
