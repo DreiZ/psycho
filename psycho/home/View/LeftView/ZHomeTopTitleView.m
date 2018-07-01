@@ -118,4 +118,9 @@
     [self addSubview:tempLabel];
     return tempLabel;
 }
+
+-(void)setOpenNum:(NSString *)openNum {
+    UILabel *label = _titleLabelArr[0];
+    label.text = openNum;
+}
 @end

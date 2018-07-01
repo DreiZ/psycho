@@ -42,6 +42,7 @@
 
     [self setMainData];
     [self setupMainView];
+    [self.view addSubview:self.seletedNumView];
 }
 
 - (void)setMainData {
@@ -156,8 +157,14 @@
 
 -(ZSeletedNumView *)seletedNumView {
     if (!_seletedNumView) {
+        __weak typeof(self) weakSelf = self;
+        NSArray *openNum = @[@"0.5",@"0.6"];
         _seletedNumView = [[ZSeletedNumView alloc] init];
         _seletedNumView.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+        _seletedNumView.numSeletBlock = ^(NSInteger index) {
+            weakSelf.inningModel.openNum = openNum[index];
+            [weakSelf.leftView refreshHeadData];
+        };
     }
 
     return _seletedNumView;
@@ -205,7 +212,7 @@
     switch (index) {
         case 100:
             //清空所有
-             [self.view addSubview:self.seletedNumView];
+             
             break;
         case 101:
             //第几场

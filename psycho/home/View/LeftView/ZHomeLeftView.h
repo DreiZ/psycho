@@ -16,4 +16,5 @@
 @property (strong, nonatomic) void (^beginChange)(UITextField *textField ,ZInningListModel *listModel);
 @property (strong, nonatomic) void (^endChange)(UITextField *textField ,ZInningListModel *listModel);
 - (void)refreshData;
+- (void)refreshHeadData;
 @end

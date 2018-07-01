@@ -152,4 +152,8 @@
 - (void)refreshData {
     [_iTableView reloadData];
 }
+
+- (void)refreshHeadData {
+    _topView.openNum = _inningModel.openNum;
+}
 @end
