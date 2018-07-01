@@ -293,7 +293,7 @@
         return;
     }
     
-    if (13 == number) { //确定
+    if (13 == number) { //加注
         [self finishKeyBoard];
         return;
     }
@@ -553,11 +553,14 @@
 }
 
 -(void)finishKeyBoard {
-    if (self.textField) {
-        [self.textField resignFirstResponder];
-    }else if (self.textView) {
-        [self.textView resignFirstResponder];
+    if (_addBlock) {
+        _addBlock();
     }
+//    if (self.textField) {
+//        [self.textField resignFirstResponder];
+//    }else if (self.textView) {
+//        [self.textView resignFirstResponder];
+//    }
 }
 
 - (void)reloadInputViews {

@@ -26,6 +26,8 @@
 @property (nonatomic,strong) ZSeletedNumView *seletedNumView;
 @property (nonatomic,strong) ZMyAllBillView *myAllbillView;
 
+@property (nonatomic,strong) ZInningListModel *seletListModel;
+
 @end
 
 @implementation HomeViewController
@@ -99,6 +101,9 @@
         _rightView.topBlock = ^(NSInteger index) {
             [weakSelf handleTopBlock:index];
         };
+        _rightView.addBlock = ^{
+            [weakSelf.leftView refreshData];
+        };
     }
     
     return _rightView;
@@ -118,12 +123,16 @@
         };
         
         _leftView.beginChange = ^(UITextField *textField, ZInningListModel *listModel) {
-           weakSelf.rightView.inputTextField = textField;
+            weakSelf.rightView.inputTextField = textField;
+            weakSelf.seletListModel = listModel;
+            weakSelf.rightView.inningListModel = listModel;
             [weakSelf.rightView setTopTitle:listModel.listName value:textField.text];
         };
         
         _leftView.endChange = ^(UITextField *textField, ZInningListModel *listModel) {
             weakSelf.rightView.inputTextField = nil;
+            weakSelf.seletListModel = nil;
+            weakSelf.rightView.inningListModel = nil;
             [weakSelf.rightView setTopTitle:@"" value:@""];
         };
     }
@@ -157,22 +166,31 @@
 - (void)handleTopBlock:(NSInteger)index {
     switch (index) {
         case 100:
+            //清空所有
             
             break;
         case 101:
+            //第几场
             [self.view addSubview:self.seletedNumView];
             break;
         case 102:
+            //查看总账
             [self.view addSubview:self.myAllbillView];
             break;
         case 200:
-            
+            //结束本场
             break;
         case 201:
+            //添加新场
             
             break;
         case 202:
+            //保存本筒
             
+            break;
+        case 203:
+            //截屏
+            [self cutPicture];
             break;
             
         default:
@@ -204,6 +222,28 @@
     }
     
 }
+
+- (void)cutPicture {
+    UIImage * img = [self cut];
+    UIImageWriteToSavedPhotosAlbum(img, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    if (error == nil) {
+        [self showSuccessWithMsg:@"截图已保存到系统相册"];
+    } else {
+        [self showSuccessWithMsg:@"截图失败"];
+    }
+}
+
+- (UIImage *)cut {
+    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, self.view.opaque, 0.0);
+    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return img;
+}
+
 
 - (void) viewWillAppear:(BOOL)animated
 {

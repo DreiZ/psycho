@@ -12,8 +12,11 @@
 @interface ZHomeRightView : UIView
 @property (nonatomic,strong) ZInningModel *inningModel;
 @property (nonatomic,strong) UITextField *inputTextField;
-
+@property (nonatomic,strong) ZInningListModel *inningListModel;
+//最顶部按钮
 @property (nonatomic,strong) void (^topBlock)(NSInteger);
+//加注
+@property (nonatomic,strong) void (^addBlock)(void);
 
 - (void)setTopTitle:(NSString *)title value:(NSString *)value;
 @end

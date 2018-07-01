@@ -92,6 +92,7 @@
             weakSelf.endChange(textField);
         }
     };
+
     return cell;
 }
 

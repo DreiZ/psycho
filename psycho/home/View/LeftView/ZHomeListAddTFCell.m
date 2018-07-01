@@ -42,6 +42,15 @@
     [_inputView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
+    
+    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    bottomLineView.backgroundColor = [UIColor colorWithHexString:@"ededed"];
+    [self.contentView addSubview:bottomLineView];
+    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.top.equalTo(self.mas_bottom);
+        make.height.mas_equalTo(0.5);
+    }];
 }
 
 

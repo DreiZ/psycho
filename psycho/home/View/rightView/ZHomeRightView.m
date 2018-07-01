@@ -122,7 +122,16 @@
 
 - (ZRightCustomKeyBoardView *)keyboardView {
     if (!_keyboardView) {
+        __weak typeof(self) weakSelf = self;
         _keyboardView = [[ZRightCustomKeyBoardView alloc] initWithTextField:self.inputTextField];
+        _keyboardView.addBlock = ^{
+            if (weakSelf.inningListModel) {
+                [weakSelf.inningListModel.listInput addObject:@""];
+            }
+            if (weakSelf.addBlock) {
+                weakSelf.addBlock();
+            }
+        };
     }
     return _keyboardView;
 }
