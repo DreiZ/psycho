@@ -313,14 +313,15 @@
                 
                 allInputResult += [listModel.listInputResult[i] doubleValue];
         }
-            
-        listModel.listThisResult = [NSString stringWithFormat:@"%.2f",allInputResult];
         
-        amount += round([listModel.listThisResult doubleValue] * 1000) / 1000.0f;
-        
-         listModel.listAllResult = [NSString stringWithFormat:@"%.2f", [listModel.listThisResult doubleValue] + [listModel.listLastResult doubleValue]];
+            if (listModel.listInput[0].length > 0) {
+                listModel.listThisResult = [NSString stringWithFormat:@"%.2f",allInputResult];
+                
+                amount += round([listModel.listThisResult doubleValue] * 1000) / 1000.0f;
+                
+                listModel.listAllResult = [NSString stringWithFormat:@"%.2f", [listModel.listThisResult doubleValue] + [listModel.listLastResult doubleValue]];
+            }
         }
-       
     }
     model.amount = [NSString stringWithFormat:@"%.2f",amount];
     model.inputAmout = [NSString stringWithFormat:@"%.2f",input/10.0f];

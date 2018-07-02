@@ -30,6 +30,8 @@
 		5E4521C320E8CFC200A53CFA /* ZRightOpenSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4521C220E8CFC200A53CFA /* ZRightOpenSelectView.m */; };
 		5E4521C620E8D3AE00A53CFA /* ZRightHistorySelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4521C520E8D3AE00A53CFA /* ZRightHistorySelectView.m */; };
 		5E50258120E9D6B9000D02EA /* ZInningDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E50258020E9D6B9000D02EA /* ZInningDataManager.m */; };
+		5E50258420EA29AB000D02EA /* ZHomeListResultTFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E50258320EA29AB000D02EA /* ZHomeListResultTFView.m */; };
+		5E50258720EA2A05000D02EA /* ZHomeListResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E50258620EA2A05000D02EA /* ZHomeListResultCell.m */; };
 		5E5652C420E7122500F7781E /* ZMyAlllBillFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E5652C320E7122500F7781E /* ZMyAlllBillFootView.m */; };
 		5E5652C720E716A400F7781E /* ZMyAllBillListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E5652C620E716A400F7781E /* ZMyAllBillListCell.m */; };
 		5E5D893420E20CDE0096536C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E5D893220E20CDE0096536C /* Main.storyboard */; };
@@ -126,6 +128,10 @@
 		5E4521C520E8D3AE00A53CFA /* ZRightHistorySelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZRightHistorySelectView.m; sourceTree = "<group>"; };
 		5E50257F20E9D6B9000D02EA /* ZInningDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZInningDataManager.h; sourceTree = "<group>"; };
 		5E50258020E9D6B9000D02EA /* ZInningDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZInningDataManager.m; sourceTree = "<group>"; };
+		5E50258220EA29AB000D02EA /* ZHomeListResultTFView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZHomeListResultTFView.h; sourceTree = "<group>"; };
+		5E50258320EA29AB000D02EA /* ZHomeListResultTFView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZHomeListResultTFView.m; sourceTree = "<group>"; };
+		5E50258520EA2A05000D02EA /* ZHomeListResultCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZHomeListResultCell.h; sourceTree = "<group>"; };
+		5E50258620EA2A05000D02EA /* ZHomeListResultCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZHomeListResultCell.m; sourceTree = "<group>"; };
 		5E5652C220E7122500F7781E /* ZMyAlllBillFootView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMyAlllBillFootView.h; sourceTree = "<group>"; };
 		5E5652C320E7122500F7781E /* ZMyAlllBillFootView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMyAlllBillFootView.m; sourceTree = "<group>"; };
 		5E5652C520E716A400F7781E /* ZMyAllBillListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMyAllBillListCell.h; sourceTree = "<group>"; };
@@ -259,6 +265,10 @@
 				5E401CA820E5D64800BFED02 /* ZHomeListAddTFCell.m */,
 				5E401CA420E5CEAF00BFED02 /* ZHomeTextFieldView.h */,
 				5E401CA520E5CEAF00BFED02 /* ZHomeTextFieldView.m */,
+				5E50258220EA29AB000D02EA /* ZHomeListResultTFView.h */,
+				5E50258320EA29AB000D02EA /* ZHomeListResultTFView.m */,
+				5E50258520EA2A05000D02EA /* ZHomeListResultCell.h */,
+				5E50258620EA2A05000D02EA /* ZHomeListResultCell.m */,
 			);
 			path = LeftView;
 			sourceTree = "<group>";
@@ -706,6 +716,7 @@
 				5E19E11D20E4D0C2000C5781 /* NetworkManagerCenter.m in Sources */,
 				5E401C9D20E5C46A00BFED02 /* ZHomeTopTitleView.m in Sources */,
 				5E401CA920E5D64800BFED02 /* ZHomeListAddTFCell.m in Sources */,
+				5E50258420EA29AB000D02EA /* ZHomeListResultTFView.m in Sources */,
 				5E19E12920E4D208000C5781 /* ZUserModel.m in Sources */,
 				5E401CA320E5CD8900BFED02 /* ZHomeListAddTFView.m in Sources */,
 				5E19E11920E4D01A000C5781 /* ZLoginVC.m in Sources */,
@@ -719,6 +730,7 @@
 				5E5D899B20E21F4A0096536C /* LKModels.m in Sources */,
 				5E401CA020E5C7C100BFED02 /* ZHomeLeftView.m in Sources */,
 				5E4521C620E8D3AE00A53CFA /* ZRightHistorySelectView.m in Sources */,
+				5E50258720EA2A05000D02EA /* ZHomeListResultCell.m in Sources */,
 				5E5D899A20E21F4A0096536C /* NSObject+LKModel.m in Sources */,
 				5E19E13020E4E25E000C5781 /* ZHomeTitleCell.m in Sources */,
 				5E50258120E9D6B9000D02EA /* ZInningDataManager.m in Sources */,

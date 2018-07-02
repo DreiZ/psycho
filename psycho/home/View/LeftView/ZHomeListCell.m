@@ -9,6 +9,7 @@
 #import "ZHomeListCell.h"
 #import "ZHomeTextFieldView.h"
 #import "ZHomeListAddTFView.h"
+#import "ZHomeListResultTFView.h"
 
 @interface ZHomeListCell ()
 @property (nonatomic,strong) UIView *backView;
@@ -16,7 +17,8 @@
 @property (nonatomic,strong) ZHomeTextFieldView *nameInputTF;
 //加注view
 @property (nonatomic,strong) ZHomeListAddTFView *addTFView;
-
+//加注view
+@property (nonatomic,strong) ZHomeListResultTFView *resultTFView;
 
 @property (nonatomic,strong) NSArray *titleArr;
 @property (nonatomic,strong) NSArray *widthArr;
@@ -73,6 +75,8 @@
             aView = self.nameInputTF;
         }else if(i == 2){
             aView = self.addTFView;
+        }else if(i == 3){
+            aView = self.resultTFView;
         }else{
             aView = [self getLabel:_titleArr[i]];
         }
@@ -181,6 +185,14 @@
     return _addTFView;
 }
 
+- (ZHomeListResultTFView *)resultTFView {
+    if (!_resultTFView) {
+        _resultTFView = [[ZHomeListResultTFView alloc] init];
+        [_backView addSubview:_resultTFView];
+    }
+    return _resultTFView;
+}
+
 - (void)setListModel:(ZInningListModel *)listModel {
     _listModel = listModel;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -189,6 +201,8 @@
                 self.nameInputTF.inputTF.text = [NSString stringWithFormat:@"%@",listModel.listName];
             }else if (i == 2){
                 self.addTFView.listModel = listModel;
+            }else if (i == 3){
+                self.resultTFView.listModel = listModel;
             }else{
                 if ([self.labelArr[i] isKindOfClass:[UILabel class]]) {
                     UILabel *tempLabel = self.labelArr[i];
