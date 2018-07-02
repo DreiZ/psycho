@@ -44,9 +44,9 @@
         _lineColor = kBack6Color;
 
         _titleArr = @[@"0", @"", @"", @"", @"",@"",@""];
-        _widthArr = @[@(140.0f/1024),
+        _widthArr = @[@(80.0f/1024),
                       @(137.0f/1024),
-                      @(145.0f/1024),
+                      @(205.0f/1024),
                       @(146.0f/1024),
                       @(144.0f/1024),
                       @(145.0f/1024),
@@ -102,7 +102,7 @@
     tempLabel.text = title;
     tempLabel.numberOfLines = 1;
     tempLabel.textAlignment = NSTextAlignmentCenter;
-    [tempLabel setFont:[UIFont systemFontOfSize:18]];
+    [tempLabel setFont:[UIFont systemFontOfSize:14]];
     [self.backView addSubview:tempLabel];
     return tempLabel;
 }
@@ -128,12 +128,17 @@
         [_nameInputTF setIsCustomKeyboardType:NO];
         _nameInputTF.formatterType = HNFormatterTypeAny;
         _nameInputTF.valueChange = ^(NSString *value) {
+            NSLog(@"weakSelf.listModel %@ list name %@",weakSelf.listModel,value);
+            weakSelf.listModel.listName = value;
             if (weakSelf.nameValueChange) {
                 weakSelf.nameValueChange(value);
             }
         };
         _nameInputTF.beginChange = ^(UITextField *textField) {
             [weakSelf setIsFirst:YES];
+            if (weakSelf.nameBeginChange) {
+                weakSelf.nameBeginChange(textField.text);
+            }
         };
         
         _nameInputTF.endChange = ^(UITextField *textField) {

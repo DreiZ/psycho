@@ -12,6 +12,7 @@
 @interface ZHomeListCell : UITableViewCell
 @property (nonatomic,strong) ZInningListModel *listModel;
 
+@property (strong, nonatomic) void (^nameBeginChange)(NSString *value);
 @property (strong, nonatomic) void (^nameValueChange)(NSString *value);
 
 @property (strong, nonatomic) void (^valueChange)(NSString *value);

@@ -107,6 +107,11 @@
             weakSelf.nameValueChange(value, weakSelf.inningModel.inninglist[indexPath.row]);
         }
     };
+    cell.nameBeginChange = ^(NSString *value) {
+        if (weakSelf.nameBeginChange) {
+            weakSelf.nameBeginChange(value, weakSelf.inningModel.inninglist[indexPath.row]);
+        }
+    };
     
     cell.valueChange = ^(NSString *value) {
         if (weakSelf.valueChange) {

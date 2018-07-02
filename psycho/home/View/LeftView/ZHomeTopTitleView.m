@@ -43,9 +43,9 @@
                         @[[UIColor colorWithHexString:@"cccccc"],[UIColor blackColor]],
                         @[[UIColor colorWithHexString:@"d00000"],[UIColor whiteColor]]];
     
-    _widthArr = @[@(140.0f/1024),
+    _widthArr = @[@(80.0f/1024),
                   @(137.0f/1024),
-                  @(145.0f/1024),
+                  @(205.0f/1024),
                   @(146.0f/1024),
                   @(144.0f/1024),
                   @(145.0f/1024),

@@ -152,11 +152,21 @@
  
         __weak typeof(self) weakSelf = self;
         _leftView.nameValueChange = ^(NSString *value, ZInningListModel *listModel) {
-            
+            weakSelf.seletListModel = listModel;
+            weakSelf.rightView.inningListModel = listModel;
+            [weakSelf.rightView setTopTitle:listModel.listName value:listModel.listInput[0]];
+        };
+        
+        _leftView.nameBeginChange = ^(NSString *value, ZInningListModel *listModel) {
+            weakSelf.seletListModel = listModel;
+            weakSelf.rightView.inningListModel = listModel;
+            [weakSelf.rightView setTopTitle:listModel.listName value:listModel.listInput[0]];
         };
         
         _leftView.valueChange = ^(NSString *value, ZInningListModel *listModel) {
-            
+            weakSelf.seletListModel = listModel;
+            weakSelf.rightView.inningListModel = listModel;
+            [weakSelf.rightView setTopTitle:listModel.listName value:value];
         };
         
         _leftView.beginChange = ^(UITextField *textField, ZInningListModel *listModel) {

@@ -30,9 +30,9 @@
     if (self) {
         self.contentView.backgroundColor = [UIColor whiteColor];
         _titleArr = @[@"0.8", @"名称", @"投入", @"结果", @"本筒",@"上筒",@"总账"];
-        _widthArr = @[@(140.0f/1024),
+        _widthArr = @[@(80.0f/1024),
                       @(137.0f/1024),
-                      @(145.0f/1024),
+                      @(205.0f/1024),
                       @(146.0f/1024),
                       @(144.0f/1024),
                       @(145.0f/1024),
@@ -74,7 +74,7 @@
     tempLabel.text = title;
     tempLabel.numberOfLines = 1;
     tempLabel.textAlignment = NSTextAlignmentCenter;
-    [tempLabel setFont:[UIFont systemFontOfSize:18]];
+    [tempLabel setFont:[UIFont systemFontOfSize:14]];
     [self.contentView addSubview:tempLabel];
     return tempLabel;
 }

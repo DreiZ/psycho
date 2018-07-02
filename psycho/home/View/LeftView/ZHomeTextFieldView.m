@@ -40,7 +40,7 @@
 - (UITextField *)inputTF {
     if (!_inputTF ) {
         _inputTF = [[UITextField alloc] init];
-        [_inputTF setFont:[UIFont systemFontOfSize:18]];
+        [_inputTF setFont:[UIFont systemFontOfSize:14]];
         [_inputTF setBorderStyle:UITextBorderStyleNone];
         [_inputTF setBackgroundColor:[UIColor clearColor]];
         [_inputTF setPlaceholder:@""];
