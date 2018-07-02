@@ -119,4 +119,9 @@
         _topBlock(sender.tag);
     }
 }
+
+- (void)setSenceAndInning:(NSString *)scenceAndinning {
+    UIButton *tempBtn = _topBtnArr[1];
+    [tempBtn setTitle:scenceAndinning forState:UIControlStateNormal];
+}
 @end

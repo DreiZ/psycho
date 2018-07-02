@@ -98,7 +98,9 @@
                                      @"0.00",
                                      @"0.00",
                                      @"0.00"];
+    
     [self.view addSubview:self.seletedNumView];
+    [self.rightView setSenceAndInning:[NSString stringWithFormat:@"#%@-%@",_sceneItem.sceneSort,_inningItem.inningSort]];
 }
 
 #pragma mark 初始化 view

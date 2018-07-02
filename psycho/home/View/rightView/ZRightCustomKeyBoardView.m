@@ -44,6 +44,9 @@
 }
 
 - (void)setup {
+    if (_changeBlock) {
+        _changeBlock();
+    }
     if ([_delegate respondsToSelector:@selector(editChanage:)]) {
         if (self.textField) {
             NSLog(@"textField chang %@",self.textField.text);
@@ -574,8 +577,11 @@
 }
 
 - (void)setTopTitle:(NSString *)title value:(NSString *)value {
-    _titleLabel.text = title;
-    _inputLabel.text = value;
+    NSLog(@"xxx %@",value);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.titleLabel.text = title;
+        self.inputLabel.text = value;
+    });
 }
 
 - (void)setTextField:(UITextField *)textField {

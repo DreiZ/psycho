@@ -48,6 +48,7 @@
 @property (nonatomic, strong) UIButton *nineButton;
 
 @property (nonatomic,strong) void (^addBlock)(void);
+@property (nonatomic,strong) void (^changeBlock)(void);
 
 - (instancetype)initWithTextField:(UITextField *)textField;
 - (instancetype)initWithTextView:(UITextView *)textView;

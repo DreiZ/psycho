@@ -156,6 +156,7 @@
         _addTFView = [[ZHomeListAddTFView alloc] init];
         _addTFView.isCustomKeyboard = YES;
         _addTFView.valueChange = ^(NSString *value) {
+            NSLog(@"zzz value %@",value);
             if (weakSelf.valueChange) {
                 weakSelf.valueChange(value);
             }
@@ -182,36 +183,40 @@
 
 - (void)setListModel:(ZInningListModel *)listModel {
     _listModel = listModel;
-    for (int i = 0; i < _labelArr.count; i++) {
-        if (i == 1) {
-            _nameInputTF.inputTF.text = [NSString stringWithFormat:@"%@",listModel.listName];
-        }else if (i == 2){
-            _addTFView.listModel = listModel;
-        }else{
-            if ([_labelArr[i] isKindOfClass:[UILabel class]]) {
-                UILabel *tempLabel = _labelArr[i];
-                switch (i) {
-                    case 0:
-                        tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listSort];
-                        break;
-                    case 3:
-                        tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listOpenResult];
-                        break;
-                    case 4:
-                        tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listThisResult];
-                        break;
-                    case 5:
-                        tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listLastResult];
-                        break;
-                    case 6:
-                        tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listAllResult];
-                        break;
-                    default:
-                        break;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        for (int i = 0; i < self.labelArr.count; i++) {
+            if (i == 1) {
+                self.nameInputTF.inputTF.text = [NSString stringWithFormat:@"%@",listModel.listName];
+            }else if (i == 2){
+                self.addTFView.listModel = listModel;
+            }else{
+                if ([self.labelArr[i] isKindOfClass:[UILabel class]]) {
+                    UILabel *tempLabel = self.labelArr[i];
+                    switch (i) {
+                        case 0:
+                            tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listSort];
+                            break;
+                        case 3:
+                            tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listOpenResult];
+                            break;
+                        case 4:
+                            tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listThisResult];
+                            break;
+                        case 5:
+                            tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listLastResult];
+                            break;
+                        case 6:
+                            tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listAllResult];
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
-    }
+    });
+
+    
 }
 
 - (void)setIsFirst:(BOOL)isFirst {

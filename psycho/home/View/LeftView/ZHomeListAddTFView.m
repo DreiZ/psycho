@@ -78,6 +78,7 @@
     cell.inputView.inputTF.text = _listModel.listInput[indexPath.row];
     cell.valueChange = ^(NSString *value) {
         weakSelf.listModel.listInput[indexPath.row] = value;
+        NSLog(@"zzz value %@",value);
         if (weakSelf.valueChange) {
             weakSelf.valueChange(value);
         }

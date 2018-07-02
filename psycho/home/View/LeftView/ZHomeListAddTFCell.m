@@ -62,6 +62,7 @@
         [_inputView setIsCustomKeyboardType:YES];
         _inputView.formatterType = HNFormatterTypeAny;
         _inputView.valueChange = ^(NSString *value) {
+            NSLog(@"zzz value %@",value);
             if (weakSelf.valueChange) {
                 weakSelf.valueChange(value);
             }

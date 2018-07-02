@@ -10,4 +10,6 @@
 
 @interface ZRightTopBtnView : UIView
 @property (nonatomic,strong) void (^topBlock)(NSInteger);
+
+- (void)setSenceAndInning:(NSString *)scenceAndinning;
 @end

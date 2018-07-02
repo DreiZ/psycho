@@ -144,6 +144,13 @@
                 weakSelf.addBlock();
             }
         };
+        
+        _keyboardView.changeBlock = ^{
+            if (weakSelf.inningListModel && weakSelf.inputTextField) {
+                [weakSelf.keyboardView setTopTitle:weakSelf.inningListModel.listName value:weakSelf.inputTextField.text];
+            }
+            
+        };
     }
     return _keyboardView;
 }
@@ -156,6 +163,10 @@
 
 - (void)setTopTitle:(NSString *)title value:(NSString *)value {
     [_keyboardView setTopTitle:title value:value];
+}
+
+- (void)setSenceAndInning:(NSString *)scenceAndinning {
+    
 }
 @end
 
