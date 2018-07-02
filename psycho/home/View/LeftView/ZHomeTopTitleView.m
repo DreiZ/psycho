@@ -32,8 +32,8 @@
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
-    _titleArr = @[@"0.8", @"名称", @"投入", @"结果", @"本筒",@"上筒",@"总账"];
-    _subTitleArr = @[@"0", @"#12-1", @"0.3", @"开２", @"＋0.4",@"0",@"+0.3"];
+    _titleArr = @[@"0", @"名称", @"投入", @"结果", @"本筒",@"上筒",@"总账"];
+    _subTitleArr = @[@"0", @"#", @"", @"开", @"0",@"0",@"0"];
     
     _sTitleColorArr = @[@[[UIColor colorWithHexString:@"cccccc"],[UIColor blackColor]],
                         @[[UIColor colorWithHexString:@"cccccc"],[UIColor blackColor]],
@@ -122,5 +122,13 @@
 -(void)setOpenNum:(NSString *)openNum {
     UILabel *label = _titleLabelArr[0];
     label.text = openNum;
+}
+
+- (void)setSubTitleArr:(NSArray *)subTitleArr {
+    _subTitleArr = subTitleArr;
+    for (int i = 0; i < _sTitleLabelArr.count; i++) {
+        UILabel *tempLabel = _sTitleLabelArr[i];
+        tempLabel.text = subTitleArr[i];
+    }
 }
 @end

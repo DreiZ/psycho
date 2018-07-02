@@ -161,4 +161,9 @@
 - (void)refreshHeadData {
     _topView.openNum = _inningModel.openNum;
 }
+
+-(void)setTopSubTitleArr:(NSArray *)topSubTitleArr {
+    _topSubTitleArr = topSubTitleArr;
+    _topView.subTitleArr = topSubTitleArr;
+}
 @end

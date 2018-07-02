@@ -20,14 +20,6 @@
 
 #import "ZInningModel.h"
 
-@implementation ZSearchItem
-
-@end
-
-@implementation ZSearchList
-
-@end
-
 @interface HomeViewController ()<UITextFieldDelegate>
 @property (nonatomic,strong) ZInningModel *inningModel;
 
@@ -42,8 +34,9 @@
 
 @property (nonatomic,strong) ZInningListModel *seletListModel;
 
-@property (nonatomic,strong) ZSearchList *searchList;
-
+@property (nonatomic,strong) ZHistoryAllList *historyAllList;
+@property (nonatomic,strong) ZSceneItem *sceneItem;
+@property (nonatomic,strong) ZInningItem *inningItem;
 @end
 
 @implementation HomeViewController
@@ -53,11 +46,31 @@
 
     [self setMainData];
     [self setupMainView];
-    [self.view addSubview:self.seletedNumView];
+    [self initInningData];
+   
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+#pragma mark 数据初始化
 - (void)setMainData {
+    [self getHistory];
+    _sceneItem = [[ZSceneItem alloc] init];
+    //历史场次
+    if (!_historyAllList.allHisoryLists) {
+        _sceneItem.sceneSort = @"1";
+    }else{
+        _sceneItem.sceneSort = [NSString stringWithFormat:@"%ld",_historyAllList.allHisoryLists.count + 1];
+    }
+    _inningItem = [[ZInningItem alloc] init];
+    _inningItem.inningSort = @"1";
+    _inningModel.isEnable = YES;
     _inningModel = [[ZInningModel alloc] init];
+    _inningItem.itemModel = _inningModel;
+    
     for (int i = 0; i < 40; i++) {
         ZInningListModel *listModel = [[ZInningListModel alloc] init];
         listModel.listSort = [NSString stringWithFormat:@"%ld",(long)i+1];
@@ -66,16 +79,29 @@
 }
 
 - (void)getHistory {
-    self.searchList = [[DataWorkManager shareInstance] getDBModelData:[ZSearchList class]];
-    if (!self.searchList) {
-        self.searchList = [ZSearchList new];
+    self.historyAllList = [[DataWorkManager shareInstance] getDBModelData:[ZHistoryAllList class]];
+    if (!self.historyAllList) {
+        self.historyAllList = [ZHistoryAllList new];
     }
 }
 
 - (void)updateHistory {
-    [[DataWorkManager shareInstance] addOrUpdateModel:self.searchList];
+    [[DataWorkManager shareInstance] addOrUpdateModel:self.historyAllList];
 }
 
+
+- (void)initInningData {
+    self.leftView.topSubTitleArr = @[@"",
+                                     [NSString stringWithFormat:@"#%@-%@",_sceneItem.sceneSort,_inningItem.inningSort],
+                                     @"",
+                                     @"开",
+                                     @"0.00",
+                                     @"0.00",
+                                     @"0.00"];
+    [self.view addSubview:self.seletedNumView];
+}
+
+#pragma mark 初始化 view
 - (void)setupMainView {
     
     UIButton *lognBtn = [[UIButton alloc] initWithFrame:CGRectZero];
@@ -121,7 +147,7 @@
     self.rightView.inningModel = _inningModel;
 }
 
-#pragma mark lazy loading...
+#pragma mark  懒加载
 -(ZHomeRightView *)rightView {
     if (!_rightView) {
         __weak typeof(self) weakSelf = self;
@@ -190,10 +216,11 @@
 -(ZSeletedNumView *)seletedNumView {
     if (!_seletedNumView) {
         __weak typeof(self) weakSelf = self;
-        NSArray *openNum = @[@"0.5",@"0.6"];
+        NSArray *openNum = @[@"0.7",@"0.8"];
         _seletedNumView = [[ZSeletedNumView alloc] init];
         _seletedNumView.frame = CGRectMake(0, 0, screenWidth, screenHeight);
         _seletedNumView.numSeletBlock = ^(NSInteger index) {
+            weakSelf.sceneItem.openNum = openNum[index];
             weakSelf.inningModel.openNum = openNum[index];
             [weakSelf.leftView refreshHeadData];
         };
@@ -234,17 +261,17 @@
     
     return _myAllbillView;
 }
-#pragma mark 退出
-- (void)lognBtnOnclick:(id)sender {
-    [[AppDelegate App] pushLogingVC];
-}
 
-#pragma mark 键盘上角按钮处理
+#pragma mark 键盘头部上按钮处理
 - (void)handleTopBlock:(NSInteger)index {
     switch (index) {
         case 100:
             //清空所有
-             
+        {
+            [_inningModel clearAll];
+            [_leftView refreshData];
+            [_leftView refreshHeadData];
+        }
             break;
         case 101:
             //第几场
@@ -293,13 +320,21 @@
         case 1:
             //修改本筒
         {
-            
+            [self.view addSubview:self.seletedOpenNumView];
         }
             break;
         case 2:
             //下一行
             {
                 if ([AppDelegate App].listIndex < _inningModel.inninglist.count) {
+                    [AppDelegate App].isAddRefresh = YES;
+                    [AppDelegate App].listIndex += 1;
+                    [AppDelegate App].firstIndex = 0;
+                    [_leftView refreshData];
+                }else{
+                    ZInningListModel *listModel = [[ZInningListModel alloc] init];
+                    listModel.listSort = [NSString stringWithFormat:@"%ld",(long)_inningModel.inninglist.count+1];
+                    [_inningModel.inninglist addObject:listModel];
                     [AppDelegate App].isAddRefresh = YES;
                     [AppDelegate App].listIndex += 1;
                     [AppDelegate App].firstIndex = 0;
@@ -313,31 +348,7 @@
     }
 }
 
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    // 此处编写弹出日期选择器的代码。
-    NSLog(@"asdfa");
-    return NO;
-}
-
-//获取设备方向 更新 UI
--(void)reLayoutSubViewsWithIsHorizontal:(BOOL)isHorizontal {
-    NSLog(@"sddfs");
-    if (isHorizontal) {
-        [_rightView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.right.equalTo(self.view);
-            make.width.mas_equalTo(CGFloatIn2048(636));
-        }];
-    }else{
-        [_rightView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.right.equalTo(self.view);
-            make.width.mas_equalTo(0.1f);
-        }];
-    }
-    
-}
-
+#pragma mark 截图处理
 - (void)cutPicture {
     UIImage * img = [self cut];
     UIImageWriteToSavedPhotosAlbum(img, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
@@ -359,10 +370,26 @@
     return img;
 }
 
-
-- (void) viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+#pragma mark 屏幕旋转处理
+//获取设备方向 更新 UI
+-(void)reLayoutSubViewsWithIsHorizontal:(BOOL)isHorizontal {
+    if (isHorizontal) {
+        [_rightView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.right.equalTo(self.view);
+            make.width.mas_equalTo(CGFloatIn2048(636));
+        }];
+    }else{
+        [_rightView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.right.equalTo(self.view);
+            make.width.mas_equalTo(0.1f);
+        }];
+    }
+    
 }
+
+//#pragma mark 退出
+//- (void)lognBtnOnclick:(id)sender {
+//    [[AppDelegate App] pushLogingVC];
+//}
+
 @end

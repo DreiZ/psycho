@@ -34,9 +34,37 @@
         _amount = @"";
         _addAmount = @"";
         _subAmount = @"";
+        _winNum = @"";
         
         _inninglist = @[].mutableCopy;
     }
     return self;
 }
+
+- (void)clearAll {
+    _addAmount = @"";
+    _winNum = @"";
+    for (ZInningListModel *listModel in _inninglist) {
+        listModel.listName = @"";
+        listModel.listInput = @[@""].mutableCopy;
+        listModel.listOpenResult = @"";
+        listModel.listThisResult = @"";
+        listModel.listLastResult = @"";
+        listModel.listAllResult = @"";
+    }
+}
+@end
+
+
+
+@implementation ZInningItem
+
+@end
+
+@implementation ZSceneItem
+
+@end
+
+@implementation ZHistoryAllList
+
 @end
