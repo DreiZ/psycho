@@ -119,9 +119,9 @@
     return tempLabel;
 }
 
--(void)setOpenNum:(NSString *)openNum {
+-(void)setMultiplying:(NSString *)multiplying{
     UILabel *label = _titleLabelArr[0];
-    label.text = openNum;
+    label.text = multiplying;
 }
 
 - (void)setSubTitleArr:(NSArray *)subTitleArr {

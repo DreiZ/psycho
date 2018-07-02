@@ -19,6 +19,7 @@
 #import "ZRightHistorySelectView.h"
 
 #import "ZInningModel.h"
+#import "ZInningDataManager.h"
 
 @interface HomeViewController ()<UITextFieldDelegate>
 @property (nonatomic,strong) ZInningModel *inningModel;
@@ -47,7 +48,6 @@
     [self setMainData];
     [self setupMainView];
     [self initInningData];
-   
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -59,6 +59,7 @@
 - (void)setMainData {
     [self getHistory];
     _sceneItem = [[ZSceneItem alloc] init];
+    _sceneItem.multiplying = @"0.7";
     //历史场次
     if (!_historyAllList.allHisoryLists) {
         _sceneItem.sceneSort = @"1";
@@ -67,7 +68,11 @@
     }
     _inningItem = [[ZInningItem alloc] init];
     _inningItem.inningSort = @"1";
+    
+    
     _inningModel.isEnable = YES;
+    _inningModel.multiplying = @"0.7";
+    _inningModel.multiplyingTure = @"0.07";
     _inningModel = [[ZInningModel alloc] init];
     _inningItem.itemModel = _inningModel;
     
@@ -218,12 +223,13 @@
 -(ZSeletedNumView *)seletedNumView {
     if (!_seletedNumView) {
         __weak typeof(self) weakSelf = self;
-        NSArray *openNum = @[@"0.7",@"0.8"];
+        NSArray *multiplying = @[@"0.7",@"0.8"];
+        NSArray *multiplyingTure = @[@"0.07",@"0.08"];
         _seletedNumView = [[ZSeletedNumView alloc] init];
         _seletedNumView.frame = CGRectMake(0, 0, screenWidth, screenHeight);
         _seletedNumView.numSeletBlock = ^(NSInteger index) {
-            weakSelf.sceneItem.openNum = openNum[index];
-            weakSelf.inningModel.openNum = openNum[index];
+            weakSelf.sceneItem.multiplying = multiplying[index];
+            weakSelf.inningModel.multiplyingTure = multiplyingTure[index];
             [weakSelf.leftView refreshHeadData];
         };
     }
@@ -233,10 +239,16 @@
 
 -(ZRightOpenSelectView *)seletedOpenNumView {
     if (!_seletedOpenNumView) {
+        __weak typeof(self) weakSelf = self;
         _seletedOpenNumView = [[ZRightOpenSelectView alloc] init];
         _seletedOpenNumView.frame = CGRectMake(0, 0, screenWidth, screenHeight);
         _seletedOpenNumView.numSeletBlock = ^(NSInteger index) {
+            NSArray *titleArr = @[@"1",@"2",@"3",@"4",@"5",@"6"];
+            weakSelf.inningModel.winNum = titleArr[index];
+            [ZInningDataManager computeWithInningModel:weakSelf.inningModel];
             
+            [weakSelf.leftView refreshData];
+            [weakSelf.leftView refreshHeadData];
         };
     }
     

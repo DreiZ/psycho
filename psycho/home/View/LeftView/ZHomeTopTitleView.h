@@ -10,5 +10,5 @@
 
 @interface ZHomeTopTitleView : UIView
 @property (nonatomic,strong) NSArray *subTitleArr;
-@property (nonatomic,strong) NSString *openNum;
+@property (nonatomic,strong) NSString *multiplying;
 @end

@@ -12,9 +12,14 @@
 @property (nonatomic,strong) NSString *listSort;
 @property (nonatomic,strong) NSString *listName;
 @property (nonatomic,strong) NSMutableArray <NSString *>*listInput;
+@property (nonatomic,strong) NSMutableArray <NSString *>*listInputResult;
+//开奖数字
 @property (nonatomic,strong) NSString *listOpenResult;
+//本次结果
 @property (nonatomic,strong) NSString *listThisResult;
+//上次结果
 @property (nonatomic,strong) NSString *listLastResult;
+//总结果
 @property (nonatomic,strong) NSString *listAllResult;
 @end
 
@@ -24,9 +29,14 @@
 //序列
 @property (nonatomic, strong) NSString *sort;
 //初始倍率
-@property (nonatomic, strong) NSString *openNum;
+@property (nonatomic, strong) NSString *multiplying;
+//初始倍率
+@property (nonatomic, strong) NSString *multiplyingTure;
 //开通数字
 @property (nonatomic, strong) NSString *winNum;
+//投入数字
+@property (nonatomic, strong) NSString *inputAmout;
+
 @property (nonatomic, strong) NSString *amount;
 @property (nonatomic, strong) NSString *addAmount;
 @property (nonatomic, strong) NSString *subAmount;
@@ -46,7 +56,8 @@
 @interface ZSceneItem : ZBaseModel
 //场次
 @property(nonatomic, strong) NSString *sceneSort;
-@property(nonatomic, strong) NSString *openNum;
+@property(nonatomic, strong) NSString *multiplying
+;
 @property(nonatomic, strong) NSArray <ZInningItem *> *sceneLists;
 @end
 

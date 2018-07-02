@@ -15,6 +15,7 @@
         _listSort = @"";
         _listName = @"";
         _listInput = @[@""].mutableCopy;
+        _listInputResult = @[@""].mutableCopy;
         _listOpenResult = @"";
         _listThisResult = @"";
         _listLastResult = @"";
@@ -30,7 +31,9 @@
     self = [super init];
     if (self) {
         _sort = @"";
-        _openNum  = @"";
+        _multiplying = @"";
+        _multiplyingTure = @"";
+        _inputAmout = @"";
         _amount = @"";
         _addAmount = @"";
         _subAmount = @"";

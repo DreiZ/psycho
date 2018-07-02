@@ -159,7 +159,7 @@
 }
 
 - (void)refreshHeadData {
-    _topView.openNum = _inningModel.openNum;
+    _topView.multiplying = _inningModel.multiplying;
 }
 
 -(void)setTopSubTitleArr:(NSArray *)topSubTitleArr {

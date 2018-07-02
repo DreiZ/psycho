@@ -139,6 +139,7 @@
         _keyboardView.addBlock = ^{
             if (weakSelf.inningListModel) {
                 [weakSelf.inningListModel.listInput addObject:@""];
+                [weakSelf.inningListModel.listInputResult addObject:@""];
             }
             if (weakSelf.addBlock) {
                 weakSelf.addBlock();
