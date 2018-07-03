@@ -81,7 +81,7 @@
                     }
                 }
                 //num.indexOf("//")>0
-            }else if([num rangeOfString:@"/"].location != NSNotFound && [num rangeOfString:@"/"].location > 0) {//轉数字
+            }else if([num rangeOfString:@"//"].location != NSNotFound && [num rangeOfString:@"//"].location > 0) {//轉数字
                 //console.log("中签转数字(1)为:"+num);
                 //(num.indexOf("1")==0
                 if([num rangeOfString:@"1"].location != NSNotFound && [num rangeOfString:@"1"].location==0) {//1//X  1=2.4 X=1
@@ -128,7 +128,7 @@
                                 if(temp7.length>5){
 //                                    result="+"+Number(0.07*Bl).toFixed(2);
                                     result = 0.07 * [Bl doubleValue] + result;
-                                    resultStr = [NSString stringWithFormat:@"%.2f",result];
+                                    resultStr = [NSString stringWithFormat:@"%.3f",result];
                                 }else{
 //                              result="+"+Math.round(Number(0.07*Bl).toFixed(3) * 100) / 100;
                                     result = 0.07 * [Bl doubleValue] + result;
@@ -232,7 +232,7 @@
                     }
                 }
                 //num.indexOf("//")>0
-            }else if([num rangeOfString:@"/"].location != NSNotFound && [num rangeOfString:@"/"].location > 0) {//轉数字
+            }else if([num rangeOfString:@"//"].location != NSNotFound && [num rangeOfString:@"//"].location > 0) {//轉数字
                 //console.log("中签轉数字为:"+num);
                 //num.indexOf(Qnum)==0
                 if([num rangeOfString:Qnum].location != NSNotFound && [num rangeOfString:Qnum].location==0) {//X//X
@@ -278,8 +278,8 @@
 +(BOOL)checkX:(NSString *)checknum {
     NSInteger count = 0;
     for (NSInteger i = 0; i < checknum.length; i++) {
-        NSRange subRange= NSMakeRange(i, i + 1);
-        NSString *g =[checknum substringWithRange:subRange];
+        NSRange subRange= NSMakeRange(i,1);
+        NSString *g = [checknum substringWithRange:subRange];
         if ([g isEqualToString:@"/"]) {
             count++;
         }
@@ -288,6 +288,52 @@
         return true;
     }
     return false;
+}
+
+//num 输入的公式 Qnum开的数字 Bl为/后面的数字 tsbl为刚开始选择的0.8或0.7
++ (void)checkAndCompulteWithQmSinge:(NSString *)qmSinge Qnum:(NSString *)Qnum Bl:(NSString *)Bl tsbl:(NSString *)tsbl {
+    if( [ZInningDataManager checkX:qmSinge]){
+        //console.log(checkX(num));
+        NSArray *tempArr = [qmSinge componentsSeparatedByString:@"/"];
+        NSString *num1 = @"";
+        NSString *num2 = @"";
+        NSString *Bl1 =  @"";
+        NSString *Bl2 =  @"";
+        
+        if (tempArr.count > 0) {
+            num1 = tempArr[0];
+            num2 = [num1 stringByReplacingOccurrencesOfString:@"." withString:@""];
+        }
+        
+        if (tempArr.count > 1) {
+            Bl1 = tempArr[1];
+        }
+        
+        if (tempArr.count > 2) {
+            Bl2 = tempArr[2];
+        }
+        
+        NSString *result = @"";
+ 
+        result = [ZInningDataManager computeWithNum:num1 Qnum:Qnum Bl:Bl1 tsbl:tsbl];
+
+        NSString *result2 =[ZInningDataManager computeWithNum:num2 Qnum:Qnum Bl:Bl2 tsbl:tsbl];
+        
+        result = [NSString stringWithFormat:@"%.3f",[result doubleValue] + [result2 doubleValue]];
+        
+    }else{
+        NSArray *tempArr = [qmSinge componentsSeparatedByString:@"/"];
+        NSString *num1 = @"";
+        NSString *Bl1 =  @"";
+        if (tempArr.count > 0) {
+            num1 = tempArr[0];
+        }
+        
+        if (tempArr.count > 1) {
+            Bl1 = tempArr[1];
+        }
+        NSString *result2 = [ZInningDataManager computeWithNum:num1 Qnum:Qnum Bl:Bl1 tsbl:tsbl];
+    }
 }
 
 //num 输入的公式 Qnum开的数字 Bl为/后面的数字 tsbl为刚开始选择的0.8或0.7
@@ -300,33 +346,70 @@
         for (NSInteger i = 0; i < listModel.listInput.count; i++) {
             NSString *qmSinge = listModel.listInput[i];
             if (qmSinge.length > 0) {
-                NSString *num = @"";
-                if([qmSinge rangeOfString:@"/"].location != NSNotFound && [qmSinge rangeOfString:@"/"].location > 0) {
-                    num = [qmSinge substringWithRange:NSMakeRange(0,[qmSinge rangeOfString:@"/"].location)] ;
+                if( [ZInningDataManager checkX:qmSinge]){
+                    //console.log(checkX(num));
+                    NSArray *tempArr = [qmSinge componentsSeparatedByString:@"/"];
+                    NSString *num1 = @"";
+                    NSString *num2 = @"";
+                    NSString *Bl1 =  @"";
+                    NSString *Bl2 =  @"";
+                    
+                    if (tempArr.count > 0) {
+                        num1 = tempArr[0];
+                        num2 = [num1 stringByReplacingOccurrencesOfString:@"." withString:@""];
+                    }
+                    
+                    if (tempArr.count > 1) {
+                        Bl1 = tempArr[1];
+                    }
+                    
+                    if (tempArr.count > 2) {
+                        Bl2 = tempArr[2];
+                    }
+                    
+                    NSString *result = @"";
+                    
+                    result = [ZInningDataManager computeWithNum:num1 Qnum:model.winNum Bl:Bl1 tsbl:model.multiplyingTure];
+                    
+                    NSString *result2 =[ZInningDataManager computeWithNum:num2 Qnum:model.winNum Bl:Bl2 tsbl:model.multiplyingTure];
+                    
+                    
+                    input += [Bl1 doubleValue] + [Bl2 doubleValue];
+                    result = [NSString stringWithFormat:@"%.3f",[result doubleValue] + [result2 doubleValue]];
+                    listModel.listInputResult[i] = result;
+                    
+                    allInputResult += [listModel.listInputResult[i] doubleValue];
+                }else{
+                    NSArray *tempArr = [qmSinge componentsSeparatedByString:@"/"];
+                    NSString *num1 = @"";
+                    NSString *Bl1 =  @"";
+                    if (tempArr.count > 0) {
+                        num1 = tempArr[0];
+                    }
+                    
+                    if (tempArr.count > 1) {
+                        Bl1 = tempArr[1];
+                    }
+                    NSString *result = [ZInningDataManager computeWithNum:num1 Qnum:model.winNum Bl:Bl1 tsbl:model.multiplyingTure];
+                    input += [Bl1 doubleValue];
+                    listModel.listInputResult[i] = result;
+                    
+                    allInputResult += [listModel.listInputResult[i] doubleValue];
                 }
-                
-                NSString *Bl = @"";
-                if([qmSinge rangeOfString:@"/"].location != NSNotFound && [listModel.listInput[0] rangeOfString:@"/"].length > 0) {
-                    Bl = [qmSinge substringWithRange:NSMakeRange([qmSinge rangeOfString:@"/"].location+1, qmSinge.length - [qmSinge rangeOfString:@"/"].location-1)] ;
-                    input += [Bl doubleValue];
-                }
-                listModel.listInputResult[i] = [ZInningDataManager computeWithNum:num Qnum:model.winNum Bl:Bl tsbl:model.multiplyingTure];
-                
-                allInputResult += [listModel.listInputResult[i] doubleValue];
             }
         
             if (listModel.listInput[0].length > 0) {
-                listModel.listThisResult = [NSString stringWithFormat:@"%.2f",allInputResult];
-                listModel.listAllResult = [NSString stringWithFormat:@"%.2f", [listModel.listThisResult doubleValue] + [listModel.listLastResult doubleValue]];
+                listModel.listThisResult = [NSString stringWithFormat:@"%.3f",allInputResult];
+                listModel.listAllResult = [NSString stringWithFormat:@"%.3f", [listModel.listThisResult doubleValue] + [listModel.listLastResult doubleValue]];
             }
         }
         if (listModel.listInput && listModel.listInput.count > 0 && listModel.listInput[0].length > 0) {
             amount += round([listModel.listThisResult doubleValue] * 1000) / 1000.0f;
         }
     }
-    model.amount = [NSString stringWithFormat:@"%.2f",amount];
-    model.allAmount = [NSString stringWithFormat:@"%.2f",amount + [model.lastAmount doubleValue]];
+    model.amount = [NSString stringWithFormat:@"%.3f",amount];
+    model.allAmount = [NSString stringWithFormat:@"%.3f",amount + [model.lastAmount doubleValue]];
     
-    model.inputAmout = [NSString stringWithFormat:@"%.2f",input/10.0f];
+    model.inputAmout = [NSString stringWithFormat:@"%.3f",input/10.0f];
 }
 @end

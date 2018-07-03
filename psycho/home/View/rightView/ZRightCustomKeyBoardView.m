@@ -19,7 +19,7 @@
 - (instancetype)initWithTextField:(UITextField *)textField {
     if (self = [super init]) {
         self.textField = textField;
-        self.verify = YES;
+        self.verify = NO;
         self.backgroundColor = [UIColor greenColor];
         CGFloat maxScreenWidth = screenWidth < screenHeight ?  screenWidth:screenHeight;
 
