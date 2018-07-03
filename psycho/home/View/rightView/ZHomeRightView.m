@@ -95,6 +95,15 @@
         __weak typeof(self)weakSelf = self;
         _topBtnView = [[ZRightTopBtnView alloc] init];
         _topBtnView.topBlock = ^(NSInteger index) {
+            if (!weakSelf.inningModel.isEnable) {
+                if (index == 101 || index == 102 || index == 203) {
+                    if (weakSelf.topBlock) {
+                        weakSelf.topBlock(index);
+                    }
+                }else{
+                    return ;
+                }
+            }
             if (weakSelf.topBlock) {
                 weakSelf.topBlock(index);
             }
@@ -109,7 +118,7 @@
         __weak typeof(self)weakSelf = self;
         _openView = [[ZRightOpenView alloc] init];
         _openView.openBlock = ^{
-            if (weakSelf.openBlock) {
+            if (weakSelf.openBlock || weakSelf.inningModel.isEnable) {
                 weakSelf.openBlock();
             }
         };
@@ -123,7 +132,7 @@
         __weak typeof(self)weakSelf = self;
         _bottomBtnView = [[ZRightBottomBtnView alloc] init];
         _bottomBtnView.bottomBlock = ^(NSInteger index) {
-            if (weakSelf.bottomBlock) {
+            if (weakSelf.bottomBlock && weakSelf.inningModel.isEnable) {
                 weakSelf.bottomBlock(index);
             }
         };

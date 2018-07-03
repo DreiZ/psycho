@@ -7,6 +7,7 @@
 //
 
 #import "ZRightCustomKeyBoardView.h"
+#import <AVFoundation/AVFoundation.h>
 #define keyboardColor(r,g,b) [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:1.0f]
 
 @interface ZRightCustomKeyBoardView ()
@@ -310,6 +311,7 @@
 #pragma mark - logic
 
 - (void)numberKeyBoard:(NSInteger)number {
+    [self playVideo:number];
     UITextPosition* beginning = self.textField.beginningOfDocument;
     UITextRange* selectedRange = self.textField.selectedTextRange;
     UITextPosition* selectionStart = selectedRange.start;
@@ -368,6 +370,7 @@
 }
 
 - (void)cancelKeyBoard {
+    [self playVideo:13];
     UITextPosition* beginning = self.textField.beginningOfDocument;
     UITextRange* selectedRange = self.textField.selectedTextRange;
     UITextPosition* selectionStart = selectedRange.start;
@@ -423,6 +426,7 @@
 }
 
 - (void)cleanKeyBoard {
+    [self playVideo:12];
     if (self.textField) {
         self.textField.text = @"";
         self.inputLabel.text = @"";
@@ -434,6 +438,7 @@
 }
 
 -(void)periodKeyBoard{
+    [self playVideo:10];
     UITextPosition* beginning = self.textField.beginningOfDocument;
     UITextRange* selectedRange = self.textField.selectedTextRange;
     UITextPosition* selectionStart = selectedRange.start;
@@ -495,6 +500,7 @@
 }
 
 -(void)minusKeyBoard{
+    [self playVideo:14];
     UITextPosition* beginning = self.textField.beginningOfDocument;
     UITextRange* selectedRange = self.textField.selectedTextRange;
     UITextPosition* selectionStart = selectedRange.start;
@@ -556,6 +562,7 @@
 }
 
 -(void)finishKeyBoard {
+    [self playVideo:11];
     if (_addBlock) {
         _addBlock();
     }
@@ -586,5 +593,21 @@
 
 - (void)setTextField:(UITextField *)textField {
     _textField = textField;
+}
+
+void soundCompleteCallBack(SystemSoundID soundID, void *clientData)
+{
+    NSLog(@"播放完成");
+}
+
+- (void)playVideo:(NSInteger)index {
+    NSArray *videoArr = @[@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"dian",@"jiazhu",@"qingchu",@"tuige",@"ya"];
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:videoArr[index] ofType:@"mp3"];
+    NSURL *fileUrl = [NSURL URLWithString:filePath];
+    SystemSoundID soundID = 0;
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)(fileUrl), &soundID);
+    AudioServicesAddSystemSoundCompletion(soundID,NULL,NULL,soundCompleteCallBack,NULL);
+    
+    AudioServicesPlaySystemSound(soundID);
 }
 @end

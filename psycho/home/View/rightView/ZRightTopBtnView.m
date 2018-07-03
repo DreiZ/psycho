@@ -42,7 +42,7 @@
         make.height.mas_equalTo(80.0f/1536 * maxScreenWidth);
     }];
     
-    NSArray *topTitleArr = @[@"清空所有",@"第＃124-100筒 开２",@"查看总账"];
+    NSArray *topTitleArr = @[@"清空所有",@"第＃1-1筒",@"查看总账"];
     
     for (int i = 0; i < topTitleArr.count; i++) {
         UIButton *btn = [self getBtn:i+100 title:topTitleArr[i] type:YES];

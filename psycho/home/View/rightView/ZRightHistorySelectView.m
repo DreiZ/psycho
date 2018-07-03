@@ -202,6 +202,7 @@
     if (_numSeletBlock) {
         _numSeletBlock(nil);
     }
+    [self removeFromSuperview];
 }
 
 - (void)seletBtnClick:(UIButton *)sender {
