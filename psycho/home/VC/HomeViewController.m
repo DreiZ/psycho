@@ -296,7 +296,12 @@
         [self.rightView setOpenNum:history.itemModel.winNum];
         
         [self.leftView refreshData];
-        [self.rightView setSortNum:[NSString stringWithFormat:@"第#%@-%@筒 开%@",history.sceneSort,history.inningSort,history.winNum]];
+        if (history.winNum && history.winNum.length > 0 &&![history.winNum isKindOfClass:[NSNull class]]) {
+            [self.rightView setSortNum:[NSString stringWithFormat:@"第#%@-%@筒 开%@",history.sceneSort,history.inningSort,history.winNum]];
+        }else{
+            [self.rightView setSortNum:[NSString stringWithFormat:@"第#%@-%@筒",history.sceneSort,history.inningSort]];
+        }
+        
     }else{
         self.leftView.inningModel = _inningModel;
         self.rightView.inningModel = _inningModel;
@@ -311,6 +316,7 @@
         [self.rightView setOpenNum:@""];
         
         [self.leftView refreshData];
+        
         [self.rightView setSortNum:[NSString stringWithFormat:@"第#%@-%@筒",_sceneItem.sceneSort,_inningItem.inningSort]];
     }
     
@@ -340,7 +346,11 @@
         case 101:
             //第几场
         {
-            self.historySelectView.historyAllList = self.historyAllList;
+            ZHistoryAllList *history = [[ZHistoryAllList alloc] init];
+            NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self.historyAllList.allHisoryLists];
+            [tempArr addObject:_sceneItem];
+            history.allHisoryLists = tempArr;
+            self.historySelectView.historyAllList = history;
             
             [self.view addSubview:self.historySelectView];
         }
@@ -423,6 +433,8 @@
     _lastInningItem = _inningItem;
     _lastInningItem.itemModel.isEnable = NO;
     _lastInningItem.winNum = _inningModel.winNum;
+    [self checkNameChange];
+
     
     NSInteger index = [_inningItem.inningSort integerValue];
     _inningItem = [[ZInningItem alloc] init];
@@ -465,6 +477,18 @@
     [self.leftView refreshData];
     [self setRightData];
     [self.rightView setSortNum:[NSString stringWithFormat:@"第#%@-%@筒",_sceneItem.sceneSort,_inningItem.inningSort]];
+    
+}
+
+- (void)checkNameChange {
+    for (int i = 0 ; i < _sceneItem.sceneLists.count; i++) {
+        ZInningModel *inngModel = _sceneItem.sceneLists[i].itemModel;
+        for (int j = 0; j < inngModel.inninglist.count; j++) {
+            ZInningListModel *listModel = inngModel.inninglist[j];
+            ZInningListModel *nlistModel = _inningModel.inninglist[j];
+            listModel.listName = nlistModel.listName;
+        }
+    }
 }
 
 //添加新场
@@ -474,6 +498,7 @@
 
 //结束本场
 - (void)endThisSence {
+    [self checkNameChange];
     NSMutableArray *historyArr = [[NSMutableArray alloc] initWithArray:self.historyAllList.allHisoryLists];
     [historyArr addObject:_sceneItem];
     self.historyAllList.allHisoryLists = historyArr;
