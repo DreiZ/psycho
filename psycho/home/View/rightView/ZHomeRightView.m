@@ -166,12 +166,12 @@
     [_keyboardView setTopTitle:title value:value];
 }
 
-- (void)setSenceAndInning:(NSString *)scenceAndinning {
-    
-}
-
 - (void)setOpenNum:(NSString *)num {
     [_openView setOpenNum:num];
+}
+
+- (void)setSortNum:(NSString *)num {
+    [_topBtnView setSenceAndInning:num];
 }
 @end
 

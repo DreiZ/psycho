@@ -23,6 +23,6 @@
 @property (nonatomic,strong) void (^addBlock)(void);
 
 - (void)setTopTitle:(NSString *)title value:(NSString *)value;
-- (void)setSenceAndInning:(NSString *)scenceAndinning;
 - (void)setOpenNum:(NSString *)num;
+- (void)setSortNum:(NSString *)num;
 @end

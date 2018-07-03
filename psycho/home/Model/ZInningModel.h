@@ -53,7 +53,9 @@
 
 @interface ZInningItem : ZBaseModel
 //筒次
+@property(nonatomic, strong) NSString *sceneSort;
 @property(nonatomic, strong) NSString *inningSort;
+@property(nonatomic, strong) NSString *winNum;
 @property(nonatomic, strong) ZInningModel *itemModel;
 @end
 

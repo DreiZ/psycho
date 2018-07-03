@@ -114,7 +114,9 @@
             }
         } else {
 //            self.automaticallyAdjustsScrollViewInsets = NO;
-        } _iTableView.delegate = self;
+        }
+        _iTableView.tableFooterView = [self footerView];
+        _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }
     return _iTableView;
@@ -122,14 +124,17 @@
 
 #pragma mark tableView -------datasource-----
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return _historyAllList.allHisoryLists.count;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    ZSceneItem *sceneItem = _historyAllList.allHisoryLists[section];
+    return sceneItem.sceneLists.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZSceneItem *sceneItem = _historyAllList.allHisoryLists[indexPath.section];
+    ZInningItem *inningItem = sceneItem.sceneLists[indexPath.row];
     static NSString *identify = @"cellIdentify";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
     if (!cell) {
@@ -137,7 +142,17 @@
     }
     [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
     [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
-    cell.textLabel.text = @"第＃13-12筒　开２";
+    
+    if (!inningItem.winNum || inningItem.winNum.length == 0 || [inningItem.winNum isKindOfClass:[NSNull class]]) {
+        
+        cell.textLabel.text = [NSString stringWithFormat:@"第＃%@-%@筒　未开",sceneItem.sceneSort,
+                               inningItem.inningSort];
+    }else{
+        cell.textLabel.text = [NSString stringWithFormat:@"第＃%@-%@筒　开%@",sceneItem.sceneSort,
+                               inningItem.inningSort,
+                               inningItem.winNum];
+    }
+    
     return cell;
 }
 
@@ -155,18 +170,52 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    ZSceneItem *sceneItem = _historyAllList.allHisoryLists[indexPath.section];
+    ZInningItem *inningItem = sceneItem.sceneLists[indexPath.row];
+    if (_numSeletBlock) {
+        if (!inningItem.sceneSort) {
+            inningItem.sceneSort = sceneItem.sceneSort;
+        }
+        _numSeletBlock(inningItem);
+    }
+    [self removeFromSuperview];
 }
 
+- (UIView *)footerView {
+    UIButton *backNowBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 45)];
+    [backNowBtn addTarget:self action:@selector(backNowBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [backNowBtn setTitle:@"本  场" forState:UIControlStateNormal];
+    [backNowBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [backNowBtn.titleLabel  setFont:[UIFont systemFontOfSize:14]];
+    
+    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    bottomLineView.backgroundColor = [UIColor colorWithHexString:@"ededed"];
+    [backNowBtn addSubview:bottomLineView];
+    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(backNowBtn);
+        make.height.mas_equalTo(0.5);
+    }];
+    return backNowBtn;
+}
+
+- (void)backNowBtn:(UIButton *)sender {
+    if (_numSeletBlock) {
+        _numSeletBlock(nil);
+    }
+}
 
 - (void)seletBtnClick:(UIButton *)sender {
-    if (_numSeletBlock) {
-        _numSeletBlock(sender.tag);
-    }
     [self removeFromSuperview];
 }
 
 - (void)backBtnOnclick:(id)sender {
     [self removeFromSuperview];
+}
+
+- (void)setHistoryAllList:(ZHistoryAllList *)historyAllList {
+    _historyAllList = historyAllList;
+    if (_historyAllList.allHisoryLists) {
+        [_iTableView reloadData];
+    }
 }
 @end

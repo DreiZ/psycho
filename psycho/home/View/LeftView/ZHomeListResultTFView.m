@@ -74,7 +74,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZHomeListResultCell *cell = [ZHomeListResultCell cellWithTableView:tableView];
-    cell.result = _listModel.listInputResult[indexPath.row];
+    cell.result = [self debarNullStr:_listModel.listInputResult[indexPath.row]];
     
     return cell;
 }
@@ -100,5 +100,12 @@
 - (void)setListModel:(ZInningListModel *)listModel {
     _listModel = listModel;
     [_iTableView reloadData];
+}
+
+- (NSString *)debarNullStr:(NSString *)str{
+    if (!str || [str isKindOfClass:[NSNull class]]) {
+        return @"";
+    }
+    return str;
 }
 @end

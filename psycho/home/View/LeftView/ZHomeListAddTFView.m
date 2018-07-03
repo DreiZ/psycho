@@ -76,7 +76,7 @@
     __weak typeof(self) weakSelf = self;
     ZHomeListAddTFCell *cell = [ZHomeListAddTFCell cellWithTableView:tableView];
     cell.inputView.inputTF.enabled = _isTFEnable;
-    cell.inputView.inputTF.text = _listModel.listInput[indexPath.row];
+    cell.inputView.inputTF.text = [self debarNullStr:_listModel.listInput[indexPath.row]];
     cell.valueChange = ^(NSString *value) {
         weakSelf.listModel.listInput[indexPath.row] = value;
         NSLog(@"zzz value %@",value);
@@ -138,5 +138,12 @@
 - (void)setListModel:(ZInningListModel *)listModel {
     _listModel = listModel;
     [_iTableView reloadData];
+}
+
+- (NSString *)debarNullStr:(NSString *)str{
+    if (!str || [str isKindOfClass:[NSNull class]]) {
+        return @"";
+    }
+    return str;
 }
 @end

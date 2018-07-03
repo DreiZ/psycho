@@ -42,6 +42,7 @@
 @property (nonatomic,strong) ZInningItem *inningItem;
 @property (nonatomic,strong) ZInningItem *lastInningItem;
 
+@property (nonatomic,strong) ZInningItem *historyInngItem;
 @end
 
 @implementation HomeViewController
@@ -72,6 +73,7 @@
     }
     _inningItem = [[ZInningItem alloc] init];
     _inningItem.inningSort = @"1";
+    _inningItem.sceneSort = _sceneItem.sceneSort;
     NSMutableArray *tempInnings = [[NSMutableArray alloc] initWithArray:_sceneItem.sceneLists];
     [tempInnings addObject:_inningItem];
     _sceneItem.sceneLists = tempInnings;
@@ -111,7 +113,8 @@
                                      @"0.00"];
     
     [self.view addSubview:self.seletedNumView];
-    [self.rightView setSenceAndInning:[NSString stringWithFormat:@"#%@-%@",_sceneItem.sceneSort,_inningItem.inningSort]];
+    [self.rightView setSortNum:[NSString stringWithFormat:@"第#%@-%@筒",_sceneItem.sceneSort,_inningItem.inningSort]];
+
 }
 
 #pragma mark 初始化 view
@@ -251,6 +254,7 @@
         _seletedOpenNumView.frame = CGRectMake(0, 0, screenWidth, screenHeight);
         _seletedOpenNumView.numSeletBlock = ^(NSInteger index) {
             NSArray *titleArr = @[@"1",@"2",@"3",@"4",@"5",@"6"];
+            weakSelf.inningItem.winNum = titleArr[index];
             weakSelf.inningModel.winNum = titleArr[index];
             [ZInningDataManager computeWithInningModel:weakSelf.inningModel];
             [weakSelf setLeftTopData];
@@ -265,14 +269,51 @@
 
 -(ZRightHistorySelectView *)historySelectView {
     if (!_historySelectView) {
+        __weak typeof(self)weakSelf = self;
         _historySelectView = [[ZRightHistorySelectView alloc] init];
         _historySelectView.frame = CGRectMake(0, 0, screenWidth, screenHeight);
-        _historySelectView.numSeletBlock = ^(NSInteger index) {
-            
+        _historySelectView.numSeletBlock = ^(ZInningItem *historyItem) {
+            [weakSelf handleHistorySelectView:historyItem];
         };
     }
     
     return _historySelectView;
+}
+
+- (void)handleHistorySelectView:(ZInningItem *)history {
+    _historyInngItem = history;
+    if (history) {
+        self.leftView.inningModel = history.itemModel;
+        self.rightView.inningModel = history.itemModel;
+        self.leftView.topSubTitleArr = @[@"",
+                                         [NSString stringWithFormat:@"#%@-%@",history.sceneSort,history.inningSort],
+                                         history.itemModel.inputAmout,
+                                         [NSString stringWithFormat:@"开%@",history.itemModel.winNum],
+                                         history.itemModel.amount,
+                                         history.itemModel.lastAmount,
+                                         history.itemModel.allAmount];
+        [self.rightView setTopTitle:@"" value:@""];
+        [self.rightView setOpenNum:history.itemModel.winNum];
+        
+        [self.leftView refreshData];
+        [self.rightView setSortNum:[NSString stringWithFormat:@"第#%@-%@筒 开%@",history.sceneSort,history.inningSort,history.winNum]];
+    }else{
+        self.leftView.inningModel = _inningModel;
+        self.rightView.inningModel = _inningModel;
+        self.leftView.topSubTitleArr = @[@"",
+                                         [NSString stringWithFormat:@"#%@-%@",self.sceneItem.sceneSort,self.inningItem.inningSort],
+                                         self.inningModel.inputAmout,
+                                         [NSString stringWithFormat:@"开%@",self.inningModel.winNum],
+                                         self.inningModel.amount,
+                                         self.inningModel.lastAmount,
+                                         self.inningModel.allAmount];
+        [self.rightView setTopTitle:@"" value:@""];
+        [self.rightView setOpenNum:@""];
+        
+        [self.leftView refreshData];
+        [self.rightView setSortNum:[NSString stringWithFormat:@"第#%@-%@筒",_sceneItem.sceneSort,_inningItem.inningSort]];
+    }
+    
 }
 
 -(ZMyAllBillView *)myAllbillView {
@@ -298,8 +339,12 @@
             break;
         case 101:
             //第几场
-           
+        {
+            self.historySelectView.historyAllList = self.historyAllList;
+            
             [self.view addSubview:self.historySelectView];
+        }
+            
             break;
         case 102:
             //查看总账
@@ -377,13 +422,16 @@
     //历史场次
     _lastInningItem = _inningItem;
     _lastInningItem.itemModel.isEnable = NO;
+    _lastInningItem.winNum = _inningModel.winNum;
     
     NSInteger index = [_inningItem.inningSort integerValue];
     _inningItem = [[ZInningItem alloc] init];
+    _inningItem.sceneSort = _sceneItem.sceneSort;
     _inningItem.inningSort = [NSString stringWithFormat:@"%ld",index + 1];
     NSMutableArray *tempInnings = [[NSMutableArray alloc] initWithArray:_sceneItem.sceneLists];
     [tempInnings addObject:_inningItem];
     _sceneItem.sceneLists = tempInnings;
+    
     _inningModel = [[ZInningModel alloc] init];
     
     _inningModel.isEnable = YES;
@@ -393,6 +441,7 @@
     _inningModel.allAmount = _lastInningItem.itemModel.allAmount;
     
     _inningItem.itemModel = _inningModel;
+    _inningItem.winNum = _inningModel.winNum;
     
     for (int i = 0; i < _lastInningItem.itemModel.inninglist.count; i++) {
         ZInningListModel *lastListModel = _lastInningItem.itemModel.inninglist[i];
@@ -415,6 +464,7 @@
     [self setLeftTopData];
     [self.leftView refreshData];
     [self setRightData];
+    [self.rightView setSortNum:[NSString stringWithFormat:@"第#%@-%@筒",_sceneItem.sceneSort,_inningItem.inningSort]];
 }
 
 //添加新场
@@ -441,6 +491,8 @@
     
     _inningItem = [[ZInningItem alloc] init];
     _inningItem.inningSort = @"1";
+    _inningItem.sceneSort = _sceneItem.sceneSort;
+    
     NSMutableArray *tempInnings = [[NSMutableArray alloc] initWithArray:_sceneItem.sceneLists];
     [tempInnings addObject:_inningItem];
     _sceneItem.sceneLists = tempInnings;
@@ -465,6 +517,7 @@
     [self setLeftTopData];
     [self.leftView refreshData];
     [self setRightData];
+    [self.rightView setSortNum:[NSString stringWithFormat:@"第#%@-%@筒",_sceneItem.sceneSort,_inningItem.inningSort]];
 }
 
 - (void)setLeftTopData {

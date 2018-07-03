@@ -32,6 +32,10 @@
 		5E50258120E9D6B9000D02EA /* ZInningDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E50258020E9D6B9000D02EA /* ZInningDataManager.m */; };
 		5E50258420EA29AB000D02EA /* ZHomeListResultTFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E50258320EA29AB000D02EA /* ZHomeListResultTFView.m */; };
 		5E50258720EA2A05000D02EA /* ZHomeListResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E50258620EA2A05000D02EA /* ZHomeListResultCell.m */; };
+		5E50259120EB4964000D02EA /* NSArray+LYNil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E50258A20EB4964000D02EA /* NSArray+LYNil.m */; };
+		5E50259220EB4964000D02EA /* NSDictionary+LYNil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E50258C20EB4964000D02EA /* NSDictionary+LYNil.m */; };
+		5E50259320EB4964000D02EA /* NSMutableArray+LYNil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E50258E20EB4964000D02EA /* NSMutableArray+LYNil.m */; };
+		5E50259420EB4964000D02EA /* NSMutableDictionary+LYNil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E50259020EB4964000D02EA /* NSMutableDictionary+LYNil.m */; };
 		5E5652C420E7122500F7781E /* ZMyAlllBillFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E5652C320E7122500F7781E /* ZMyAlllBillFootView.m */; };
 		5E5652C720E716A400F7781E /* ZMyAllBillListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E5652C620E716A400F7781E /* ZMyAllBillListCell.m */; };
 		5E5D893420E20CDE0096536C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E5D893220E20CDE0096536C /* Main.storyboard */; };
@@ -132,6 +136,14 @@
 		5E50258320EA29AB000D02EA /* ZHomeListResultTFView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZHomeListResultTFView.m; sourceTree = "<group>"; };
 		5E50258520EA2A05000D02EA /* ZHomeListResultCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZHomeListResultCell.h; sourceTree = "<group>"; };
 		5E50258620EA2A05000D02EA /* ZHomeListResultCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZHomeListResultCell.m; sourceTree = "<group>"; };
+		5E50258920EB4964000D02EA /* NSArray+LYNil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+LYNil.h"; sourceTree = "<group>"; };
+		5E50258A20EB4964000D02EA /* NSArray+LYNil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+LYNil.m"; sourceTree = "<group>"; };
+		5E50258B20EB4964000D02EA /* NSDictionary+LYNil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+LYNil.h"; sourceTree = "<group>"; };
+		5E50258C20EB4964000D02EA /* NSDictionary+LYNil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+LYNil.m"; sourceTree = "<group>"; };
+		5E50258D20EB4964000D02EA /* NSMutableArray+LYNil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+LYNil.h"; sourceTree = "<group>"; };
+		5E50258E20EB4964000D02EA /* NSMutableArray+LYNil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+LYNil.m"; sourceTree = "<group>"; };
+		5E50258F20EB4964000D02EA /* NSMutableDictionary+LYNil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+LYNil.h"; sourceTree = "<group>"; };
+		5E50259020EB4964000D02EA /* NSMutableDictionary+LYNil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+LYNil.m"; sourceTree = "<group>"; };
 		5E5652C220E7122500F7781E /* ZMyAlllBillFootView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMyAlllBillFootView.h; sourceTree = "<group>"; };
 		5E5652C320E7122500F7781E /* ZMyAlllBillFootView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMyAlllBillFootView.m; sourceTree = "<group>"; };
 		5E5652C520E716A400F7781E /* ZMyAllBillListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMyAllBillListCell.h; sourceTree = "<group>"; };
@@ -302,6 +314,21 @@
 			path = rightView;
 			sourceTree = "<group>";
 		};
+		5E50258820EB4964000D02EA /* NSArray+LYNil */ = {
+			isa = PBXGroup;
+			children = (
+				5E50258920EB4964000D02EA /* NSArray+LYNil.h */,
+				5E50258A20EB4964000D02EA /* NSArray+LYNil.m */,
+				5E50258B20EB4964000D02EA /* NSDictionary+LYNil.h */,
+				5E50258C20EB4964000D02EA /* NSDictionary+LYNil.m */,
+				5E50258D20EB4964000D02EA /* NSMutableArray+LYNil.h */,
+				5E50258E20EB4964000D02EA /* NSMutableArray+LYNil.m */,
+				5E50258F20EB4964000D02EA /* NSMutableDictionary+LYNil.h */,
+				5E50259020EB4964000D02EA /* NSMutableDictionary+LYNil.m */,
+			);
+			path = "NSArray+LYNil";
+			sourceTree = "<group>";
+		};
 		5E5D892020E20CDE0096536C = {
 			isa = PBXGroup;
 			children = (
@@ -428,6 +455,7 @@
 		5E5D896F20E210230096536C /* tools */ = {
 			isa = PBXGroup;
 			children = (
+				5E50258820EB4964000D02EA /* NSArray+LYNil */,
 				5E19E12120E4D135000C5781 /* ZPublicManager.h */,
 				5E19E12220E4D135000C5781 /* ZPublicManager.m */,
 				5E19E11A20E4D0B0000C5781 /* NetworkManager */,
@@ -703,6 +731,7 @@
 				5E401CB420E5DB2500BFED02 /* ZRightOpenView.m in Sources */,
 				5E5D899720E21F4A0096536C /* LKDBHelper.m in Sources */,
 				5E0FD47320E63823001CB15F /* ZMyAllBillView.m in Sources */,
+				5E50259220EB4964000D02EA /* NSDictionary+LYNil.m in Sources */,
 				5E401C9A20E5BA8A00BFED02 /* ZHomeRightView.m in Sources */,
 				5E5D896620E20F130096536C /* ViewController.m in Sources */,
 				5E5D899620E21F4A0096536C /* LKDB+Mapping.m in Sources */,
@@ -720,10 +749,12 @@
 				5E19E12920E4D208000C5781 /* ZUserModel.m in Sources */,
 				5E401CA320E5CD8900BFED02 /* ZHomeListAddTFView.m in Sources */,
 				5E19E11920E4D01A000C5781 /* ZLoginVC.m in Sources */,
+				5E50259120EB4964000D02EA /* NSArray+LYNil.m in Sources */,
 				5E5652C720E716A400F7781E /* ZMyAllBillListCell.m in Sources */,
 				5E401CBA20E5DB5600BFED02 /* ZRightBottomBtnView.m in Sources */,
 				5E401CA620E5CEAF00BFED02 /* ZHomeTextFieldView.m in Sources */,
 				5E19E13620E4E2B1000C5781 /* ZHomeListCell.m in Sources */,
+				5E50259420EB4964000D02EA /* NSMutableDictionary+LYNil.m in Sources */,
 				5E5D899320E21F4A0096536C /* FMDatabasePool.m in Sources */,
 				5E5D89A120E21FA00096536C /* ZBaseModel.m in Sources */,
 				5E5D899420E21F4A0096536C /* FMDatabaseQueue.m in Sources */,
@@ -739,6 +770,7 @@
 				5E5D899920E21F4A0096536C /* NSObject+LKDBHelper.m in Sources */,
 				5E5D896E20E20FBF0096536C /* HomeViewController.m in Sources */,
 				5E4521C320E8CFC200A53CFA /* ZRightOpenSelectView.m in Sources */,
+				5E50259320EB4964000D02EA /* NSMutableArray+LYNil.m in Sources */,
 				5E4521C020E89FF800A53CFA /* ZInningModel.m in Sources */,
 				5E19E12020E4D110000C5781 /* ZMainPublicNetworkManager.m in Sources */,
 				5E5D899520E21F4A0096536C /* FMResultSet.m in Sources */,

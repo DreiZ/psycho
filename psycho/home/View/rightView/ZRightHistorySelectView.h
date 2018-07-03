@@ -10,6 +10,6 @@
 #import "ZInningModel.h"
 
 @interface ZRightHistorySelectView : UIView
-@property (nonatomic,strong) void (^numSeletBlock)(NSInteger);
+@property (nonatomic,strong) void (^numSeletBlock)(ZInningItem *);
 @property (nonatomic,strong) ZHistoryAllList *historyAllList;
 @end

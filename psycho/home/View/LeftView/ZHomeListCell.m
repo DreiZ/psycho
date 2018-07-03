@@ -198,7 +198,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         for (int i = 0; i < self.labelArr.count; i++) {
             if (i == 1) {
-                self.nameInputTF.inputTF.text = [NSString stringWithFormat:@"%@",listModel.listName];
+                self.nameInputTF.inputTF.text = [NSString stringWithFormat:@"%@",[self debarNullStr:listModel.listName]];
             }else if (i == 2){
                 self.addTFView.listModel = listModel;
             }else if (i == 3){
@@ -208,19 +208,19 @@
                     UILabel *tempLabel = self.labelArr[i];
                     switch (i) {
                         case 0:
-                            tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listSort];
+                            tempLabel.text = [NSString stringWithFormat:@"%@",[self debarNullStr:listModel.listSort]];
                             break;
                         case 3:
-                            tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listOpenResult];
+                            tempLabel.text = [NSString stringWithFormat:@"%@",[self debarNullStr:listModel.listOpenResult]];
                             break;
                         case 4:
-                            tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listThisResult];
+                            tempLabel.text = [NSString stringWithFormat:@"%@",[self debarNullStr:listModel.listThisResult]];
                             break;
                         case 5:
-                            tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listLastResult];
+                            tempLabel.text = [NSString stringWithFormat:@"%@",[self debarNullStr:listModel.listLastResult]];
                             break;
                         case 6:
-                            tempLabel.text = [NSString stringWithFormat:@"%@",listModel.listAllResult];
+                            tempLabel.text = [NSString stringWithFormat:@"%@",[self debarNullStr:listModel.listAllResult]];
                             break;
                         default:
                             break;
@@ -245,6 +245,13 @@
 - (void)setIsTFEnable:(BOOL)isTFEnable {
     _nameInputTF.inputTF.enabled = isTFEnable;
     _addTFView.isTFEnable = isTFEnable;
+}
+
+- (NSString *)debarNullStr:(NSString *)str{
+    if (!str || [str isKindOfClass:[NSNull class]]) {
+        return @"";
+    }
+    return str;
 }
 
 + (CGFloat)getCellHeight:(id)sender {
