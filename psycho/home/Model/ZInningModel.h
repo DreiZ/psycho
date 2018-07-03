@@ -13,6 +13,8 @@
 @property (nonatomic,strong) NSString *listName;
 @property (nonatomic,strong) NSMutableArray <NSString *>*listInput;
 @property (nonatomic,strong) NSMutableArray <NSString *>*listInputResult;
+@property (nonatomic,strong) NSArray <NSString *>*listInputH;
+@property (nonatomic,strong) NSArray <NSString *>*listInputResultH;
 //开奖数字
 @property (nonatomic,strong) NSString *listOpenResult;
 //本次结果

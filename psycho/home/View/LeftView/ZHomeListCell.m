@@ -223,6 +223,8 @@
                                     tempLabel.text = [NSString stringWithFormat:@"-%@",[self debarNullStr:listModel.listThisResult]];
                                     [tempLabel setTextColor:[UIColor colorWithHexString:@"d00000"]];
                                 }
+                            }else{
+                                tempLabel.text = @"";
                             }
                         }
                             
@@ -236,6 +238,8 @@
                                     tempLabel.text = [NSString stringWithFormat:@"-%@",[self debarNullStr:listModel.listLastResult]];
                                 }
                                 [tempLabel setTextColor:[UIColor colorWithHexString:@"666666"]];
+                            }else{
+                                tempLabel.text = @"";
                             }
                         }
                             break;
@@ -249,6 +253,8 @@
                                     tempLabel.text = [NSString stringWithFormat:@"-%@",[self debarNullStr:listModel.listAllResult]];
                                     [tempLabel setTextColor:[UIColor colorWithHexString:@"d00000"]];
                                 }
+                            }else{
+                                tempLabel.text = @"";
                             }
                             
                         }

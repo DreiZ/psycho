@@ -412,4 +412,5 @@
     
     model.inputAmout = [NSString stringWithFormat:@"%.3f",input/10.0f];
 }
+
 @end

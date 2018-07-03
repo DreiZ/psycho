@@ -49,7 +49,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     [self setMainData];
     [self setupMainView];
     [self initInningData];
@@ -96,6 +95,16 @@
     if (!self.historyAllList) {
         self.historyAllList = [ZHistoryAllList new];
     }
+    for (ZSceneItem *SceneItem in self.historyAllList.allHisoryLists) {
+        for (ZInningItem *InningItem in SceneItem.sceneLists) {
+            InningItem.itemModel.inninglist = [[NSMutableArray alloc] initWithArray:InningItem.itemModel.inninglist];
+            for (ZInningListModel *listModel in InningItem.itemModel.inninglist) {
+                listModel.listInput = [[NSMutableArray alloc] initWithArray:listModel.listInputH];
+                listModel.listInputResult = [[NSMutableArray alloc] initWithArray:listModel.listInputResultH];
+            }
+        }
+    }
+    
 }
 
 - (void)updateHistory {
@@ -283,6 +292,9 @@
 - (void)handleHistorySelectView:(ZInningItem *)history {
     _historyInngItem = history;
     if (history) {
+        if (!history.itemModel.lastAmount) {
+            history.itemModel.lastAmount = @"";
+        }
         self.leftView.inningModel = history.itemModel;
         self.rightView.inningModel = history.itemModel;
         self.leftView.topSubTitleArr = @[@"",
@@ -433,6 +445,10 @@
     _lastInningItem = _inningItem;
     _lastInningItem.itemModel.isEnable = NO;
     _lastInningItem.winNum = _inningModel.winNum;
+    for (ZInningListModel *listModel in _lastInningItem.itemModel.inninglist) {
+        listModel.listInputH = [[NSArray alloc] initWithArray:listModel.listInput];
+        listModel.listInputResultH = [[NSArray alloc] initWithArray:listModel.listInputResult];
+    }
     [self checkNameChange];
 
     

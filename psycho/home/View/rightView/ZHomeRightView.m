@@ -100,6 +100,7 @@
                     if (weakSelf.topBlock) {
                         weakSelf.topBlock(index);
                     }
+                    return ;
                 }else{
                     return ;
                 }
@@ -132,7 +133,7 @@
         __weak typeof(self)weakSelf = self;
         _bottomBtnView = [[ZRightBottomBtnView alloc] init];
         _bottomBtnView.bottomBlock = ^(NSInteger index) {
-            if (weakSelf.bottomBlock && weakSelf.inningModel.isEnable) {
+            if ((weakSelf.bottomBlock && weakSelf.inningModel.isEnable) || (weakSelf.bottomBlock && index == 1)) {
                 weakSelf.bottomBlock(index);
             }
         };

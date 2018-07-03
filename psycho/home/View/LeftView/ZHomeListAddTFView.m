@@ -75,7 +75,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     __weak typeof(self) weakSelf = self;
     ZHomeListAddTFCell *cell = [ZHomeListAddTFCell cellWithTableView:tableView];
-    cell.inputView.inputTF.enabled = _isTFEnable;
+    cell.inputView.inputTF.enabled = YES;
     cell.inputView.inputTF.text = [self debarNullStr:_listModel.listInput[indexPath.row]];
     cell.valueChange = ^(NSString *value) {
         weakSelf.listModel.listInput[indexPath.row] = value;
