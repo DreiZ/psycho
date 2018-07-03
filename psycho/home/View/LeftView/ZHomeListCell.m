@@ -242,6 +242,11 @@
     _backView.layer.borderColor = _lineColor.CGColor;
 }
 
+- (void)setIsTFEnable:(BOOL)isTFEnable {
+    _nameInputTF.inputTF.enabled = isTFEnable;
+    _addTFView.isTFEnable = isTFEnable;
+}
+
 + (CGFloat)getCellHeight:(id)sender {
     NSArray *tempArr = sender;
     if (tempArr && tempArr.count > 1) {

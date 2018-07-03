@@ -376,7 +376,8 @@
 - (void)saveThisInning {
     //历史场次
     _lastInningItem = _inningItem;
-
+    _lastInningItem.itemModel.isEnable = NO;
+    
     NSInteger index = [_inningItem.inningSort integerValue];
     _inningItem = [[ZInningItem alloc] init];
     _inningItem.inningSort = [NSString stringWithFormat:@"%ld",index + 1];

@@ -10,6 +10,7 @@
 #import "ZInningModel.h"
 
 @interface ZHomeListCell : UITableViewCell
+@property (assign, nonatomic) BOOL isTFEnable;
 @property (nonatomic,strong) ZInningListModel *listModel;
 
 @property (strong, nonatomic) void (^nameBeginChange)(NSString *value);

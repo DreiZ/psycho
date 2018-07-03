@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZInningModel.h"
 
 @interface ZRightHistorySelectView : UIView
 @property (nonatomic,strong) void (^numSeletBlock)(NSInteger);
+@property (nonatomic,strong) ZHistoryAllList *historyAllList;
 @end

@@ -10,6 +10,8 @@
 #import "ZInningModel.h"
 
 @interface ZHomeListAddTFView : UIView
+@property (assign, nonatomic) BOOL isTFEnable;
+
 @property (nonatomic,strong) ZInningListModel *listModel;
 @property (assign, nonatomic) BOOL isCustomKeyboard;
 @property (strong, nonatomic) void (^valueChange)(NSString *value);

@@ -68,13 +68,17 @@
 }
 
 - (void)openOnclick:(id)sender {
-    if (_openBlock) {
-        _openBlock();
+    if (_num && _num.length > 0) {
+        return;
+    } else{
+        if (_openBlock) {
+            _openBlock();
+        }
     }
-    
 }
 
 - (void)setOpenNum:(NSString *)num {
+    _num = num;
     if (num && num.length > 0) {
         NSString *result =  [NSString stringWithFormat:@"本筒开%@",num];
         NSString *title =  num;

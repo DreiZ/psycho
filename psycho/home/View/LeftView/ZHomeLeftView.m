@@ -130,6 +130,7 @@
             weakSelf.endChange(textField, weakSelf.inningModel.inninglist[indexPath.row]);
         }
     };
+    cell.isTFEnable = _inningModel.isEnable;
     cell.listModel = _inningModel.inninglist[indexPath.row];
     return cell;
 }

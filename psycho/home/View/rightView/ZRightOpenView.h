@@ -11,6 +11,7 @@
 @interface ZRightOpenView : UIView
 //开筒
 @property (nonatomic,strong) void (^openBlock)(void);
+@property (nonatomic,strong) NSString *num;
 
 - (void)setOpenNum:(NSString *)num;
 @end
