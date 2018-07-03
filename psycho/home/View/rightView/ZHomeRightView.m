@@ -169,5 +169,9 @@
 - (void)setSenceAndInning:(NSString *)scenceAndinning {
     
 }
+
+- (void)setOpenNum:(NSString *)num {
+    [_openView setOpenNum:num];
+}
 @end
 

@@ -71,18 +71,30 @@
     if (_openBlock) {
         _openBlock();
     }
-    NSString *result =  @"本筒开３";
-    NSString *title =  @"３";
-    NSMutableAttributedString *introText = [[NSMutableAttributedString alloc] initWithString:result];
-    introText.font = [UIFont systemFontOfSize:24];
     
-    NSRange range1 = NSMakeRange(result.length-title.length, title.length);
-    //文字颜色
-    [introText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"d00000"] range:range1];
-    _openLabel.attributedText = introText;
-    _openLabel.textAlignment = NSTextAlignmentCenter;
 }
 
+- (void)setOpenNum:(NSString *)num {
+    if (num && num.length > 0) {
+        NSString *result =  [NSString stringWithFormat:@"本筒开%@",num];
+        NSString *title =  num;
+        NSMutableAttributedString *introText = [[NSMutableAttributedString alloc] initWithString:result];
+        introText.font = [UIFont systemFontOfSize:24];
+        
+        NSRange range1 = NSMakeRange(result.length-title.length, title.length);
+        //文字颜色
+        [introText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"d00000"] range:range1];
+        _openLabel.attributedText = introText;
+        _openLabel.textAlignment = NSTextAlignmentCenter;
+    }else{
+        NSString *result =  [NSString stringWithFormat:@"开筒"];
+        NSMutableAttributedString *introText = [[NSMutableAttributedString alloc] initWithString:result];
+        introText.font = [UIFont systemFontOfSize:24];
+        _openLabel.attributedText = introText;
+        _openLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    
+}
 
 @end
 

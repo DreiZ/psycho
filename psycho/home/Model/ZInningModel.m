@@ -35,6 +35,8 @@
         _multiplyingTure = @"";
         _inputAmout = @"";
         _amount = @"";
+        _lastAmount = @"";
+        _allAmount = @"";
         _addAmount = @"";
         _subAmount = @"";
         _winNum = @"";
@@ -47,6 +49,15 @@
 - (void)clearAll {
     _addAmount = @"";
     _winNum = @"";
+    _inputAmout = @"";
+    _amount = @"";
+    
+
+    _allAmount = @"";
+    _lastAmount = @"";
+    _subAmount = @"";
+
+    
     for (ZInningListModel *listModel in _inninglist) {
         listModel.listName = @"";
         listModel.listInput = @[@""].mutableCopy;
@@ -54,6 +65,11 @@
         listModel.listThisResult = @"";
         listModel.listLastResult = @"";
         listModel.listAllResult = @"";
+        listModel.listInputResult = @[@""].mutableCopy;
+        listModel.listOpenResult = @"";
+        listModel.listThisResult = @"";
+        listModel.listAllResult = @"";
+        listModel.listLastResult = @"";
     }
 }
 @end
@@ -61,11 +77,26 @@
 
 
 @implementation ZInningItem
-
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _inningSort = @"";
+        _itemModel = [[ZInningModel alloc] init];
+    }
+    return self;
+}
 @end
 
 @implementation ZSceneItem
-
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _sceneSort = @"";
+        _multiplying = @"";
+        _sceneLists = @[];
+    }
+    return self;
+}
 @end
 
 @implementation ZHistoryAllList

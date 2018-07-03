@@ -34,10 +34,14 @@
 @property (nonatomic, strong) NSString *multiplyingTure;
 //开通数字
 @property (nonatomic, strong) NSString *winNum;
-//投入数字
+//投入总数
 @property (nonatomic, strong) NSString *inputAmout;
-
+//本次总额
 @property (nonatomic, strong) NSString *amount;
+//上次总额
+@property (nonatomic, strong) NSString *lastAmount;
+//所有总额
+@property (nonatomic, strong) NSString *allAmount;
 @property (nonatomic, strong) NSString *addAmount;
 @property (nonatomic, strong) NSString *subAmount;
 
@@ -56,8 +60,7 @@
 @interface ZSceneItem : ZBaseModel
 //场次
 @property(nonatomic, strong) NSString *sceneSort;
-@property(nonatomic, strong) NSString *multiplying
-;
+@property(nonatomic, strong) NSString *multiplying;
 @property(nonatomic, strong) NSArray <ZInningItem *> *sceneLists;
 @end
 

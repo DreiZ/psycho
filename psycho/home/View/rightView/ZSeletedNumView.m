@@ -99,15 +99,15 @@
         [topTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(topTitleView);
         }];
-        
-        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [backBtn addTarget:self action:@selector(backBtnOnclick:) forControlEvents:UIControlEventTouchUpInside];
-        [backBtn setImage:[UIImage imageNamed:@"shanchu"] forState:UIControlStateNormal];
-        [topTitleView addSubview:backBtn];
-        [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.right.bottom.equalTo(topTitleView);
-            make.width.mas_equalTo(50);
-        }];
+//
+//        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+//        [backBtn addTarget:self action:@selector(backBtnOnclick:) forControlEvents:UIControlEventTouchUpInside];
+//        [backBtn setImage:[UIImage imageNamed:@"shanchu"] forState:UIControlStateNormal];
+//        [topTitleView addSubview:backBtn];
+//        [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.right.bottom.equalTo(topTitleView);
+//            make.width.mas_equalTo(50);
+//        }];
         
     }
     return _contView;
@@ -154,6 +154,6 @@
 }
 
 - (void)backBtnOnclick:(id)sender {
-    [self removeFromSuperview];
+//    [self removeFromSuperview];
 }
 @end

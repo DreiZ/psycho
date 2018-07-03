@@ -294,6 +294,7 @@
 +(void)computeWithInningModel:(ZInningModel *)model {
     double amount = 0.0;
     double input = 0.0;
+    
     for (ZInningListModel *listModel in model.inninglist) {
         double allInputResult = 0.0;
         for (NSInteger i = 0; i < listModel.listInput.count; i++) {
@@ -312,18 +313,20 @@
                 listModel.listInputResult[i] = [ZInningDataManager computeWithNum:num Qnum:model.winNum Bl:Bl tsbl:model.multiplyingTure];
                 
                 allInputResult += [listModel.listInputResult[i] doubleValue];
-        }
+            }
         
             if (listModel.listInput[0].length > 0) {
                 listModel.listThisResult = [NSString stringWithFormat:@"%.2f",allInputResult];
-                
-                amount += round([listModel.listThisResult doubleValue] * 1000) / 1000.0f;
-                
                 listModel.listAllResult = [NSString stringWithFormat:@"%.2f", [listModel.listThisResult doubleValue] + [listModel.listLastResult doubleValue]];
             }
         }
+        if (listModel.listInput && listModel.listInput.count > 0 && listModel.listInput[0].length > 0) {
+            amount += round([listModel.listThisResult doubleValue] * 1000) / 1000.0f;
+        }
     }
     model.amount = [NSString stringWithFormat:@"%.2f",amount];
+    model.allAmount = [NSString stringWithFormat:@"%.2f",amount + [model.lastAmount doubleValue]];
+    
     model.inputAmout = [NSString stringWithFormat:@"%.2f",input/10.0f];
 }
 @end

@@ -120,15 +120,23 @@
 }
 
 -(void)setMultiplying:(NSString *)multiplying{
-    UILabel *label = _titleLabelArr[0];
-    label.text = multiplying;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UILabel *label = self.titleLabelArr[0];
+        label.text = multiplying;
+    });
+    
 }
 
 - (void)setSubTitleArr:(NSArray *)subTitleArr {
     _subTitleArr = subTitleArr;
     for (int i = 0; i < _sTitleLabelArr.count; i++) {
         UILabel *tempLabel = _sTitleLabelArr[i];
-        tempLabel.text = subTitleArr[i];
+        if (i > 3 && [subTitleArr[i] length] == 0) {
+            tempLabel.text = @"0.00";
+        }else{
+            tempLabel.text = subTitleArr[i];
+        }
+        
     }
 }
 @end

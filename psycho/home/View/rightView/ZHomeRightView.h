@@ -24,4 +24,5 @@
 
 - (void)setTopTitle:(NSString *)title value:(NSString *)value;
 - (void)setSenceAndInning:(NSString *)scenceAndinning;
+- (void)setOpenNum:(NSString *)num;
 @end
