@@ -214,13 +214,45 @@
                             tempLabel.text = [NSString stringWithFormat:@"%@",[self debarNullStr:listModel.listOpenResult]];
                             break;
                         case 4:
-                            tempLabel.text = [NSString stringWithFormat:@"%@",[self debarNullStr:listModel.listThisResult]];
+                        {
+                            if ([self debarNullStr:listModel.listThisResult].length > 0) {
+                                if ([[self debarNullStr:listModel.listThisResult] doubleValue] > -0.00001) {
+                                    tempLabel.text = [NSString stringWithFormat:@"+%@",[self debarNullStr:listModel.listThisResult]];
+                                    [tempLabel setTextColor:[UIColor colorWithHexString:@"1699fe"]];
+                                }else{
+                                    tempLabel.text = [NSString stringWithFormat:@"-%@",[self debarNullStr:listModel.listThisResult]];
+                                    [tempLabel setTextColor:[UIColor colorWithHexString:@"d00000"]];
+                                }
+                            }
+                        }
+                            
                             break;
                         case 5:
-                            tempLabel.text = [NSString stringWithFormat:@"%@",[self debarNullStr:listModel.listLastResult]];
+                        {
+                            if ([self debarNullStr:listModel.listLastResult].length > 0) {
+                                if ([[self debarNullStr:listModel.listLastResult] doubleValue] > -0.00001) {
+                                    tempLabel.text = [NSString stringWithFormat:@"+%@",[self debarNullStr:listModel.listLastResult]];
+                                }else{
+                                    tempLabel.text = [NSString stringWithFormat:@"-%@",[self debarNullStr:listModel.listLastResult]];
+                                }
+                                [tempLabel setTextColor:[UIColor colorWithHexString:@"666666"]];
+                            }
+                        }
                             break;
                         case 6:
-                            tempLabel.text = [NSString stringWithFormat:@"%@",[self debarNullStr:listModel.listAllResult]];
+                        {
+                            if ([self debarNullStr:listModel.listAllResult].length > 0) {
+                                if ([[self debarNullStr:listModel.listAllResult] doubleValue] > -0.00001) {
+                                    tempLabel.text = [NSString stringWithFormat:@"+%@",[self debarNullStr:listModel.listAllResult]];
+                                    [tempLabel setTextColor:[UIColor colorWithHexString:@"1699fe"]];
+                                }else{
+                                    tempLabel.text = [NSString stringWithFormat:@"-%@",[self debarNullStr:listModel.listAllResult]];
+                                    [tempLabel setTextColor:[UIColor colorWithHexString:@"d00000"]];
+                                }
+                            }
+                            
+                        }
+                            
                             break;
                         default:
                             break;

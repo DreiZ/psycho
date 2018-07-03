@@ -135,8 +135,15 @@
             tempLabel.text = @"0.00";
         }else{
             tempLabel.text = subTitleArr[i];
+            if (i > 3) {
+                if ([tempLabel.text doubleValue] > -0.00001) {
+                    tempLabel.text = [NSString stringWithFormat:@"+%@",tempLabel.text];
+                }else{
+                    tempLabel.text = [NSString stringWithFormat:@"-%@",tempLabel.text];
+                }
+            }
         }
-        
     }
+    
 }
 @end
