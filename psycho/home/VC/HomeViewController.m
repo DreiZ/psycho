@@ -43,6 +43,7 @@
 @property (nonatomic,strong) ZInningItem *lastInningItem;
 
 @property (nonatomic,strong) ZInningItem *historyInngItem;
+@property (nonatomic,strong) ZSceneItem *historySceneItem;
 @end
 
 @implementation HomeViewController
@@ -290,8 +291,14 @@
 }
 
 - (void)handleHistorySelectView:(ZInningItem *)history {
+    
     _historyInngItem = history;
     if (history) {
+        if ([history.sceneSort integerValue] <= self.historyAllList.allHisoryLists.count ) {
+            _historySceneItem = self.historyAllList.allHisoryLists[[history.sceneSort integerValue] -1 ];
+        }else{
+            _historySceneItem = _sceneItem;
+        }
         if (!history.itemModel.lastAmount) {
             history.itemModel.lastAmount = @"";
         }
@@ -315,6 +322,7 @@
         }
         
     }else{
+        _historySceneItem = _sceneItem;
         self.leftView.inningModel = _inningModel;
         self.rightView.inningModel = _inningModel;
         self.leftView.topSubTitleArr = @[@"",
@@ -370,7 +378,16 @@
             break;
         case 102:
             //查看总账
-            [self.view addSubview:self.myAllbillView];
+            {
+                if (_historySceneItem) {
+                    self.myAllbillView.SceneItem = _historySceneItem;
+                }else{
+                    self.myAllbillView.SceneItem = _sceneItem;
+                }
+                
+                [self.view addSubview:self.myAllbillView];
+            }
+            
             break;
         case 200:
             //结束本场

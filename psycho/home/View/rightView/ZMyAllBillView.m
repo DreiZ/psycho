@@ -17,6 +17,12 @@
 @property (nonatomic,strong) ZMyAlllBillFootView *billFootView;
 @property (nonatomic,strong) ZMyAllBillListCell *leftAmountView;
 @property (nonatomic,strong) ZMyAllBillListCell *rightAmountView;
+
+@property (nonatomic,strong) NSMutableArray *addArr;
+@property (nonatomic,strong) NSMutableArray *subArr;
+
+@property (nonatomic,strong) NSString *addStr;
+@property (nonatomic,strong) NSString *subStr;
 @end
 
 @implementation ZMyAllBillView
@@ -35,6 +41,9 @@
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
+    
+    _subArr = @[].mutableCopy;
+    _addArr = @[].mutableCopy;
     
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [backBtn addTarget:self action:@selector(backBtnOnclick:) forControlEvents:UIControlEventTouchUpInside];
@@ -157,7 +166,7 @@
 -(ZMyAlllBillFootView *)billFootView {
     if (!_billFootView) {
         _billFootView = [[ZMyAlllBillFootView alloc] init];
-        [_billFootView setAdd:@"2" sub:@"0.4" amount:@"1.6"];
+        [_billFootView setAdd:@"0" sub:@"0" amount:@""];
     }
     return _billFootView;
 }
@@ -212,18 +221,24 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 15;
+    if (tableView == _leftTableView) {
+        return _addArr.count;
+    }else if (tableView == _rightTableView){
+        return _subArr.count;
+    }
+    return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZMyAllBillListCell *cell = [ZMyAllBillListCell cellWithTableView:tableView];
     if (tableView == _leftTableView) {
+        NSDictionary *tempDict = _addArr[indexPath.row];
 //        if (indexPath.row == 4) {
 //            cell.style = 1;
 //            [cell setLeftTitle:@"赢总额" rightTitle:@"０.9"];
 //        }else{
             cell.style = 0;
-            [cell setLeftTitle:@"张三" rightTitle:@"０.3"];
+            [cell setLeftTitle:tempDict[@"name"] rightTitle:[NSString stringWithFormat:@"+%@",tempDict[@"value"]]];
 //        }
     }else{
 //        if (indexPath.row == 4) {
@@ -231,7 +246,9 @@
 //            [cell setLeftTitle:@"输总额" rightTitle:@"０.9"];
 //        }else{
             cell.style = 2;
-            [cell setLeftTitle:@"张三" rightTitle:@"０.3"];
+            NSDictionary *tempDict = _subArr[indexPath.row];
+            [cell setLeftTitle:tempDict[@"name"] rightTitle:[NSString stringWithFormat:@"%@",tempDict[@"value"]]];
+//            [cell setLeftTitle:@"张三" rightTitle:@"０.3"];
 //        }
     }
     return cell;
@@ -252,6 +269,38 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+}
+
+- (void)setSceneItem:(ZSceneItem *)SceneItem {
+    double add = 0.0;
+    double sub = 0.0;
+    [_addArr removeAllObjects];
+    [_subArr removeAllObjects];
+    for (int i = 0; i < SceneItem.sceneLists.count; i++) {
+        if (i == SceneItem.sceneLists.count-1) {
+            ZInningItem *item = SceneItem.sceneLists[i];
+            for (int j = 0; j < item.itemModel.inninglist.count; j++) {
+                ZInningListModel *listModel =  item.itemModel.inninglist[j];
+                if (listModel.listName && listModel.listName.length > 0 ) {
+                    if ([listModel.listAllResult doubleValue] > -0.00001) {
+                        [_addArr addObject:@{@"name":listModel.listName,@"value":listModel.listAllResult}];
+                        add+=[listModel.listAllResult doubleValue];
+                    }else{
+                        [_subArr addObject:@{@"name":listModel.listName,@"value":listModel.listAllResult}];
+                        sub+=[listModel.listAllResult doubleValue];
+                    }
+                }
+            }
+        }
+    }
+    
+    _addStr = [NSString stringWithFormat:@"%.3f",add];
+    _subStr = [NSString stringWithFormat:@"%.3f",sub];
+    [_leftTableView reloadData];
+    [_rightTableView reloadData];
+    [_leftAmountView setLeftTitle:@"赢总额" rightTitle:_addStr];
+    [_rightAmountView setLeftTitle:@"输总额" rightTitle:_subStr];
+    [_billFootView setAdd:_addStr sub:_subStr amount:[NSString stringWithFormat:@"%.3f",sub+add]];
 }
 @end
 

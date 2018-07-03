@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ZInningModel.h"
 @interface ZMyAllBillView : UIView
+@property (nonatomic,strong) ZSceneItem *SceneItem;
 
 @end

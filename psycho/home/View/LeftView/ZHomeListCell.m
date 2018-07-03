@@ -220,7 +220,7 @@
                                     tempLabel.text = [NSString stringWithFormat:@"+%@",[self debarNullStr:listModel.listThisResult]];
                                     [tempLabel setTextColor:[UIColor colorWithHexString:@"1699fe"]];
                                 }else{
-                                    tempLabel.text = [NSString stringWithFormat:@"-%@",[self debarNullStr:listModel.listThisResult]];
+                                    tempLabel.text = [NSString stringWithFormat:@"%@",[self debarNullStr:listModel.listThisResult]];
                                     [tempLabel setTextColor:[UIColor colorWithHexString:@"d00000"]];
                                 }
                             }else{
