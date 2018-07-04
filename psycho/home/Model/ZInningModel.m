@@ -53,23 +53,23 @@
     _amount = @"";
     
 
-    _allAmount = @"";
-    _lastAmount = @"";
+    _allAmount = _lastAmount;
+//    _lastAmount = @"";
     _subAmount = @"";
 
     
     for (ZInningListModel *listModel in _inninglist) {
-        listModel.listName = @"";
+//        listModel.listName = @"";
         listModel.listInput = @[@""].mutableCopy;
         listModel.listOpenResult = @"";
         listModel.listThisResult = @"";
-        listModel.listLastResult = @"";
+//        listModel.listLastResult = @"";
         listModel.listAllResult = @"";
         listModel.listInputResult = @[@""].mutableCopy;
-        listModel.listOpenResult = @"";
-        listModel.listThisResult = @"";
-        listModel.listAllResult = @"";
-        listModel.listLastResult = @"";
+//        listModel.listOpenResult = @"";
+//        listModel.listThisResult = @"";
+        listModel.listAllResult = listModel.listLastResult;
+//        listModel.listLastResult = @"";
     }
 }
 @end
