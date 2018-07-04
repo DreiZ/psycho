@@ -263,6 +263,12 @@
         _seletedOpenNumView = [[ZRightOpenSelectView alloc] init];
         _seletedOpenNumView.frame = CGRectMake(0, 0, screenWidth, screenHeight);
         _seletedOpenNumView.numSeletBlock = ^(NSInteger index) {
+            
+            
+            if (weakSelf.historyInngItem && weakSelf.inningItem != weakSelf.historyInngItem) {
+                [weakSelf handleHistoryOpenData:index];
+                return ;
+            }
             NSArray *titleArr = @[@"1",@"2",@"3",@"4",@"5",@"6"];
             weakSelf.inningItem.winNum = titleArr[index];
             weakSelf.inningModel.winNum = titleArr[index];
@@ -592,6 +598,37 @@
     [self.rightView setTopTitle:@"" value:@""];
     [self.rightView setOpenNum:@""];
 }
+
+
+- (void)handleHistoryOpenData:(NSInteger )index {
+    NSArray *titleArr = @[@"1",@"2",@"3",@"4",@"5",@"6"];
+    self.historyInngItem.winNum = titleArr[index];
+    self.historyInngItem.winNum = titleArr[index];
+    self.historyInngItem.itemModel.winNum = titleArr[index];
+    [ZInningDataManager computeWithInningModel:self.historyInngItem.itemModel];
+    [self setLeftTopData];
+    [self.rightView setOpenNum:self.historyInngItem.itemModel.winNum];
+    [self.leftView refreshData];
+    [self.leftView refreshHeadData];
+    
+    if ([self.historyInngItem.inningSort intValue] >= self.historySceneItem.sceneLists.count) {
+        return;
+    }
+    for (int i = [self.historyInngItem.inningSort intValue]; i < self.historySceneItem.sceneLists.count; i++) {
+        ZInningItem *inningItem = self.historySceneItem.sceneLists[i];
+        ZInningItem *inningLastItem = self.historySceneItem.sceneLists[i-1];
+        for (int j = 0; j < inningLastItem.itemModel.inninglist.count; j++) {
+            ZInningListModel *lastListModel = inningLastItem.itemModel.inninglist[j];
+            ZInningListModel *listModel = inningItem.itemModel.inninglist[j];
+            if ((lastListModel.listAllResult && lastListModel.listAllResult.length > 0) || (lastListModel.listThisResult && lastListModel.listThisResult.length > 0)) {
+                listModel.listLastResult = lastListModel.listAllResult;
+                listModel.listAllResult = [NSString stringWithFormat:@"%.3f",[lastListModel.listAllResult doubleValue] + [listModel.listThisResult doubleValue]];
+            }   
+        }
+    }
+    [self updateHistory];
+}
+
 #pragma mark 截图处理
 - (void)cutPicture {
     UIImage * img = [self cut];

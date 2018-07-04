@@ -23,6 +23,8 @@
 
 @property (nonatomic,strong) NSString *addStr;
 @property (nonatomic,strong) NSString *subStr;
+
+@property (nonatomic,strong) UILabel *hintLabel;
 @end
 
 @implementation ZMyAllBillView
@@ -73,6 +75,7 @@
         make.left.right.equalTo(self.contView);
         make.height.mas_equalTo(50);
     }];
+    _hintLabel = hintLabel;
     
     UIView *hintLabelLineView = [[UIView alloc] initWithFrame:CGRectZero];
     hintLabelLineView.backgroundColor = [UIColor colorWithHexString:@"ededed"];
@@ -301,6 +304,7 @@
     [_leftAmountView setLeftTitle:@"赢总额" rightTitle:_addStr];
     [_rightAmountView setLeftTitle:@"输总额" rightTitle:_subStr];
     [_billFootView setAdd:_addStr sub:_subStr amount:[NSString stringWithFormat:@"%.3f",sub+add]];
+    _hintLabel.text = [NSString stringWithFormat:@"第%@场总账",SceneItem.sceneSort];
 }
 @end
 
