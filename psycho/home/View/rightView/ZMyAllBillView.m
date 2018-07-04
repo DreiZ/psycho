@@ -241,7 +241,7 @@
 //            [cell setLeftTitle:@"赢总额" rightTitle:@"０.9"];
 //        }else{
             cell.style = 0;
-            [cell setLeftTitle:tempDict[@"name"] rightTitle:[NSString stringWithFormat:@"+%@",tempDict[@"value"]]];
+            [cell setLeftTitle:tempDict[@"name"] rightTitle:[NSString stringWithFormat:@"+%@", [[ZPublicManager shareInstance] changeFloat:tempDict[@"value"]]]];
 //        }
     }else{
 //        if (indexPath.row == 4) {
@@ -250,7 +250,7 @@
 //        }else{
             cell.style = 2;
             NSDictionary *tempDict = _subArr[indexPath.row];
-            [cell setLeftTitle:tempDict[@"name"] rightTitle:[NSString stringWithFormat:@"%@",tempDict[@"value"]]];
+            [cell setLeftTitle:tempDict[@"name"] rightTitle:[NSString stringWithFormat:@"%@",[[ZPublicManager shareInstance] changeFloat:tempDict[@"value"]]]];
 //            [cell setLeftTitle:@"张三" rightTitle:@"０.3"];
 //        }
     }
@@ -299,12 +299,14 @@
     
     _addStr = [NSString stringWithFormat:@"%.3f",add];
     _subStr = [NSString stringWithFormat:@"%.3f",sub];
+    _addStr = [[ZPublicManager shareInstance] changeFloat:_addStr];
+    _subStr = [[ZPublicManager shareInstance] changeFloat:_subStr];
     [_leftTableView reloadData];
     [_rightTableView reloadData];
     [_leftAmountView setLeftTitle:@"赢总额" rightTitle:_addStr];
     [_rightAmountView setLeftTitle:@"输总额" rightTitle:_subStr];
     [_billFootView setAdd:_addStr sub:_subStr amount:[NSString stringWithFormat:@"%.3f",sub+add]];
-    _hintLabel.text = [NSString stringWithFormat:@"第%@场总账",SceneItem.sceneSort];
+    _hintLabel.text = [NSString stringWithFormat:@"第%@场总账",[[ZPublicManager shareInstance] changeFloat:SceneItem.sceneSort]];
 }
 @end
 

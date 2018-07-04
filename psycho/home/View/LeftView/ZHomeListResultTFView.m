@@ -74,7 +74,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZHomeListResultCell *cell = [ZHomeListResultCell cellWithTableView:tableView];
-    cell.result = [self debarNullStr:_listModel.listInputResult[indexPath.row]];
+    cell.result =  [[ZPublicManager shareInstance] changeFloat:[self debarNullStr:_listModel.listInputResult[indexPath.row]]];
     
     return cell;
 }

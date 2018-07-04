@@ -226,6 +226,7 @@
                             }else{
                                 tempLabel.text = @"";
                             }
+                            tempLabel.text = [[ZPublicManager shareInstance] changeFloat:tempLabel.text];
                         }
                             
                             break;
@@ -241,6 +242,7 @@
                             }else{
                                 tempLabel.text = @"";
                             }
+                            tempLabel.text = [[ZPublicManager shareInstance] changeFloat:tempLabel.text];
                         }
                             break;
                         case 6:
@@ -256,7 +258,7 @@
                             }else{
                                 tempLabel.text = @"";
                             }
-                            
+                            tempLabel.text = [[ZPublicManager shareInstance] changeFloat:tempLabel.text];
                         }
                             
                             break;

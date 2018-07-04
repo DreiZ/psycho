@@ -62,4 +62,5 @@ typedef NS_ENUM(NSUInteger, HNFormatterType) {
  */
 - (BOOL)isNetworkEnable;
 
+- (NSString *)changeFloat:(NSString *)stringFloat;
 @end

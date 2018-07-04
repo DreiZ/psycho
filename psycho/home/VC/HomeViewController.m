@@ -60,6 +60,11 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+}
+
+
 #pragma mark 数据初始化
 - (void)setMainData {
     [self getHistory];
@@ -623,7 +628,7 @@
             if ((lastListModel.listAllResult && lastListModel.listAllResult.length > 0) || (lastListModel.listThisResult && lastListModel.listThisResult.length > 0)) {
                 listModel.listLastResult = lastListModel.listAllResult;
                 listModel.listAllResult = [NSString stringWithFormat:@"%.3f",[lastListModel.listAllResult doubleValue] + [listModel.listThisResult doubleValue]];
-            }   
+            }
         }
     }
     [self updateHistory];

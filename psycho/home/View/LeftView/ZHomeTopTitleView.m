@@ -135,11 +135,14 @@
             tempLabel.text = @"0.00";
         }else{
             tempLabel.text = subTitleArr[i];
+            if (i == 2) {
+                tempLabel.text = [[ZPublicManager shareInstance] changeFloat:tempLabel.text];
+            }
             if (i > 3) {
                 if ([tempLabel.text doubleValue] > -0.00001) {
-                    tempLabel.text = [NSString stringWithFormat:@"+%@",tempLabel.text];
+                    tempLabel.text = [NSString stringWithFormat:@"+%@",[[ZPublicManager shareInstance] changeFloat:tempLabel.text]];
                 }else{
-                    tempLabel.text = [NSString stringWithFormat:@"-%@",tempLabel.text];
+                    tempLabel.text = [NSString stringWithFormat:@"-%@",[[ZPublicManager shareInstance] changeFloat:tempLabel.text]];
                 }
             }
         }
