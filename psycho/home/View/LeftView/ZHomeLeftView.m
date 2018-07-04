@@ -84,6 +84,7 @@
                 // Fallback on earlier versions
             }
         }
+        _iTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 70)];
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }

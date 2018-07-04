@@ -18,7 +18,7 @@
 @property (strong, nonatomic) void (^beginChange)(UITextField *textField ,ZInningListModel *listModel);
 @property (strong, nonatomic) void (^endChange)(UITextField *textField ,ZInningListModel *listModel);
 
-
+- (UITableView *)iTableView;
 - (void)refreshData;
 - (void)refreshHeadData;
 @property (nonatomic,strong) NSArray *topSubTitleArr;

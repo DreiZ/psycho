@@ -649,11 +649,41 @@
 }
 
 - (UIImage *)cut {
-    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, self.view.opaque, 0.0);
-    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIGraphicsBeginImageContextWithOptions(self.leftView.bounds.size, self.leftView.opaque, 0.0);
+    [self.leftView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return img;
+}
+
+- (UIImage *)screenShot {
+    UIImage* image = nil;
+    UIGraphicsBeginImageContextWithOptions(self.leftView.iTableView.contentSize, YES, 0.0);
+    
+    //保存collectionView当前的偏移量
+    CGPoint savedContentOffset = self.leftView.iTableView.contentOffset;
+    CGRect saveFrame = self.leftView.iTableView.frame;
+    
+    //将collectionView的偏移量设置为(0,0)
+    self.leftView.iTableView.contentOffset = CGPointZero;
+    self.leftView.iTableView.frame = CGRectMake(0, 0, self.leftView.iTableView.contentSize.width, self.leftView.iTableView.contentSize.height);
+    
+    //在当前上下文中渲染出collectionView
+    [self.leftView.iTableView.layer renderInContext: UIGraphicsGetCurrentContext()];
+    //截取当前上下文生成Image
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    //恢复collectionView的偏移量
+    self.leftView.iTableView.contentOffset = savedContentOffset;
+    self.leftView.iTableView.frame = saveFrame;
+    
+    UIGraphicsEndImageContext();
+    
+    if (image != nil) {
+        return image;
+    }else {
+        return nil;
+    }
 }
 
 #pragma mark 屏幕旋转处理
