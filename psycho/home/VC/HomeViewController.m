@@ -122,7 +122,7 @@
     self.leftView.topSubTitleArr = @[@"",
                                      [NSString stringWithFormat:@"#%@-%@",_sceneItem.sceneSort,_inningItem.inningSort],
                                      @"",
-                                     @"开",
+                                     @"",
                                      @"0.00",
                                      @"0.00",
                                      @"0.00"];
@@ -318,7 +318,7 @@
         self.leftView.topSubTitleArr = @[@"",
                                          [NSString stringWithFormat:@"#%@-%@",history.sceneSort,history.inningSort],
                                          history.itemModel.inputAmout,
-                                         [NSString stringWithFormat:@"开%@",history.itemModel.winNum],
+                                         [NSString stringWithFormat:@"%@",history.itemModel.winNum],
                                          history.itemModel.amount,
                                          history.itemModel.lastAmount,
                                          history.itemModel.allAmount];
@@ -339,7 +339,7 @@
         self.leftView.topSubTitleArr = @[@"",
                                          [NSString stringWithFormat:@"#%@-%@",self.sceneItem.sceneSort,self.inningItem.inningSort],
                                          self.inningModel.inputAmout,
-                                         [NSString stringWithFormat:@"开%@",self.inningModel.winNum],
+                                         [NSString stringWithFormat:@"%@",self.inningModel.winNum],
                                          self.inningModel.amount,
                                          self.inningModel.lastAmount,
                                          self.inningModel.allAmount];
@@ -593,7 +593,7 @@
     self.leftView.topSubTitleArr = @[@"",
                                          [NSString stringWithFormat:@"#%@-%@",self.sceneItem.sceneSort,self.inningItem.inningSort],
                                          self.inningModel.inputAmout,
-                                         [NSString stringWithFormat:@"开%@",self.inningModel.winNum],
+                                         [NSString stringWithFormat:@"%@",self.inningModel.winNum],
                                          self.inningModel.amount,
                                          self.inningModel.lastAmount,
                                          self.inningModel.allAmount];

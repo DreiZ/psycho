@@ -9,7 +9,7 @@
 #import "ZMainPublicNetworkManager.h"
 #import "NetworkManagerCenter.h"
 
-#define kShuidianUrl @"f/shuidian365"
+#define kShuidianUrl @"shensuanqi/main"
 
 @implementation ZMainPublicNetworkManager
 + (void)getCode:(NSDictionary *)dic
@@ -82,7 +82,7 @@
           success:(void (^)(NSDictionary *info))success
             faile:(void (^)(NSError *error))failure
 {
-    NSString *urlStr = [self getSDUrl:@"shuidianUser/shuidianUserLogin"];
+    NSString *urlStr = [self getSDUrl:@"pad_login.do"];
     [[NetworkManagerCenter sharedManager] postDic:dic urlStr:urlStr success:success failure:failure];
 }
 

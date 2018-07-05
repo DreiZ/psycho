@@ -30,6 +30,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window setBackgroundColor:[UIColor whiteColor]];
     [self setupViewControllers];
+    [[ZPublicManager shareInstance] autoLoginUser];
 }
 
 - (void)setupViewControllers {

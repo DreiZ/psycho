@@ -183,8 +183,7 @@
 }
 
 - (void)loginBtnOnClick:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    return;
+   
     if (_userNameTF.text.length != 11) {
         [self showErrorWithMsg:@"请输入正确的手机号"];
         return;
@@ -202,33 +201,33 @@
     NSDictionary *dic = @{@"userPhone":_userNameTF.text,
                           @"userPassword":_passwordTF.text};
     
-//    __weak typeof(self) weakSelf = self;
-//    [ZMemberUserDataManager userLogin:dic success:^(NSDictionary *info) {
-//        NSLog(@"zzz userLogin:%@",info);
-//        [weakSelf handleLoginBlock:info postDict:dic];
-//    } faile:^(NSError *error) {
-//        [[HNPublicTool shareInstance] showHudMessage:@"登录失败"];
-//    }];
+    __weak typeof(self) weakSelf = self;
+    [ZMainPublicNetworkManager userLogin:dic success:^(NSDictionary *info) {
+        NSLog(@"zzz userLogin:%@",info);
+        [weakSelf handleLoginBlock:info postDict:dic];
+    } faile:^(NSError *error) {
+        [self showErrorWithMsg:@"登录失败"];
+    }];
 }
-//
-//- (void)handleLoginBlock:(NSDictionary*)info postDict:(NSDictionary *)dic {
-//    if ([info objectForKey:@"result"] && [info[@"result"] intValue] == 200) {
-//        if ([info objectForKey:@"message"] && [info[@"message"] isKindOfClass:[NSString class]]) {
-//            [[HNPublicTool shareInstance] showHudMessage:info[@"message"]];
-//        }else{
-//            [[HNPublicTool shareInstance] showHudMessage:@"登录成功"];
-//        }
+
+- (void)handleLoginBlock:(NSDictionary*)info postDict:(NSDictionary *)dic {
+    if ([info objectForKey:@"result"] && [info[@"result"] intValue] == 200) {
+        if ([info objectForKey:@"message"] && [info[@"message"] isKindOfClass:[NSString class]]) {
+            [self showErrorWithMsg:info[@"message"]];
+        }else{
+            [self showSuccessWithMsg:@"登录成功"];
+        }
 //         [[AppDelegate App] changeRootViewController];
-//        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-////        [[AppDelegate App] changeRootViewController];
-//    }else{
-//        if ([info objectForKey:@"message"] && [info[@"message"] isKindOfClass:[NSString class]]) {
-//            [[HNPublicTool shareInstance] showHudMessage:info[@"message"]];
-//        }else{
-//            [[HNPublicTool shareInstance] showHudMessage:@"登录失败"];
-//        }
-//    }
-//}
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+//        [[AppDelegate App] changeRootViewController];
+    }else{
+        if ([info objectForKey:@"message"] && [info[@"message"] isKindOfClass:[NSString class]]) {
+            [self showErrorWithMsg:info[@"message"]];
+        }else{
+            [self showErrorWithMsg:@"登录失败"];
+        }
+    }
+}
 
 
 -(void)loginSuccess {

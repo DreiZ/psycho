@@ -32,8 +32,8 @@
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
-    _titleArr = @[@"0", @"名称", @"投入", @"结果", @"本筒",@"上筒",@"总账"];
-    _subTitleArr = @[@"0", @"#", @"", @"开", @"0",@"0",@"0"];
+    _titleArr = @[@"0", @"名称", @"投入", @"签", @"本筒",@"上筒",@"总账"];
+    _subTitleArr = @[@"0", @"#", @"", @"", @"0",@"0",@"0"];
     
     _sTitleColorArr = @[@[[UIColor colorWithHexString:@"cccccc"],[UIColor blackColor]],
                         @[[UIColor colorWithHexString:@"cccccc"],[UIColor blackColor]],

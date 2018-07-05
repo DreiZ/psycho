@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define MAPI @"http://59.110.227.158:8080/shuidian365"
+#define MAPI @"http://47.106.39.94:8080"
 
 
 typedef  void(^successBlock)(NSDictionary *info);
