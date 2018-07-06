@@ -38,7 +38,7 @@
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     titleLabel.textColor = [UIColor blackColor];
-    titleLabel.text = @"神算子用户登录";
+    titleLabel.text = @"神算器用户登录";
     titleLabel.numberOfLines = 0;
     titleLabel.textAlignment = NSTextAlignmentLeft;
     [titleLabel setFont:[UIFont systemFontOfSize:30.0f]];

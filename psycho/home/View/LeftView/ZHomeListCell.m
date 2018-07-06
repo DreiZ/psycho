@@ -96,8 +96,14 @@
         }
         tempView = aView;
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTF:) name:@"tgchange" object:nil];
 }
 
+-(void)refreshTF:(NSNotification *)notification
+{
+    [self setIsFirst:NO];
+}
 
 - (UILabel *)getLabel:(NSString *)title {
     UILabel *tempLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -139,6 +145,9 @@
             }
         };
         _nameInputTF.beginChange = ^(UITextField *textField) {
+            NSNotification *notification = [NSNotification notificationWithName:@"tgchange" object:nil userInfo:nil];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
             [weakSelf setIsFirst:YES];
             if (weakSelf.nameBeginChange) {
                 weakSelf.nameBeginChange(textField.text);
@@ -146,6 +155,9 @@
         };
         
         _nameInputTF.endChange = ^(UITextField *textField) {
+            NSNotification *notification = [NSNotification notificationWithName:@"tgchange" object:nil userInfo:nil];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
             [weakSelf setIsFirst:NO];
         };
         
@@ -167,6 +179,9 @@
         };
         
         _addTFView.beginChange = ^(UITextField *textField) {
+            NSNotification *notification = [NSNotification notificationWithName:@"tgchange" object:nil userInfo:nil];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
             [weakSelf setIsFirst:YES];
             if (weakSelf.beginChange) {
                 weakSelf.beginChange(textField);
@@ -174,6 +189,9 @@
         };
         
         _addTFView.endChange = ^(UITextField *textField) {
+            NSNotification *notification = [NSNotification notificationWithName:@"tgchange" object:nil userInfo:nil];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
             [weakSelf setIsFirst:NO];
             if (weakSelf.endChange) {
                 weakSelf.endChange(textField);
@@ -196,6 +214,8 @@
 - (void)setListModel:(ZInningListModel *)listModel {
     _listModel = listModel;
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self setIsFirst:NO];
+        
         for (int i = 0; i < self.labelArr.count; i++) {
             if (i == 1) {
                 self.nameInputTF.inputTF.text = [NSString stringWithFormat:@"%@",[self debarNullStr:listModel.listName]];

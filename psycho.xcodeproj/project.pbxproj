@@ -1022,6 +1022,7 @@
 				DEVELOPMENT_TEAM = BP42WMT6L5;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/psycho/main/PrefixHeader.pch";
 				INFOPLIST_FILE = psycho/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1042,6 +1043,7 @@
 				DEVELOPMENT_TEAM = BP42WMT6L5;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/psycho/main/PrefixHeader.pch";
 				INFOPLIST_FILE = psycho/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

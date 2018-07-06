@@ -25,6 +25,8 @@
 @property (nonatomic,strong) NSString *subStr;
 
 @property (nonatomic,strong) UILabel *hintLabel;
+@property (nonatomic,strong) UITextField *mouthTF;
+
 @end
 
 @implementation ZMyAllBillView
@@ -122,6 +124,23 @@
     [self.contView addSubview:self.billFootView];
     [_billFootView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.rightAmountView.mas_bottom);
+        make.left.equalTo(self.contView.mas_left);
+        make.right.equalTo(self.contView.mas_right);
+        make.height.mas_equalTo(50);
+    }];
+    
+    _mouthTF  = [[UITextField alloc] init];
+    [_mouthTF setFont:[UIFont systemFontOfSize:24]];
+    [_mouthTF setTextColor:[UIColor redColor]];
+    _mouthTF.leftViewMode = UITextFieldViewModeAlways;
+    [_mouthTF setTextAlignment:NSTextAlignmentCenter];
+    [_mouthTF setBorderStyle:UITextBorderStyleNone];
+    [_mouthTF setBackgroundColor:[UIColor clearColor]];
+    [_mouthTF setReturnKeyType:UIReturnKeySearch];
+    [_mouthTF setPlaceholder:@"备注"];
+    [self.contView addSubview:self.mouthTF];
+    [_mouthTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.billFootView.mas_bottom);
         make.left.equalTo(self.contView.mas_left);
         make.right.equalTo(self.contView.mas_right);
         make.height.mas_equalTo(50);
