@@ -96,7 +96,7 @@
         _topBtnView = [[ZRightTopBtnView alloc] init];
         _topBtnView.topBlock = ^(NSInteger index) {
             if (!weakSelf.inningModel.isEnable) {
-                if (index == 101 || index == 102 || index == 203) {
+                if (index == 101 || index == 102 || index == 203 || index == 201) {
                     if (weakSelf.topBlock) {
                         weakSelf.topBlock(index);
                     }

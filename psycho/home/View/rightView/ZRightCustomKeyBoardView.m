@@ -616,9 +616,9 @@ void soundCompleteCallBack(SystemSoundID soundID, void *clientData)
 #pragma mark - PGNumberKeyboardDelegate
 
 - (void)editChanage:(id)sender {
-    if ([sender isKindOfClass:[UITextField class]]) {
+    if ([sender isKindOfClass:[ZTextField class]]) {
         ZTextField *textField = sender;
-        if ( [textField.zDelegate respondsToSelector:@selector(zEditChanage:)]) {
+        if (textField.zDelegate && [textField.zDelegate respondsToSelector:@selector(zEditChanage:)]) {
             [textField.zDelegate zEditChanage:textField];
         }
        

@@ -405,7 +405,7 @@
             [self endThisSence];
             break;
         case 201:
-            //添加新场
+            //添加新筒
             [self addNewSence];
             break;
         case 202:
@@ -535,9 +535,30 @@
     }
 }
 
-//添加新场
+//添加新筒
 - (void)addNewSence {
-    [self endThisSence];
+    if (!_rightView.inningModel.isEnable) {
+        _historySceneItem = _sceneItem;
+        self.leftView.inningModel = _inningModel;
+        self.rightView.inningModel = _inningModel;
+        
+        self.leftView.topSubTitleArr = @[@"",
+                                         [NSString stringWithFormat:@"#%@-%@",self.sceneItem.sceneSort,self.inningItem.inningSort],
+                                         self.inningModel.inputAmout,
+                                         [NSString stringWithFormat:@"%@",self.inningModel.winNum],
+                                         self.inningModel.amount,
+                                         self.inningModel.lastAmount,
+                                         self.inningModel.allAmount];
+        [self.rightView setTopTitle:@"" value:@""];
+        [self.rightView setOpenNum:@""];
+        
+        [self.leftView refreshData];
+        
+        [self.rightView setSortNum:[NSString stringWithFormat:@"第#%@-%@筒",_sceneItem.sceneSort,_inningItem.inningSort]];
+    }else{
+        [self saveThisInning];
+    }
+    
 }
 
 //结束本场

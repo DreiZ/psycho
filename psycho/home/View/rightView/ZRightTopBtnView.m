@@ -75,7 +75,7 @@
         make.top.equalTo(topView.mas_bottom).offset(0.5);
     }];
     
-    NSArray *bottomTitleArr = @[@"结束本场",@"添加新场",@"保存本筒",@"截图"];
+    NSArray *bottomTitleArr = @[@"结束本场",@"添加新筒",@"保存本筒",@"截图"];
     for (int i = 0; i < bottomTitleArr.count; i++) {
         UIButton *btn = [self getBtn:i+200 title:bottomTitleArr[i] type:NO];
         [bottomView addSubview:btn];
