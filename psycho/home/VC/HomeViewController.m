@@ -134,18 +134,7 @@
 
 #pragma mark 初始化 view
 - (void)setupMainView {
-    
-    UIButton *lognBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [lognBtn addTarget:self action:@selector(lognBtnOnclick:) forControlEvents:UIControlEventTouchUpInside];
-    lognBtn.backgroundColor = [UIColor purpleColor];
-    [self.view addSubview:lognBtn];
-    [lognBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view.mas_right);
-        make.top.equalTo(self.view.mas_bottom).offset(-220);
-        make.height.mas_equalTo(90);
-        make.width.mas_equalTo(290);
-    }];
-    
+
     UIView *statusBar = [[UIView alloc] initWithFrame:CGRectZero];
     statusBar.backgroundColor = kBack6Color;
     [self.view addSubview:statusBar];
@@ -162,8 +151,9 @@
         }];
     }else{
         [_rightView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.right.equalTo(self.view);
-            make.width.mas_equalTo(0.1f);
+            make.top.bottom.equalTo(self.view);
+            make.left.equalTo(self.view.mas_right);
+            make.width.mas_equalTo(CGFloatIn2048(636));
         }];
     }
     
@@ -696,8 +686,9 @@
         }];
     }else{
         [_rightView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.right.equalTo(self.view);
-            make.width.mas_equalTo(0.1f);
+            make.top.bottom.equalTo(self.view);
+            make.left.equalTo(self.view.mas_right);
+            make.width.mas_equalTo(CGFloatIn2048(636));
         }];
     }
     
