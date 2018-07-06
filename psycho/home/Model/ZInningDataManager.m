@@ -116,35 +116,37 @@
                 //console.log("中签正常数字(1)为:"+num);
                 if(num.length==3) {//XXX  1=0.7 X=1
                     //"1"==Qnum
+                    // Bl.substring(Bl.indexOf("."),Bl.length)==".5"
                     if([@"1" isEqualToString:Qnum]) {
                         NSString *stemp = @"";
-                        if (Bl.length > 0) {
+                        if (Bl.length > 0 && [Bl rangeOfString:@"."].location != NSNotFound) {
                             stemp = [Bl substringWithRange:NSMakeRange([Bl rangeOfString:@"."].location, Bl.length - [Bl rangeOfString:@"."].location)] ;
-                        }
-                        
-                        // Bl.substring(Bl.indexOf("."),Bl.length)==".5"
-                        if([stemp isEqualToString:@".5"]) {//    result="+"+Number(tsbl*Bl).toFixed(3);
-                            //tsbl=="0.08"
-                            if([tsbl isEqualToString:@"0.08"]){
-                                NSString *temp7 = [NSString stringWithFormat:@"%f",0.07 * [Bl doubleValue]];
-                                //Number(0.07*Bl).toString().length>5
-                                if(temp7.length>5){
-//                                    result="+"+Number(0.07*Bl).toFixed(2);
-                                    result = 0.07 * [Bl doubleValue] + result;
-                                    resultStr = [NSString stringWithFormat:@"%.3f",result];
+                            if([stemp isEqualToString:@".5"]) {//    result="+"+Number(tsbl*Bl).toFixed(3);
+                                //tsbl=="0.08"
+                                if([tsbl isEqualToString:@"0.08"]){
+                                    NSString *temp7 = [NSString stringWithFormat:@"%f",0.07 * [Bl doubleValue]];
+                                    //Number(0.07*Bl).toString().length>5
+                                    if(temp7.length>5){
+                                        //                                    result="+"+Number(0.07*Bl).toFixed(2);
+                                        result = 0.07 * [Bl doubleValue] + result;
+                                        resultStr = [NSString stringWithFormat:@"%.2f",result];
+                                    }else{
+                                        //                              result="+"+Math.round(Number(0.07*Bl).toFixed(3) * 100) / 100;
+                                        result = 0.07 * [Bl doubleValue] + result;
+                                        result = round(result * 100.0f)/100.0f;
+                                        resultStr = [NSString stringWithFormat:@"%.2f",result];
+                                    }
                                 }else{
-//                              result="+"+Math.round(Number(0.07*Bl).toFixed(3) * 100) / 100;
+                                    //                                result="+"+Number(0.07*Bl).toFixed(3);
                                     result = 0.07 * [Bl doubleValue] + result;
-                                    result = round(result * 100.0f)/100.0f;
                                     resultStr = [NSString stringWithFormat:@"%.3f",result];
                                 }
-                            }else{
-//                                result="+"+Number(0.07*Bl).toFixed(3);
+                            }else {
+                                //                            result="+"+Number(0.07*Bl).toFixed(3);
                                 result = 0.07 * [Bl doubleValue] + result;
                                 resultStr = [NSString stringWithFormat:@"%.3f",result];
                             }
-                        }else {
-//                            result="+"+Number(0.07*Bl).toFixed(3);
+                        }else{
                             result = 0.07 * [Bl doubleValue] + result;
                             resultStr = [NSString stringWithFormat:@"%.3f",result];
                         }
@@ -159,37 +161,41 @@
                     //"1"==Qnum
                     if([@"1" isEqualToString:Qnum]) {
                         NSString *stemp = @"";
-                        if (Bl.length > 0) {
+                        if (Bl.length > 0 && [Bl rangeOfString:@"."].location != NSNotFound) {
                             stemp = [Bl substringWithRange:NSMakeRange([Bl rangeOfString:@"."].location, Bl.length - [Bl rangeOfString:@"."].location)];
-                        }
-                        
-                        //Bl.substring(Bl.indexOf("."),Bl.length)==".5"
-                        if([stemp isEqualToString:@".5"]) {
-                            //tsbl=="0.08"
-                            if([tsbl isEqualToString:@"0.08"]){
-                                 NSString *temp7 = [NSString stringWithFormat:@"%f",0.15 * [Bl doubleValue]];
-                                //Number(0.15*Bl).toString().length>5
-                                if(temp7.length>5){
-//                                    result="+"+Number((Math.round(Number(0.15*Bl) * 1000) / 1000)).toFixed(2);
-                                    result = 0.15 * [Bl doubleValue] + result;
-                                    result = round(result * 1000.0f)/1000.0f;
-                                    resultStr = [NSString stringWithFormat:@"%.3f",result];
+                            //Bl.substring(Bl.indexOf("."),Bl.length)==".5"
+                            if([stemp isEqualToString:@".5"]) {
+                                //tsbl=="0.08"
+                                if([tsbl isEqualToString:@"0.08"]){
+                                    NSString *temp7 = [NSString stringWithFormat:@"%f",0.15 * [Bl doubleValue]];
+                                    //Number(0.15*Bl).toString().length>5
+                                    if(temp7.length>5){
+                                        //                                    result="+"+Number((Math.round(Number(0.15*Bl) * 1000) / 1000)).toFixed(2);
+                                        result = 0.15 * [Bl doubleValue] + result;
+                                        result = round(result * 1000.0f)/1000.0f;
+                                        resultStr = [NSString stringWithFormat:@"%.3f",result];
+                                    }else{
+                                        //                                    result="+"+Math.round(Number(0.15*Bl) * 100) / 100;
+                                        result = 0.15 * [Bl doubleValue] + result;
+                                        result = round(result * 100.0f)/100.0f;
+                                        resultStr = [NSString stringWithFormat:@"%.3f",result];
+                                    }
                                 }else{
-//                                    result="+"+Math.round(Number(0.15*Bl) * 100) / 100;
+                                    //                                result="+"+Number(0.15*Bl).toFixed(3);
                                     result = 0.15 * [Bl doubleValue] + result;
-                                    result = round(result * 100.0f)/100.0f;
                                     resultStr = [NSString stringWithFormat:@"%.3f",result];
                                 }
-                            }else{
-//                                result="+"+Number(0.15*Bl).toFixed(3);
+                            }else {
+                                //                            result="+"+Number(0.15*Bl).toFixed(3);
                                 result = 0.15 * [Bl doubleValue] + result;
                                 resultStr = [NSString stringWithFormat:@"%.3f",result];
                             }
-                        }else {
-//                            result="+"+Number(0.15*Bl).toFixed(3);
+                        }else{
                             result = 0.15 * [Bl doubleValue] + result;
                             resultStr = [NSString stringWithFormat:@"%.3f",result];
                         }
+                        
+                        
                         //console.log("中签数字(1)为"+num+"是XX类型結果開:"+0.15*Bl);
                     }else {
                         //console.log("中签数字(1)为"+num+"是XX类型結果開:"+0.2*Bl);
@@ -344,13 +350,24 @@
                     NSArray *tempArr = [qmSinge componentsSeparatedByString:@"/"];
                     NSString *num1 = @"";
                     NSString *Bl1 =  @"";
-                    if (tempArr.count > 0) {
-                        num1 = tempArr[0];
+                    if ([qmSinge rangeOfString:@"/"].location == NSNotFound) {
+                        num1 = qmSinge;
+                        Bl1 = qmSinge;
+                    }else{
+                        tempArr = [ZInningDataManager rangeOfSubString:@"/" inString:qmSinge];
+                        if (tempArr.count > 0) {
+                            NSValue *tempRangeValue = tempArr[tempArr.count - 1];
+                            NSRange tempRange = [tempRangeValue rangeValue];
+                            num1 = [qmSinge substringWithRange:NSMakeRange(0, tempRange.location)];
+                            Bl1 = [qmSinge substringWithRange:NSMakeRange(tempRange.location+1, qmSinge.length-tempRange.location-1)] ;
+                        }else{
+                            num1 = qmSinge;
+                            Bl1 = qmSinge;
+                        }
+                        
                     }
+                   
                     
-                    if (tempArr.count > 1) {
-                        Bl1 = tempArr[1];
-                    }
                     NSString *result = [ZInningDataManager computeWithNum:num1 Qnum:model.winNum Bl:Bl1 tsbl:model.multiplyingTure];
                     input += [Bl1 doubleValue];
                     listModel.listInputResult[i] = result;
@@ -374,4 +391,20 @@
     model.inputAmout = [NSString stringWithFormat:@"%.3f",input/10.0f];
 }
 
++ (NSArray*)rangeOfSubString:(NSString*)subStr inString:(NSString*)string {
+    NSMutableArray *rangeArray = [NSMutableArray array];
+    NSString*string1 = [string stringByAppendingString:subStr];
+    NSString *temp;
+
+    for(int i =0; i < string.length; i ++) {
+        temp = [string1 substringWithRange:NSMakeRange(i, subStr.length)];
+        if ([temp isEqualToString:subStr]) {
+            NSRange range = {i,subStr.length};
+            [rangeArray addObject: [NSValue valueWithRange:range]];
+        }
+    }
+
+    return rangeArray;
+    
+}
 @end
