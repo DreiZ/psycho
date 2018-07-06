@@ -305,6 +305,15 @@
         }
         self.leftView.inningModel = history.itemModel;
         self.rightView.inningModel = history.itemModel;
+        if (!history.itemModel.winNum) {
+            history.itemModel.winNum = @"";
+        }
+        if (!history.itemModel.inputAmout) {
+            history.itemModel.inputAmout = @"";
+        }
+        if (!history.itemModel.amount) {
+            history.itemModel.amount = @"";
+        }
         self.leftView.topSubTitleArr = @[@"",
                                          [NSString stringWithFormat:@"#%@-%@",history.sceneSort,history.inningSort],
                                          history.itemModel.inputAmout,
