@@ -62,10 +62,12 @@
     
     
     NSArray *titleArr = @[@"1",@"2",@"3",@"4",@"5",@"6"];
+    UIButton *numBtn = nil;
     for (int i = 0; i < titleArr.count; i++) {
         UIButton *btn = [self getBtnWith:i title:titleArr[i]];
         [_contView addSubview:btn];
         [_numBtnArr addObject:btn];
+        numBtn = btn;
     }
     
     [_numBtnArr mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:8 leadSpacing:20 tailSpacing:20];
@@ -74,8 +76,11 @@
         make.bottom.equalTo(self.contView.mas_bottom).offset(-30);
     }];
     
+//    [_numBtnArr mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.height.mas_equalTo((356 - 30 - (titleArr.count - 1)*8)/titleArr.count);
+//    }];
     [_numBtnArr mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo((356 - 30 - (titleArr.count - 1)*8)/titleArr.count);
+        make.height.equalTo(numBtn);
     }];
 }
 
