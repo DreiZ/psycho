@@ -160,7 +160,7 @@
         _addTFView = [[ZHomeListAddTFView alloc] init];
         _addTFView.isCustomKeyboard = YES;
         _addTFView.valueChange = ^(NSString *value) {
-            NSLog(@"zzz value %@",value);
+//            NSLog(@"zzz value %@",value);
             if (weakSelf.valueChange) {
                 weakSelf.valueChange(value);
             }
@@ -236,7 +236,7 @@
                                 if ([[self debarNullStr:listModel.listLastResult] doubleValue] > -0.00001) {
                                     tempLabel.text = [NSString stringWithFormat:@"+%@",[self debarNullStr:listModel.listLastResult]];
                                 }else{
-                                    tempLabel.text = [NSString stringWithFormat:@"-%@",[self debarNullStr:listModel.listLastResult]];
+                                    tempLabel.text = [NSString stringWithFormat:@"%@",[self debarNullStr:listModel.listLastResult]];
                                 }
                                 [tempLabel setTextColor:[UIColor colorWithHexString:@"666666"]];
                             }else{
@@ -252,7 +252,7 @@
                                     tempLabel.text = [NSString stringWithFormat:@"+%@",[self debarNullStr:listModel.listAllResult]];
                                     [tempLabel setTextColor:[UIColor colorWithHexString:@"1699fe"]];
                                 }else{
-                                    tempLabel.text = [NSString stringWithFormat:@"-%@",[self debarNullStr:listModel.listAllResult]];
+                                    tempLabel.text = [NSString stringWithFormat:@"%@",[self debarNullStr:listModel.listAllResult]];
                                     [tempLabel setTextColor:[UIColor colorWithHexString:@"d00000"]];
                                 }
                             }else{

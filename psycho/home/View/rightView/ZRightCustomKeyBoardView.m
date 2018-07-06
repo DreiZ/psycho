@@ -50,7 +50,7 @@
     }
     if ([_delegate respondsToSelector:@selector(editChanage:)]) {
         if (self.textField) {
-            NSLog(@"textField chang %@",self.textField.text);
+//            NSLog(@"textField chang %@",self.textField.text);
             [_delegate editChanage:self.textField];
         }else if(self.textView) {
             [_delegate editChanage:self.textView];
@@ -319,7 +319,7 @@
     NSInteger location = [self.textField offsetFromPosition:beginning toPosition:selectionStart];
     NSInteger length = [self.textField offsetFromPosition:selectionStart toPosition:selectionEnd];
     NSString *string = [self.textField.text substringToIndex:location];
-    NSLog(@"num %ld",number);
+//    NSLog(@"num %ld",number);
     NSString *str = @"";
     if (self.textField) {
         str = self.textField.text;
@@ -584,7 +584,7 @@
 }
 
 - (void)setTopTitle:(NSString *)title value:(NSString *)value {
-    NSLog(@"xxx %@",value);
+//    NSLog(@"xxx %@",value);
     dispatch_async(dispatch_get_main_queue(), ^{
         self.titleLabel.text = title;
         self.inputLabel.text = value;
@@ -597,7 +597,7 @@
 
 void soundCompleteCallBack(SystemSoundID soundID, void *clientData)
 {
-    NSLog(@"播放完成");
+//    NSLog(@"播放完成");
 }
 
 - (void)playVideo:(NSInteger)index {

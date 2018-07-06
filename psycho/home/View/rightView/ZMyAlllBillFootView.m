@@ -61,7 +61,7 @@
 
 
 -(void)setAdd:(NSString *)add sub:(NSString *)sub amount:(NSString *)amount {
-    NSString *result =  [NSString stringWithFormat:@"总账+%@-%@=%@",add,sub,amount];
+    NSString *result =  [NSString stringWithFormat:@"总账+%@%@=%@",add,sub,amount];
 
     NSMutableAttributedString *introText = [[NSMutableAttributedString alloc] initWithString:result];
     introText.font = [UIFont systemFontOfSize:24];

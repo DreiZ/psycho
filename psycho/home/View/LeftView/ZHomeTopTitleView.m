@@ -142,7 +142,7 @@
                 if ([tempLabel.text doubleValue] > -0.00001) {
                     tempLabel.text = [NSString stringWithFormat:@"+%@",[[ZPublicManager shareInstance] changeFloat:tempLabel.text]];
                 }else{
-                    tempLabel.text = [NSString stringWithFormat:@"-%@",[[ZPublicManager shareInstance] changeFloat:tempLabel.text]];
+                    tempLabel.text = [NSString stringWithFormat:@"%@",[[ZPublicManager shareInstance] changeFloat:tempLabel.text]];
                 }
             }
         }

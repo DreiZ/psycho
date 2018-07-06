@@ -201,7 +201,6 @@
     __weak typeof(self) weakSelf = self;
     [self showLoad];
     [ZMainPublicNetworkManager userLogin:dic success:^(NSDictionary *info) {
-        NSLog(@"zzz userLogin:%@",info);
         [weakSelf handleLoginBlock:info postDict:dic];
     } faile:^(NSError *error) {
         [weakSelf hideLoad];
