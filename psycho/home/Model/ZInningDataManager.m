@@ -117,7 +117,10 @@
                 if(num.length==3) {//XXX  1=0.7 X=1
                     //"1"==Qnum
                     if([@"1" isEqualToString:Qnum]) {
-                        NSString *stemp = [Bl substringWithRange:NSMakeRange([Bl rangeOfString:@"."].location, Bl.length - [Bl rangeOfString:@"."].location)] ;
+                        NSString *stemp = @"";
+                        if (Bl.length > 0) {
+                            stemp = [Bl substringWithRange:NSMakeRange([Bl rangeOfString:@"."].location, Bl.length - [Bl rangeOfString:@"."].location)] ;
+                        }
                         
                         // Bl.substring(Bl.indexOf("."),Bl.length)==".5"
                         if([stemp isEqualToString:@".5"]) {//    result="+"+Number(tsbl*Bl).toFixed(3);
@@ -155,7 +158,11 @@
                 }else if(num.length==2) {//XX 1=1.5 X=2
                     //"1"==Qnum
                     if([@"1" isEqualToString:Qnum]) {
-                        NSString *stemp = [Bl substringWithRange:NSMakeRange([Bl rangeOfString:@"."].location, Bl.length - [Bl rangeOfString:@"."].location)] ;
+                        NSString *stemp = @"";
+                        if (Bl.length > 0) {
+                            stemp = [Bl substringWithRange:NSMakeRange([Bl rangeOfString:@"."].location, Bl.length - [Bl rangeOfString:@"."].location)];
+                        }
+                        
                         //Bl.substring(Bl.indexOf("."),Bl.length)==".5"
                         if([stemp isEqualToString:@".5"]) {
                             //tsbl=="0.08"
@@ -288,52 +295,6 @@
         return true;
     }
     return false;
-}
-
-//num 输入的公式 Qnum开的数字 Bl为/后面的数字 tsbl为刚开始选择的0.8或0.7
-+ (void)checkAndCompulteWithQmSinge:(NSString *)qmSinge Qnum:(NSString *)Qnum Bl:(NSString *)Bl tsbl:(NSString *)tsbl {
-    if( [ZInningDataManager checkX:qmSinge]){
-        //console.log(checkX(num));
-        NSArray *tempArr = [qmSinge componentsSeparatedByString:@"/"];
-        NSString *num1 = @"";
-        NSString *num2 = @"";
-        NSString *Bl1 =  @"";
-        NSString *Bl2 =  @"";
-        
-        if (tempArr.count > 0) {
-            num1 = tempArr[0];
-            num2 = [num1 stringByReplacingOccurrencesOfString:@"." withString:@""];
-        }
-        
-        if (tempArr.count > 1) {
-            Bl1 = tempArr[1];
-        }
-        
-        if (tempArr.count > 2) {
-            Bl2 = tempArr[2];
-        }
-        
-        NSString *result = @"";
- 
-        result = [ZInningDataManager computeWithNum:num1 Qnum:Qnum Bl:Bl1 tsbl:tsbl];
-
-        NSString *result2 =[ZInningDataManager computeWithNum:num2 Qnum:Qnum Bl:Bl2 tsbl:tsbl];
-        
-        result = [NSString stringWithFormat:@"%.3f",[result doubleValue] + [result2 doubleValue]];
-        
-    }else{
-        NSArray *tempArr = [qmSinge componentsSeparatedByString:@"/"];
-        NSString *num1 = @"";
-        NSString *Bl1 =  @"";
-        if (tempArr.count > 0) {
-            num1 = tempArr[0];
-        }
-        
-        if (tempArr.count > 1) {
-            Bl1 = tempArr[1];
-        }
-        NSString *result2 = [ZInningDataManager computeWithNum:num1 Qnum:Qnum Bl:Bl1 tsbl:tsbl];
-    }
 }
 
 //num 输入的公式 Qnum开的数字 Bl为/后面的数字 tsbl为刚开始选择的0.8或0.7
