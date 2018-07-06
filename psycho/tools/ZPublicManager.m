@@ -272,7 +272,7 @@ static ZPublicManager *sharePublicClassManager = NULL;
 
 //去掉小数点后无效0
 - (NSString *)changeFloat:(NSString *)stringFloat {
-    if ([stringFloat rangeOfString:@"."].location != NSNotFound) {
+    if (stringFloat && [stringFloat rangeOfString:@"."].location != NSNotFound) {
         
     }else{
         return stringFloat;
