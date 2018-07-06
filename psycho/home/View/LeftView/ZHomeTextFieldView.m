@@ -60,7 +60,7 @@
             NSString *str = [textField.text substringToIndex:textField.text.length - 1];
             textField.text = str;
         }
-        NSLog(@"zzz value %@",textField.text);
+//        NSLog(@"zzz value %@",textField.text);
         if (_valueChange) {
             _valueChange(textField.text);
         }
@@ -78,7 +78,7 @@
         str = [str substringToIndex:length];
         textField.text = str;
     }
-    NSLog(@"zzz value %@",textField.text);
+//    NSLog(@"zzz value %@",textField.text);
     if (_valueChange) {
         _valueChange(textField.text);
     }
