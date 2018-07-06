@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E01F69620EF63530053F47D /* ZTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E01F69520EF63530053F47D /* ZTextField.m */; };
 		5E0FD47320E63823001CB15F /* ZMyAllBillView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0FD47220E63823001CB15F /* ZMyAllBillView.m */; };
 		5E19E11920E4D01A000C5781 /* ZLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E19E11820E4D01A000C5781 /* ZLoginVC.m */; };
 		5E19E11D20E4D0C2000C5781 /* NetworkManagerCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E19E11B20E4D0C2000C5781 /* NetworkManagerCenter.m */; };
@@ -100,6 +101,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E01F69420EF63530053F47D /* ZTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTextField.h; sourceTree = "<group>"; };
+		5E01F69520EF63530053F47D /* ZTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTextField.m; sourceTree = "<group>"; };
 		5E0FD47120E63823001CB15F /* ZMyAllBillView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMyAllBillView.h; sourceTree = "<group>"; };
 		5E0FD47220E63823001CB15F /* ZMyAllBillView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMyAllBillView.m; sourceTree = "<group>"; };
 		5E19E11720E4D019000C5781 /* ZLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLoginVC.h; sourceTree = "<group>"; };
@@ -340,6 +343,8 @@
 				5E5652C620E716A400F7781E /* ZMyAllBillListCell.m */,
 				5E4521C420E8D3AE00A53CFA /* ZRightHistorySelectView.h */,
 				5E4521C520E8D3AE00A53CFA /* ZRightHistorySelectView.m */,
+				5E01F69420EF63530053F47D /* ZTextField.h */,
+				5E01F69520EF63530053F47D /* ZTextField.m */,
 			);
 			path = rightView;
 			sourceTree = "<group>";
@@ -843,6 +848,7 @@
 				5E19E12020E4D110000C5781 /* ZMainPublicNetworkManager.m in Sources */,
 				5E5D899520E21F4A0096536C /* FMResultSet.m in Sources */,
 				5E401CBD20E5DB8A00BFED02 /* ZRightCustomKeyBoardView.m in Sources */,
+				5E01F69620EF63530053F47D /* ZTextField.m in Sources */,
 				5E5D89AE20E229DC0096536C /* NSObject+Hint.m in Sources */,
 				5E5D899E20E21F6F0096536C /* DataWorkManager.m in Sources */,
 				5E5D899020E21F4A0096536C /* FMDatabase+InMemoryOnDiskIO.m in Sources */,

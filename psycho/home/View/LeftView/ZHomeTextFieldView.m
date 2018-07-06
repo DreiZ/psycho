@@ -9,7 +9,7 @@
 #import "ZHomeTextFieldView.h"
 #import "IQKeyboardManager.h"
 
-@interface ZHomeTextFieldView ()<UITextFieldDelegate>
+@interface ZHomeTextFieldView ()<UITextFieldDelegate,ZTextFieldDelegate>
 
 @end
 
@@ -35,11 +35,12 @@
         make.left.equalTo(self.mas_left).offset(4);
         make.right.equalTo(self.mas_right).offset(-4);
     }];
+    
 }
 
-- (UITextField *)inputTF {
+- (ZTextField *)inputTF {
     if (!_inputTF ) {
-        _inputTF = [[UITextField alloc] init];
+        _inputTF = [[ZTextField alloc] init];
         [_inputTF setFont:[UIFont systemFontOfSize:14]];
         [_inputTF setBorderStyle:UITextBorderStyleNone];
         [_inputTF setBackgroundColor:[UIColor clearColor]];
@@ -47,11 +48,43 @@
         _inputTF.textAlignment = NSTextAlignmentCenter;
 //        _inputTF.clearButtonMode = UITextFieldViewModeWhileEditing;
         _inputTF.delegate = self;
+        _inputTF.zDelegate = self;
         [_inputTF addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
     return _inputTF;
 }
 
+- (void)zEditChanage:(UITextField*)textField {
+    if (_formatterType == HNFormatterTypeDecimal) {
+        if ([textField.text  doubleValue] - pow(10, _max) - 0.01  > 0.000001) {
+            [self showErrorWithMsg:@"输入内容超出限制"];
+            NSString *str = [textField.text substringToIndex:textField.text.length - 1];
+            textField.text = str;
+        }
+        //        NSLog(@"zzz value %@",textField.text);
+        if (_valueChange) {
+            _valueChange(textField.text);
+        }
+        return;
+        
+    }
+    if (textField.text.length > _max) {
+        [self showErrorWithMsg:@"输入内容超出限制"];
+        
+        NSString *str = textField.text;
+        NSInteger length = _max;
+        if (str.length <= length) {
+            length = str.length - 1;
+        }
+        str = [str substringToIndex:length];
+        textField.text = str;
+    }
+    NSLog(@"zzz value %@",textField.text);
+    if (_valueChange) {
+        _valueChange(textField.text);
+    }
+    
+}
 
 - (void)textFieldDidChange:(UITextField*)textField {
     if (_formatterType == HNFormatterTypeDecimal) {
@@ -78,7 +111,7 @@
         str = [str substringToIndex:length];
         textField.text = str;
     }
-//    NSLog(@"zzz value %@",textField.text);
+    NSLog(@"zzz value %@",textField.text);
     if (_valueChange) {
         _valueChange(textField.text);
     }

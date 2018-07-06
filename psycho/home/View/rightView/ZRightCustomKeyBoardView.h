@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZTextField.h"
 @protocol PGNumberKeyboardDelegate <NSObject>
 @optional
 - (void)editChanage:(id)sender;
@@ -15,7 +16,7 @@
 
 @interface ZRightCustomKeyBoardView : UIView
 @property (nonatomic, strong) id<PGNumberKeyboardDelegate> delegate;
-@property (nonatomic, weak) UITextField *textField;
+@property (nonatomic, weak) ZTextField *textField;
 @property (nonatomic, weak) UITextView *textView;
 
 /**

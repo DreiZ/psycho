@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #define keyboardColor(r,g,b) [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:1.0f]
 
-@interface ZRightCustomKeyBoardView ()
+@interface ZRightCustomKeyBoardView ()<PGNumberKeyboardDelegate>
 
 @end
 
@@ -26,6 +26,7 @@
         self.frame = CGRectMake(0, screenHeight - CGFloatIn1536(922), screenHeight, 922.0f/1536 * maxScreenWidth);
         [self setupKeyBoard];
         [textField reloadInputViews];
+        self.delegate = self;
     }
     return self;
 }
@@ -40,6 +41,7 @@
         self.frame = CGRectMake(0, screenHeight - CGFloatIn1536(922), screenHeight, 922.0f/1536 * maxScreenWidth);
         [self setupKeyBoard];
         [textView reloadInputViews];
+        self.delegate = self;
     }
     return self;
 }
@@ -609,5 +611,23 @@ void soundCompleteCallBack(SystemSoundID soundID, void *clientData)
     AudioServicesAddSystemSoundCompletion(soundID,NULL,NULL,soundCompleteCallBack,NULL);
     
     AudioServicesPlaySystemSound(soundID);
+}
+
+#pragma mark - PGNumberKeyboardDelegate
+
+- (void)editChanage:(id)sender {
+    if ([sender isKindOfClass:[UITextField class]]) {
+        ZTextField *textField = sender;
+        if ( [textField.zDelegate respondsToSelector:@selector(zEditChanage:)]) {
+            [textField.zDelegate zEditChanage:textField];
+        }
+       
+        
+//        NSLog(@"text = %@\ttag = %ld", textField.text, textField.tag);
+        return;
+    }
+    UITextView *textView = sender;
+    NSLog(@"text = %@\ttag = %ld", textView.text, textView.tag);
+    
 }
 @end

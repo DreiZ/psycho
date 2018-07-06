@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZTextField.h"
 
 @interface ZHomeTextFieldView : UIView
-@property (nonatomic,strong) UITextField *inputTF;
+@property (nonatomic,strong) ZTextField *inputTF;
 //输入类型
 @property (assign, nonatomic) HNFormatterType formatterType;
 //自定义类型
