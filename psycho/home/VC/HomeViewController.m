@@ -335,6 +335,7 @@
         _historySceneItem = _sceneItem;
         self.leftView.inningModel = _inningModel;
         self.rightView.inningModel = _inningModel;
+        
         self.leftView.topSubTitleArr = @[@"",
                                          [NSString stringWithFormat:@"#%@-%@",self.sceneItem.sceneSort,self.inningItem.inningSort],
                                          self.inningModel.inputAmout,
