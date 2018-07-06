@@ -9,7 +9,7 @@
 #import "ZMainPublicNetworkManager.h"
 #import "NetworkManagerCenter.h"
 
-#define kShuidianUrl @"shensuanqi/main"
+#define kShuidianUrl @"shensuanqi/pad"
 
 @implementation ZMainPublicNetworkManager
 + (void)getCode:(NSDictionary *)dic

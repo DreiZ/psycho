@@ -60,12 +60,10 @@ static ZPublicManager *sharePublicClassManager = NULL;
 }
 
 -(void)autoLoginUser {
-    id userInfo = [[NSUserDefaults standardUserDefaults] valueForKey:@"userInfo"];
-    if (userInfo) {
-        [self updateUser:userInfo];
+    BOOL isLogin = [[NSUserDefaults standardUserDefaults] boolForKey:@"isLogin"];
+    if (isLogin) {
         self.isLogin = YES;
         [self checkLogin];
-        //        [self panduan];
         
     }else{
         self.isLogin = NO;

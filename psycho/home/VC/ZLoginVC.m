@@ -129,7 +129,6 @@
         [_userNameTF setFont:[UIFont systemFontOfSize:18]];
         _userNameTF.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 12, 10)];
         _userNameTF.leftViewMode = UITextFieldViewModeAlways;
-        _userNameTF.leftViewMode = UITextFieldViewModeAlways;
         [_userNameTF setBorderStyle:UITextBorderStyleNone];
         [_userNameTF setBackgroundColor:[UIColor clearColor]];
         [_userNameTF setReturnKeyType:UIReturnKeySearch];
@@ -184,8 +183,8 @@
 
 - (void)loginBtnOnClick:(id)sender {
    
-    if (_userNameTF.text.length != 11) {
-        [self showErrorWithMsg:@"请输入正确的手机号"];
+    if (_userNameTF.text.length == 0) {
+        [self showErrorWithMsg:@"请输入账号"];
         return;
     }
 
@@ -193,36 +192,38 @@
         [self showErrorWithMsg:@"请输入密码"];
         return;
     }
-    if (_passwordTF.text.length < 6) {
-        [self showErrorWithMsg:@"密码长度不能小于6位"];
-        return;
-    }
+    [self.userNameTF resignFirstResponder];
+    [self.passwordTF resignFirstResponder];
     
-    NSDictionary *dic = @{@"userPhone":_userNameTF.text,
+    NSDictionary *dic = @{@"userName":_userNameTF.text,
                           @"userPassword":_passwordTF.text};
     
     __weak typeof(self) weakSelf = self;
+    [self showLoad];
     [ZMainPublicNetworkManager userLogin:dic success:^(NSDictionary *info) {
         NSLog(@"zzz userLogin:%@",info);
         [weakSelf handleLoginBlock:info postDict:dic];
     } faile:^(NSError *error) {
-        [self showErrorWithMsg:@"登录失败"];
+        [weakSelf hideLoad];
+        [weakSelf showErrorWithMsg:@"登录失败"];
     }];
 }
 
 - (void)handleLoginBlock:(NSDictionary*)info postDict:(NSDictionary *)dic {
-    if ([info objectForKey:@"result"] && [info[@"result"] intValue] == 200) {
-        if ([info objectForKey:@"message"] && [info[@"message"] isKindOfClass:[NSString class]]) {
-            [self showErrorWithMsg:info[@"message"]];
+    [self hideLoad];
+    if ([info objectForKey:@"code"] && [info[@"code"] intValue] == 200) {
+        if ([info objectForKey:@"msg"] && [info[@"msg"] isKindOfClass:[NSString class]]) {
+            [self showErrorWithMsg:info[@"msg"]];
         }else{
             [self showSuccessWithMsg:@"登录成功"];
         }
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
 //         [[AppDelegate App] changeRootViewController];
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 //        [[AppDelegate App] changeRootViewController];
     }else{
-        if ([info objectForKey:@"message"] && [info[@"message"] isKindOfClass:[NSString class]]) {
-            [self showErrorWithMsg:info[@"message"]];
+        if ([info objectForKey:@"msg"] && [info[@"msg"] isKindOfClass:[NSString class]]) {
+            [self showErrorWithMsg:info[@"msg"]];
         }else{
             [self showErrorWithMsg:@"登录失败"];
         }
@@ -285,11 +286,11 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if (textField.tag == 101) {
-        _formatterType = HNFormatterTypePhoneNumber;
-        _max = 11;
+//        _formatterType = HNFormatterTypePhoneNumber;
+        _max = 21;
     }else if (textField.tag == 102) {
-        _formatterType = HNFormatterTypeAny;
-        _max = 12;
+//        _formatterType = HNFormatterTypeAny;
+        _max = 22;
     }
     
     NSString *regexString;

@@ -537,8 +537,10 @@
     [historyArr addObject:_sceneItem];
     self.historyAllList.allHisoryLists = historyArr;
     
+    [self showLoad];
     [self updateHistory];
-    
+    [self hideLoad];
+    [self showSuccessWithMsg:@"已保存本场数据"];
     _lastSceneItem = _sceneItem;
     
     NSInteger index = [_sceneItem.sceneSort integerValue];
@@ -693,10 +695,4 @@
     }
     
 }
-
-//#pragma mark 退出
-//- (void)lognBtnOnclick:(id)sender {
-//    [[AppDelegate App] pushLogingVC];
-//}
-
 @end
