@@ -99,6 +99,10 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTF:) name:@"tgchange" object:nil];
 }
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 -(void)refreshTF:(NSNotification *)notification
 {

@@ -73,6 +73,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidRotate:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
 - (void)handleDeviceOrientationChanged:(NSNotification *)notification
 {
     NSDictionary *userInfo = [notification userInfo];
