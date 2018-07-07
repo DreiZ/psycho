@@ -326,6 +326,7 @@
     [_rightAmountView setLeftTitle:@"输总额" rightTitle:_subStr];
     [_billFootView setAdd:_addStr sub:_subStr amount:[NSString stringWithFormat:@"%.3f",sub+add]];
     _hintLabel.text = [NSString stringWithFormat:@"第%@场总账",[[ZPublicManager shareInstance] changeFloat:SceneItem.sceneSort]];
+    _mouthTF.text = @"";
 }
 @end
 

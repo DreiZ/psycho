@@ -138,10 +138,14 @@
 
 
 - (void)seletBtnClick:(UIButton *)sender {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self removeFromSuperview];
+    });
+    
     if (_numSeletBlock) {
         _numSeletBlock(sender.tag);
     }
-    [self removeFromSuperview];
+    
 }
 
 - (void)backBtnOnclick:(id)sender {

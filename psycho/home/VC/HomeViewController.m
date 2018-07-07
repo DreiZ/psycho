@@ -258,20 +258,23 @@
         _seletedOpenNumView = [[ZRightOpenSelectView alloc] init];
         _seletedOpenNumView.frame = CGRectMake(0, 0, screenWidth, screenHeight);
         _seletedOpenNumView.numSeletBlock = ^(NSInteger index) {
-            
+            [weakSelf showLoad];
             
             if (weakSelf.historyInngItem && weakSelf.inningItem != weakSelf.historyInngItem) {
                 [weakSelf handleHistoryOpenData:index];
+                [weakSelf hideLoad];
                 return ;
             }
             NSArray *titleArr = @[@"1",@"2",@"3",@"4",@"5",@"6"];
             weakSelf.inningItem.winNum = titleArr[index];
             weakSelf.inningModel.winNum = titleArr[index];
             [ZInningDataManager computeWithInningModel:weakSelf.inningModel];
+            [weakSelf hideLoad];
             [weakSelf setLeftTopData];
             [weakSelf.rightView setOpenNum:weakSelf.inningModel.winNum];
             [weakSelf.leftView refreshData];
             [weakSelf.leftView refreshHeadData];
+            
         };
     }
     
@@ -539,6 +542,7 @@
 - (void)addNewSence {
     if (!_rightView.inningModel.isEnable) {
         _historySceneItem = _sceneItem;
+        _historyInngItem = _inningItem;
         self.leftView.inningModel = _inningModel;
         self.rightView.inningModel = _inningModel;
         
@@ -563,12 +567,12 @@
 
 //结束本场
 - (void)endThisSence {
+    [self showLoad];
     [self checkNameChange];
     NSMutableArray *historyArr = [[NSMutableArray alloc] initWithArray:self.historyAllList.allHisoryLists];
     [historyArr addObject:_sceneItem];
     self.historyAllList.allHisoryLists = historyArr;
-    
-    [self showLoad];
+
     [self updateHistory];
     [self hideLoad];
     [self showSuccessWithMsg:@"已保存本场数据"];
