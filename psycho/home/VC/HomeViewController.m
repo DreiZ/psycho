@@ -124,7 +124,7 @@
                                      [NSString stringWithFormat:@"#%@-%@",_sceneItem.sceneSort,_inningItem.inningSort],
                                      @"",
                                      @"",
-                                     @"0.00",
+                                     @"+0-0=0",
                                      @"0.00",
                                      @"0.00"];
     
@@ -323,7 +323,23 @@
             history.itemModel.amount = @"";
         }
         
-        NSString *result =  [NSString stringWithFormat:@"+%@%@%@=%@",history.itemModel.addAmount,[history.itemModel.subAmount doubleValue] == 0 ? @"-":@"",history.itemModel.subAmount,history.itemModel.amount];
+        NSString *add = @"0";
+        NSString *sub = @"0";
+        NSString *amount = @"0";
+        if (history.itemModel.addAmount && history.itemModel.addAmount.length > 0) {
+            add = history.itemModel.addAmount;
+        }
+        
+        if (history.itemModel.subAmount && history.itemModel.subAmount.length > 0) {
+            sub = history.itemModel.subAmount;
+        }
+        
+        if (history.itemModel.amount && history.itemModel.amount.length > 0) {
+            amount = history.itemModel.amount;
+        }
+        
+        NSString *result =  [NSString stringWithFormat:@"+%@%@%@=%@",add,[history.itemModel.subAmount doubleValue] == 0 ? @"-":@"",sub,amount];
+        
         self.leftView.topSubTitleArr = @[@"",
                                          [NSString stringWithFormat:@"#%@-%@",history.sceneSort,history.inningSort],
                                          history.itemModel.inputAmout,
@@ -346,7 +362,24 @@
         self.leftView.inningModel = _inningModel;
         self.rightView.inningModel = _inningModel;
         
-        NSString *result =  [NSString stringWithFormat:@"+%@%@%@=%@",self.inningModel.addAmount,[self.inningModel.subAmount doubleValue] == 0 ? @"-":@"",self.inningModel.subAmount,self.inningModel.amount];
+        NSString *add = @"0";
+        NSString *sub = @"0";
+        NSString *amount = @"0";
+        if (self.inningModel.addAmount && self.inningModel.addAmount.length > 0) {
+            add = self.inningModel.addAmount;
+        }
+        
+        if (self.inningModel.subAmount && self.inningModel.subAmount.length > 0) {
+            sub = self.inningModel.subAmount;
+        }
+        
+        if (self.inningModel.amount && self.inningModel.amount.length > 0) {
+            amount = self.inningModel.amount;
+        }
+        
+        NSString *result =  [NSString stringWithFormat:@"+%@%@%@=%@",add,[self.inningModel.subAmount doubleValue] == 0 ? @"-":@"",sub,amount];
+        
+        
         self.leftView.topSubTitleArr = @[@"",
                                          [NSString stringWithFormat:@"#%@-%@",self.sceneItem.sceneSort,self.inningItem.inningSort],
                                          self.inningModel.inputAmout,
@@ -553,7 +586,25 @@
         _historyInngItem = _inningItem;
         self.leftView.inningModel = _inningModel;
         self.rightView.inningModel = _inningModel;
-        NSString *result =  [NSString stringWithFormat:@"+%@%@%@=%@",self.inningModel.addAmount,[self.inningModel.subAmount doubleValue] == 0 ? @"-":@"",self.inningModel.subAmount,self.inningModel.amount];
+        
+        
+        NSString *add = @"0";
+        NSString *sub = @"0";
+        NSString *amount = @"0";
+        if (self.inningModel.addAmount && self.inningModel.addAmount.length > 0) {
+            add = self.inningModel.addAmount;
+        }
+        
+        if (self.inningModel.subAmount && self.inningModel.subAmount.length > 0) {
+            sub = self.inningModel.subAmount;
+        }
+        
+        if (self.inningModel.amount && self.inningModel.amount.length > 0) {
+            amount = self.inningModel.amount;
+        }
+        
+        NSString *result =  [NSString stringWithFormat:@"+%@%@%@=%@",add,[self.inningModel.subAmount doubleValue] == 0 ? @"-":@"",sub,amount];
+        
         self.leftView.topSubTitleArr = @[@"",
                                          [NSString stringWithFormat:@"#%@-%@",self.sceneItem.sceneSort,self.inningItem.inningSort],
                                          self.inningModel.inputAmout,
@@ -625,7 +676,23 @@
 }
 
 - (void)setLeftTopData {
-    NSString *result =  [NSString stringWithFormat:@"+%@%@%@=%@",self.inningModel.addAmount,[self.inningModel.subAmount doubleValue] == 0 ? @"-":@"",self.inningModel.subAmount,self.inningModel.amount];
+    NSString *add = @"0";
+    NSString *sub = @"0";
+    NSString *amount = @"0";
+    if (self.inningModel.addAmount && self.inningModel.addAmount.length > 0) {
+        add = self.inningModel.addAmount;
+    }
+    
+    if (self.inningModel.subAmount && self.inningModel.subAmount.length > 0) {
+        sub = self.inningModel.subAmount;
+    }
+    
+    if (self.inningModel.amount && self.inningModel.amount.length > 0) {
+        amount = self.inningModel.amount;
+    }
+    
+    NSString *result =  [NSString stringWithFormat:@"+%@%@%@=%@",add,[self.inningModel.subAmount doubleValue] == 0 ? @"-":@"",sub,amount];
+    
     self.leftView.topSubTitleArr = @[@"",
                                          [NSString stringWithFormat:@"#%@-%@",self.sceneItem.sceneSort,self.inningItem.inningSort],
                                          self.inningModel.inputAmout,
@@ -688,7 +755,25 @@
         
     }
     [self updateHistory];
-    NSString *result =  [NSString stringWithFormat:@"+%@%@%@=%@",self.historyInngItem.itemModel.addAmount,[self.historyInngItem.itemModel.subAmount doubleValue] == 0 ? @"-":@"",self.historyInngItem.itemModel.subAmount,self.historyInngItem.itemModel.amount];
+    
+    NSString *add = @"0";
+    NSString *sub = @"0";
+    NSString *amount = @"0";
+    if (self.historyInngItem.itemModel.addAmount && self.historyInngItem.itemModel.addAmount.length > 0) {
+        add = self.historyInngItem.itemModel.addAmount;
+    }
+    
+    if (self.historyInngItem.itemModel.subAmount && self.historyInngItem.itemModel.subAmount.length > 0) {
+        sub = self.historyInngItem.itemModel.subAmount;
+    }
+    
+    if (self.historyInngItem.itemModel.amount && self.historyInngItem.itemModel.amount.length > 0) {
+        amount = self.historyInngItem.itemModel.amount;
+    }
+    
+ 
+    
+    NSString *result =  [NSString stringWithFormat:@"+%@%@%@=%@",add,[self.historyInngItem.itemModel.subAmount doubleValue] == 0 ? @"-":@"",sub,amount];
     self.leftView.topSubTitleArr = @[@"",
                                      [NSString stringWithFormat:@"#%@-%@",self.historyInngItem.sceneSort,self.historyInngItem.inningSort],
                                      self.historyInngItem.itemModel.inputAmout,

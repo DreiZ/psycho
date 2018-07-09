@@ -112,7 +112,7 @@
     tempLabel.textColor = titleColor;
     tempLabel.backgroundColor = backColor;
     tempLabel.text = title;
-    tempLabel.numberOfLines = 1;
+    tempLabel.numberOfLines = 0;
     tempLabel.textAlignment = NSTextAlignmentCenter;
     [tempLabel setFont:[UIFont systemFontOfSize:18]];
     [self addSubview:tempLabel];
@@ -145,6 +145,9 @@
                     tempLabel.text = [NSString stringWithFormat:@"%@",[[ZPublicManager shareInstance] changeFloat:tempLabel.text]];
                 }
             }
+        }
+        if (i == 4) {
+            tempLabel.adjustsFontSizeToFitWidth = YES;
         }
     }
     
