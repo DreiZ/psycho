@@ -61,6 +61,7 @@
 
 
 -(void)setAdd:(NSString *)add sub:(NSString *)sub amount:(NSString *)amount {
+    amount = [[ZPublicManager shareInstance] changeFloat:amount];
     NSString *result =  [NSString stringWithFormat:@"总账+%@%@%@=%@",add,[sub doubleValue] == 0 ? @"-":@"",sub,amount];
 
     NSMutableAttributedString *introText = [[NSMutableAttributedString alloc] initWithString:result];
