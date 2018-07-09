@@ -643,6 +643,21 @@
     [self.leftView refreshData];
     [self.leftView refreshHeadData];
     
+    if (!self.historyInngItem.itemModel.lastAmount) {
+        self.historyInngItem.itemModel.lastAmount = @"";
+    }
+    self.leftView.inningModel = self.historyInngItem.itemModel;
+    self.rightView.inningModel = self.historyInngItem.itemModel;
+    if (!self.historyInngItem.itemModel.winNum) {
+        self.historyInngItem.itemModel.winNum = @"";
+    }
+    if (!self.historyInngItem.itemModel.inputAmout) {
+        self.historyInngItem.itemModel.inputAmout = @"";
+    }
+    if (!self.historyInngItem.itemModel.amount) {
+        self.historyInngItem.itemModel.amount = @"";
+    }
+   
     if ([self.historyInngItem.inningSort intValue] >= self.historySceneItem.sceneLists.count) {
         return;
     }
@@ -657,8 +672,20 @@
                 listModel.listAllResult = [NSString stringWithFormat:@"%.3f",[lastListModel.listAllResult doubleValue] + [listModel.listThisResult doubleValue]];
             }
         }
+        if (inningLastItem.itemModel.allAmount && inningLastItem.itemModel.allAmount.length > 0) {
+            inningItem.itemModel.lastAmount = inningLastItem.itemModel.allAmount;
+            inningItem.itemModel.allAmount = [NSString stringWithFormat:@"%.3f",[inningItem.itemModel.lastAmount doubleValue] + [inningItem.itemModel.amount doubleValue]];
+        }
+        
     }
     [self updateHistory];
+    self.leftView.topSubTitleArr = @[@"",
+                                     [NSString stringWithFormat:@"#%@-%@",self.historyInngItem.sceneSort,self.historyInngItem.inningSort],
+                                     self.historyInngItem.itemModel.inputAmout,
+                                     [NSString stringWithFormat:@"%@",self.historyInngItem.itemModel.winNum],
+                                     self.historyInngItem.itemModel.amount,
+                                     self.historyInngItem.itemModel.lastAmount,
+                                     self.historyInngItem.itemModel.allAmount];
 }
 
 #pragma mark 截图处理
