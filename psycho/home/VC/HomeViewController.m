@@ -748,12 +748,18 @@
             make.top.bottom.right.equalTo(self.view);
             make.width.mas_equalTo(CGFloatIn2048(636));
         }];
+        _seletedNumView.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+        _myAllbillView.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+        _seletedOpenNumView.frame = CGRectMake(0, 0, screenWidth, screenHeight);
     }else{
         [_rightView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.equalTo(self.view);
             make.left.equalTo(self.view.mas_right);
             make.width.mas_equalTo(CGFloatIn2048(636));
         }];
+        _seletedNumView.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+        _myAllbillView.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+        _seletedOpenNumView.frame = CGRectMake(0, 0, screenWidth, screenHeight);
     }
     
 }
