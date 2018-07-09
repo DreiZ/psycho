@@ -46,8 +46,8 @@
     _widthArr = @[@(80.0f/1024),
                   @(137.0f/1024),
                   @(205.0f/1024),
-                  @(146.0f/1024),
-                  @(144.0f/1024),
+                  @(80.0f/1024),
+                  @(210.0f/1024),
                   @(145.0f/1024),
                   @(168.0f/1024)];
     
@@ -140,7 +140,7 @@
             }
             if (i > 3) {
                 if ([tempLabel.text doubleValue] > -0.00001) {
-                    tempLabel.text = [NSString stringWithFormat:@"+%@",[[ZPublicManager shareInstance] changeFloat:tempLabel.text]];
+                    tempLabel.text = [NSString stringWithFormat:@"%@",[[ZPublicManager shareInstance] changeFloat:tempLabel.text]];
                 }else{
                     tempLabel.text = [NSString stringWithFormat:@"%@",[[ZPublicManager shareInstance] changeFloat:tempLabel.text]];
                 }

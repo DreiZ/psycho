@@ -306,6 +306,8 @@
 //num 输入的公式 Qnum开的数字 Bl为/后面的数字 tsbl为刚开始选择的0.8或0.7
 +(void)computeWithInningModel:(ZInningModel *)model {
     double amount = 0.0;
+    double subAmount = 0.0;
+    double addAmount = 0.0;
     double input = 0.0;
     
     for (ZInningListModel *listModel in model.inninglist) {
@@ -382,11 +384,19 @@
             }
         }
         if (listModel.listInput && listModel.listInput.count > 0 && listModel.listInput[0].length > 0) {
-            amount += round([listModel.listThisResult doubleValue] * 1000) / 1000.0f;
+            double tempAmount = round([listModel.listThisResult doubleValue] * 1000) / 1000.0f;
+            amount += tempAmount;
+            if (tempAmount >= -0.00001) {
+                addAmount += tempAmount;
+            }else{
+                subAmount += tempAmount;
+            }
         }
     }
-    model.amount = [NSString stringWithFormat:@"%.3f",amount];
-    model.allAmount = [NSString stringWithFormat:@"%.3f",amount + [model.lastAmount doubleValue]];
+    model.subAmount = [[ZPublicManager shareInstance] changeFloat:[NSString stringWithFormat:@"%.3f",subAmount]] ;
+    model.addAmount = [[ZPublicManager shareInstance] changeFloat:[NSString stringWithFormat:@"%.3f",addAmount]];
+    model.amount = [[ZPublicManager shareInstance] changeFloat:[NSString stringWithFormat:@"%.3f",amount]];
+    model.allAmount = [[ZPublicManager shareInstance] changeFloat:[NSString stringWithFormat:@"%.3f",amount + [model.lastAmount doubleValue]]];
     
     model.inputAmout = [NSString stringWithFormat:@"%.3f",input/10.0f];
 }

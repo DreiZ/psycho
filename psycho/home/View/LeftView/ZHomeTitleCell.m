@@ -29,12 +29,12 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.contentView.backgroundColor = [UIColor whiteColor];
-        _titleArr = @[@"0.8", @"名称", @"投入", @"签", @"本筒",@"上筒",@"总账"];
+        _titleArr = @[@"0.7", @"名称", @"投入", @"签", @"本筒",@"上筒",@"总账"];
         _widthArr = @[@(80.0f/1024),
                       @(137.0f/1024),
                       @(205.0f/1024),
-                      @(146.0f/1024),
-                      @(144.0f/1024),
+                      @(80.0f/1024),
+                      @(210.0f/1024),
                       @(145.0f/1024),
                       @(168.0f/1024)];
         

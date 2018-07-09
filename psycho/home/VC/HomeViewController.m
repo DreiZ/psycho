@@ -119,6 +119,7 @@
 
 
 - (void)initInningData {
+    
     self.leftView.topSubTitleArr = @[@"",
                                      [NSString stringWithFormat:@"#%@-%@",_sceneItem.sceneSort,_inningItem.inningSort],
                                      @"",
@@ -187,6 +188,10 @@
         
         _rightView.bottomBlock = ^(NSInteger index) {
             [weakSelf handleBottomBlock:index];
+        };
+        
+        _rightView.cleanHistoryBlock = ^{
+            [weakSelf cleanAllHistory];
         };
     }
     
@@ -317,11 +322,13 @@
         if (!history.itemModel.amount) {
             history.itemModel.amount = @"";
         }
+        
+        NSString *result =  [NSString stringWithFormat:@"+%@%@%@=%@",history.itemModel.addAmount,[history.itemModel.subAmount doubleValue] == 0 ? @"-":@"",history.itemModel.subAmount,history.itemModel.amount];
         self.leftView.topSubTitleArr = @[@"",
                                          [NSString stringWithFormat:@"#%@-%@",history.sceneSort,history.inningSort],
                                          history.itemModel.inputAmout,
                                          [NSString stringWithFormat:@"%@",history.itemModel.winNum],
-                                         history.itemModel.amount,
+                                         result,
                                          history.itemModel.lastAmount,
                                          history.itemModel.allAmount];
         [self.rightView setTopTitle:@"" value:@""];
@@ -339,11 +346,12 @@
         self.leftView.inningModel = _inningModel;
         self.rightView.inningModel = _inningModel;
         
+        NSString *result =  [NSString stringWithFormat:@"+%@%@%@=%@",self.inningModel.addAmount,[self.inningModel.subAmount doubleValue] == 0 ? @"-":@"",self.inningModel.subAmount,self.inningModel.amount];
         self.leftView.topSubTitleArr = @[@"",
                                          [NSString stringWithFormat:@"#%@-%@",self.sceneItem.sceneSort,self.inningItem.inningSort],
                                          self.inningModel.inputAmout,
                                          [NSString stringWithFormat:@"%@",self.inningModel.winNum],
-                                         self.inningModel.amount,
+                                         result,
                                          self.inningModel.lastAmount,
                                          self.inningModel.allAmount];
         [self.rightView setTopTitle:@"" value:@""];
@@ -545,12 +553,12 @@
         _historyInngItem = _inningItem;
         self.leftView.inningModel = _inningModel;
         self.rightView.inningModel = _inningModel;
-        
+        NSString *result =  [NSString stringWithFormat:@"+%@%@%@=%@",self.inningModel.addAmount,[self.inningModel.subAmount doubleValue] == 0 ? @"-":@"",self.inningModel.subAmount,self.inningModel.amount];
         self.leftView.topSubTitleArr = @[@"",
                                          [NSString stringWithFormat:@"#%@-%@",self.sceneItem.sceneSort,self.inningItem.inningSort],
                                          self.inningModel.inputAmout,
                                          [NSString stringWithFormat:@"%@",self.inningModel.winNum],
-                                         self.inningModel.amount,
+                                         result,
                                          self.inningModel.lastAmount,
                                          self.inningModel.allAmount];
         [self.rightView setTopTitle:@"" value:@""];
@@ -617,11 +625,12 @@
 }
 
 - (void)setLeftTopData {
+    NSString *result =  [NSString stringWithFormat:@"+%@%@%@=%@",self.inningModel.addAmount,[self.inningModel.subAmount doubleValue] == 0 ? @"-":@"",self.inningModel.subAmount,self.inningModel.amount];
     self.leftView.topSubTitleArr = @[@"",
                                          [NSString stringWithFormat:@"#%@-%@",self.sceneItem.sceneSort,self.inningItem.inningSort],
                                          self.inningModel.inputAmout,
                                          [NSString stringWithFormat:@"%@",self.inningModel.winNum],
-                                         self.inningModel.amount,
+                                         result,
                                          self.inningModel.lastAmount,
                                          self.inningModel.allAmount];
 }
@@ -679,13 +688,65 @@
         
     }
     [self updateHistory];
+    NSString *result =  [NSString stringWithFormat:@"+%@%@%@=%@",self.historyInngItem.itemModel.addAmount,[self.historyInngItem.itemModel.subAmount doubleValue] == 0 ? @"-":@"",self.historyInngItem.itemModel.subAmount,self.historyInngItem.itemModel.amount];
     self.leftView.topSubTitleArr = @[@"",
                                      [NSString stringWithFormat:@"#%@-%@",self.historyInngItem.sceneSort,self.historyInngItem.inningSort],
                                      self.historyInngItem.itemModel.inputAmout,
                                      [NSString stringWithFormat:@"%@",self.historyInngItem.itemModel.winNum],
-                                     self.historyInngItem.itemModel.amount,
+                                     result,
                                      self.historyInngItem.itemModel.lastAmount,
                                      self.historyInngItem.itemModel.allAmount];
+}
+
+
+- (void)cleanAllHistory {
+    [[DataWorkManager shareInstance] clearAllData];
+    [self getHistory];
+    
+    _seletListModel = nil;
+    
+    _historyAllList = nil;
+    _sceneItem = nil;
+    _lastSceneItem = nil;
+    
+    _inningItem = nil;
+    _lastInningItem = nil;
+    
+    _historyInngItem = nil;
+    
+    _sceneItem = [[ZSceneItem alloc] init];
+    _sceneItem.multiplying = @"0.7";
+    //历史场次
+    if (!_historyAllList.allHisoryLists) {
+        _sceneItem.sceneSort = @"1";
+    }else{
+        _sceneItem.sceneSort = [NSString stringWithFormat:@"%ld",_historyAllList.allHisoryLists.count + 1];
+    }
+    _inningItem = [[ZInningItem alloc] init];
+    _inningItem.inningSort = @"1";
+    _inningItem.sceneSort = _sceneItem.sceneSort;
+    NSMutableArray *tempInnings = [[NSMutableArray alloc] initWithArray:_sceneItem.sceneLists];
+    [tempInnings addObject:_inningItem];
+    _sceneItem.sceneLists = tempInnings;
+    
+    _inningModel = [[ZInningModel alloc] init];
+    _inningModel.isEnable = YES;
+    _inningModel.multiplying = @"0.7";
+    _inningModel.multiplyingTure = @"0.07";
+    _inningItem.itemModel = _inningModel;
+    
+    for (int i = 0; i < 40; i++) {
+        ZInningListModel *listModel = [[ZInningListModel alloc] init];
+        listModel.listSort = [NSString stringWithFormat:@"%ld",(long)i+1];
+        [_inningModel.inninglist addObject:listModel];
+    }
+    
+    self.leftView.inningModel = _inningModel;
+    self.rightView.inningModel = _inningModel;
+    [self.rightView setOpenNum:@""];
+    [self.leftView refreshData];
+    [self.leftView refreshHeadData];
+    [self initInningData];
 }
 
 #pragma mark 截图处理

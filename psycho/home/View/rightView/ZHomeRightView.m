@@ -12,7 +12,7 @@
 #import "ZRightBottomBtnView.h"
 #import "ZRightCustomKeyBoardView.h"
 
-@interface ZHomeRightView ()
+@interface ZHomeRightView ()<UIAlertViewDelegate>
 @property (nonatomic,strong) UIView *backView;
 @property (nonatomic,strong) ZRightTopBtnView *topBtnView;
 @property (nonatomic,strong) ZRightOpenView *openView;
@@ -74,6 +74,42 @@
         make.bottom.equalTo(self.bottomBtnView.mas_top);
         make.top.equalTo(self.openView.mas_bottom);
     }];
+    
+    
+    UIButton *cleanBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [cleanBtn addTarget:self action:@selector(cleanBtnOnclick:) forControlEvents:UIControlEventTouchUpInside];
+    cleanBtn.layer.masksToBounds = YES;
+    cleanBtn.layer.cornerRadius = 3;
+    cleanBtn.layer.borderColor = [UIColor colorWithHexString:@"1699fe"].CGColor;
+    cleanBtn.layer.borderWidth = 1;
+    [cleanBtn setTitle:@"清空所有历史数据" forState:UIControlStateNormal];
+    [cleanBtn setTitleColor:[UIColor colorWithHexString:@"1699fe"] forState:UIControlStateNormal];
+    [cleanBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [self addSubview:cleanBtn];
+    [cleanBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).offset(40);
+        make.right.equalTo(self.mas_right).offset(-40);
+        make.height.mas_equalTo(40);
+        make.top.equalTo(self.backView.mas_bottom).offset(10);
+    }];
+}
+
+- (void)cleanBtnOnclick:(id)sender {
+    UIAlertView *WXinstall=[[UIAlertView alloc]initWithTitle:@"提示" message:@"你确定删除所有历史数据吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];//一般在if判断中加入
+    [WXinstall show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *btnTitle = [alertView buttonTitleAtIndex:buttonIndex];
+    if ([btnTitle isEqualToString:@"取消"]) {
+        NSLog(@"你点击了取消");
+    }else if ([btnTitle isEqualToString:@"确定"] ) {
+      NSLog(@"你点击了确定");
+        if (self.cleanHistoryBlock) {
+            self.cleanHistoryBlock();
+        }
+    }
 }
 
 -(UIView *)backView {

@@ -22,6 +22,8 @@
 //加注
 @property (nonatomic,strong) void (^addBlock)(void);
 
+@property (nonatomic,strong) void (^cleanHistoryBlock)(void);
+
 - (void)setTopTitle:(NSString *)title value:(NSString *)value;
 - (void)setOpenNum:(NSString *)num;
 - (void)setSortNum:(NSString *)num;
